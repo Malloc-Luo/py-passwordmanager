@@ -23,7 +23,7 @@ def insert_random_space(s:str, length:int) -> str:
     """
     ls = list(s)
     while len(ls) < length:
-        ls.insert(randint(0, len(ls)), ' ')
+        ls.insert(randint(0, len(ls)), '\n')
     return ''.join(ls)
 
 
@@ -61,7 +61,7 @@ def decrypt_password(encryptText:str, keytext:str) -> str:
     encryptTextList = [ord(c) for c in encryptText]
     decryptText = list(map(lambda x, y: x ^ y, encryptTextList, key))
     # 去掉中间的空格
-    return reduce(lambda x, y: x + y, [chr(i) for i in decryptText]).replace(' ', '')
+    return reduce(lambda x, y: x + y, [chr(i) for i in decryptText]).replace('\n', '')
 
 
 
@@ -73,5 +73,5 @@ if __name__ == '__main__':
     s = encrypt_password(pswd, keypswd)
     print(s)
 
-    d = decrypt_password(s, keypswd)
+    d = decrypt_password(s, '12345678910')
     print(d)
