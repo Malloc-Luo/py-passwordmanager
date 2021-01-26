@@ -1,0 +1,126 @@
+/*
+ * 按键风格
+ */
+QPushButton {
+    border-style:none;
+    padding:10px;
+    border-radius:8px;
+    color:#FFFFFF;
+    background:#34495E;
+}
+QPushButton:hover {
+    color:#4E6D8C;
+    background:#F0F0F0;
+}
+QPushButton:pressed {
+    color:#2D3E50;
+    background:#B8C6D1;
+}
+
+/*
+ * lineEdit
+ */
+QLineEdit {
+	border-style:none;
+	padding:6px;
+	border-radius:5px;
+	border:2px solid #DCE4EC;
+}
+QLineEdit:focus {
+	border:2px solid #34495E;
+}
+
+/*
+ *
+ */
+QTabWidget::pane {
+    border-width:1px;
+    border-color:rgb(48, 104, 151);
+    border-style: outset;
+    background-color: rgb(132, 171, 208);
+    background: transparent;
+}
+QTabWidget::tab-bar {
+    border-width:0px;
+}
+QTabBar::tab {
+    border-bottom-color: #C2C7CB;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    max-width: 75px; min-width:75px; min-height:25px;
+    font:14px Times New Roman;
+    padding: 0px;
+}
+
+/*
+tabelwidget*/
+QTableWidget {
+    color:#DCDCDC;
+    background:#444444;
+    border:1px solid #242424;
+    alternate-background-color:#525252;/*交错颜色*/
+    gridline-color:#242424;
+}
+
+/*选中item*/
+QTableWidget::item:selected{
+color:#DCDCDC;
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #484848,stop:1 #383838);
+}
+
+/*
+悬浮item*/
+QTableWidget::item:hover{
+background:#5B5B5B;
+}
+/*表头*/
+QHeaderView::section{
+text-align:center;
+background:#5E5E5E;
+padding:3px;
+margin:0px;
+color:#DCDCDC;
+border:1px solid #242424;
+border-left-width:0;
+}
+
+
+
+/*表右侧的滑条*/
+QScrollBar:vertical{
+background:#484848;
+padding:0px;
+border-radius:6px;
+max-width:12px;
+}
+
+/*滑块*/
+QScrollBar::handle:vertical{
+background:#CCCCCC;
+}
+/*
+滑块悬浮，按下*/
+QScrollBar::handle:hover:vertical,QScrollBar::handle:pressed:vertical{
+background:#A7A7A7;
+}
+/*
+滑块已经划过的区域*/
+QScrollBar::sub-page:vertical{
+background:444444;
+}
+
+/*
+滑块还没有划过的区域*/
+QScrollBar::add-page:vertical{
+background:5B5B5B;
+}
+
+/*页面下移的按钮*/
+QScrollBar::add-line:vertical{
+background:none;
+}
+/*页面上移的按钮*/
+QScrollBar::sub-line:vertical{
+background:none;
+}
+

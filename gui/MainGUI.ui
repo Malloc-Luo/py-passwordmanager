@@ -6,21 +6,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>833</width>
-    <height>667</height>
+    <width>933</width>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background:rgb(248, 248, 248);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="font">
       <font>
-       <family>Microsoft JhengHei UI</family>
-       <pointsize>9</pointsize>
+       <family>Microsoft YaHei UI</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    border-style:none;
+    padding:10px;
+    border-radius:8px;
+    color:#FFFFFF;
+    background:#34495E;
+}
+QPushButton:hover {
+    color:#4E6D8C;
+    background:#e5e5e5;
+	border:2px solid #34495E;
+}
+QPushButton:pressed {
+    color:#000000;
+    background:#B8C6D1;
+}
+</string>
      </property>
      <property name="tabShape">
       <enum>QTabWidget::Rounded</enum>
@@ -42,6 +66,25 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLineEdit {
+	border-style:none;
+	padding:3px;
+	border-radius:5px;
+	border:2px solid #DCE4EC;
+	background:rgb(255, 255, 255);
+}
+QLineEdit:focus {
+	border:2px solid #34495E;
+	background:rgb(255, 255, 255);
+}
+</string>
            </property>
            <property name="placeholderText">
             <string>筛选</string>
@@ -66,6 +109,32 @@
          </item>
          <item>
           <widget class="QComboBox" name="comboBox">
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">
+QComboBox {
+    border: 1px solid gray;   /* 边框 */
+    border-radius: 3px;   /* 圆角 */
+    padding: 1px 18px 1px 3px;   /* 字体填衬 */
+    color:#FFFFFF;
+    background:#34495E;
+}
+/* 下拉后，整个下拉窗体样式 */
+QComboBox QAbstractItemView {
+	/* 选定项的虚框 */
+    outline: 0px solid gray;
+	/* 整个下拉窗体的边框 */   
+    border: 1px solid white;   
+    color:#FFFFFF;
+    background:rgb(68, 96, 124);
+}
+
+</string>
+           </property>
            <item>
             <property name="text">
              <string>全部</string>
@@ -98,16 +167,98 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>400</width>
+             <width>380</width>
              <height>20</height>
             </size>
            </property>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pbt_add">
+          <widget class="QPushButton" name="pushButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="acceptDrops">
+            <bool>true</bool>
+           </property>
+           <property name="toolTip">
+            <string>删除项</string>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+{
+	border: 0px;
+	background-color:transparent;
+	image: url(:/mainui/icon/delete1.png);
+}
+QPushButton:hover
+{
+	border: 0px;
+	background-color:transparent;
+	image: url(:/mainui/icon/delete.png);
+}</string>
+           </property>
            <property name="text">
-            <string>添加</string>
+            <string/>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbt_add">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="toolTip">
+            <string>添加项</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+{
+	border: 0px;
+	background-color:transparent;
+	image: url(:/mainui/icon/add.png);
+}
+QPushButton:hover
+{
+	border: 0px;
+	background-color:transparent;
+	image: url(:/mainui/icon/add1.png);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>23</width>
+             <height>23</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -115,6 +266,66 @@
        </item>
        <item>
         <widget class="QTableWidget" name="table">
+         <property name="styleSheet">
+          <string notr="true">QTableWidget {
+    color:#34495E;
+    background:#DCDCDC;
+    border:1px solid #b6b6b6;
+    alternate-background-color:#d2d2d2;
+    gridline-color:#ffffff;
+}
+QTableWidget::item{
+    border-radius:4px;
+}
+QTableWidget::item:selected{
+color:#ffffff;
+background:#73A1D0;
+}
+
+QTableWidget::item:hover{
+background:#5E84AA;
+color:#000000;
+    font-size:10;
+}
+QHeaderView::section{
+text-align:center;
+background:#496684;
+padding:2px;
+margin:1px;
+color:#ffffff;
+border:1px solid #242424;
+border-left-width:0;
+border-radius:4px;
+}
+QScrollBar:vertical{
+background:#484848;
+padding:0px;
+border-radius:6px;
+max-width:12px;
+}
+QScrollBar::handle:vertical{
+background:#CCCCCC;
+}
+QScrollBar::handle:hover:vertical,QScrollBar::handle:pressed:vertical{
+background:#A7A7A7;
+}
+QScrollBar::sub-page:vertical{
+background:444444;
+}
+QScrollBar::add-page:vertical{
+background:5B5B5B;
+}
+QScrollBar::add-line:vertical{
+background:none;
+}
+QScrollBar::sub-line:vertical{
+background:none;
+}
+</string>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
          <property name="sizeAdjustPolicy">
           <enum>QAbstractScrollArea::AdjustToContents</enum>
          </property>
@@ -134,7 +345,7 @@
           <enum>Qt::ElideMiddle</enum>
          </property>
          <property name="gridStyle">
-          <enum>Qt::DotLine</enum>
+          <enum>Qt::SolidLine</enum>
          </property>
          <property name="sortingEnabled">
           <bool>true</bool>
@@ -166,6 +377,22 @@
          <attribute name="verticalHeaderStretchLastSection">
           <bool>false</bool>
          </attribute>
+         <column>
+          <property name="text">
+           <string>id</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft YaHei UI</family>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </column>
          <column>
           <property name="text">
            <string>名称</string>
@@ -241,36 +468,6 @@
            <set>AlignCenter</set>
           </property>
          </column>
-         <column>
-          <property name="text">
-           <string>查看</string>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>操作</string>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </column>
         </widget>
        </item>
       </layout>
@@ -284,6 +481,14 @@
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QGroupBox" name="groupBox">
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+             <pointsize>9</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
            <property name="title">
             <string>密码长度</string>
            </property>
@@ -322,6 +527,11 @@
             </item>
             <item row="0" column="1">
              <widget class="QLabel" name="label">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+               </font>
+              </property>
               <property name="text">
                <string>最小长度</string>
               </property>
@@ -329,6 +539,11 @@
             </item>
             <item row="1" column="1">
              <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+               </font>
+              </property>
               <property name="text">
                <string>最大长度</string>
               </property>
@@ -351,10 +566,22 @@
              </spacer>
             </item>
             <item row="0" column="2">
-             <widget class="QSpinBox" name="sb_minlen"/>
+             <widget class="QSpinBox" name="sb_minlen">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+             </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QSpinBox" name="sb_maxlen"/>
+             <widget class="QSpinBox" name="sb_maxlen">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+             </widget>
             </item>
             <item row="1" column="3">
              <spacer name="horizontalSpacer_6">
@@ -393,6 +620,14 @@
          </item>
          <item>
           <widget class="QGroupBox" name="groupBox_2">
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+             <pointsize>9</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
            <property name="title">
             <string>密码构成</string>
            </property>
@@ -415,6 +650,11 @@
             </item>
             <item row="3" column="1">
              <widget class="QCheckBox" name="cb_specialchar">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+               </font>
+              </property>
               <property name="text">
                <string>特殊符号</string>
               </property>
@@ -454,6 +694,11 @@
             </item>
             <item row="1" column="1">
              <widget class="QCheckBox" name="cb_lowercase">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+               </font>
+              </property>
               <property name="text">
                <string>小写字母</string>
               </property>
@@ -496,6 +741,11 @@
             </item>
             <item row="2" column="1">
              <widget class="QCheckBox" name="cb_digitl">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+               </font>
+              </property>
               <property name="text">
                <string>数字</string>
               </property>
@@ -538,6 +788,11 @@
             </item>
             <item row="0" column="1">
              <widget class="QCheckBox" name="cb_uppercase">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+               </font>
+              </property>
               <property name="text">
                <string>大写字母</string>
               </property>
@@ -578,7 +833,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>10</height>
           </size>
          </property>
         </spacer>
@@ -587,6 +842,33 @@
         <layout class="QGridLayout" name="gridLayout_3">
          <item row="1" column="2">
           <widget class="QPushButton" name="pbt_generate">
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    border-style:none;
+    padding:10px;
+    border-radius:8px;
+    color:#FFFFFF;
+    background:#34495E;
+}
+QPushButton:hover {
+    color:#4E6D8C;
+    background:#e5e5e5;
+	border:2px solid #34495E;
+}
+QPushButton:pressed {
+    color:#000000;
+    background:#B8C6D1;
+}
+</string>
+           </property>
            <property name="text">
             <string>生成</string>
            </property>
@@ -602,7 +884,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>130</width>
+             <width>120</width>
              <height>20</height>
             </size>
            </property>
@@ -617,6 +899,19 @@
            </property>
            <property name="cursor" stdset="0">
             <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTextEdit {
+	border-style:none;
+	padding:6px;
+	border-radius:5px;
+	border:2px solid #DCE4EC;
+	background: #ffffff;
+}
+QTextEdit:focus {
+	border:2px solid #34495E;
+}
+</string>
            </property>
            <property name="placeholderText">
             <string>生成密码区</string>
@@ -633,7 +928,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>80</width>
+             <width>100</width>
              <height>20</height>
             </size>
            </property>
@@ -649,7 +944,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>80</width>
+             <width>100</width>
              <height>20</height>
             </size>
            </property>
@@ -665,7 +960,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>80</width>
+             <width>100</width>
              <height>20</height>
             </size>
            </property>
@@ -688,6 +983,33 @@
            </item>
            <item>
             <widget class="QPushButton" name="pbt_copy">
+             <property name="font">
+              <font>
+               <family>Microsoft YaHei UI</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    border-style:none;
+    padding:10px;
+    border-radius:8px;
+    color:#FFFFFF;
+    background:#34495E;
+}
+QPushButton:hover {
+    color:#4E6D8C;
+    background:#e5e5e5;
+	border:2px solid #34495E;
+}
+QPushButton:pressed {
+    color:#000000;
+    background:#B8C6D1;
+}
+</string>
+             </property>
              <property name="text">
               <string>复制</string>
              </property>
@@ -703,7 +1025,7 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>100</width>
+               <width>150</width>
                <height>20</height>
               </size>
              </property>
@@ -711,6 +1033,33 @@
            </item>
            <item>
             <widget class="QPushButton" name="pbt_clear">
+             <property name="font">
+              <font>
+               <family>Microsoft YaHei UI</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    border-style:none;
+    padding:10px;
+    border-radius:8px;
+    color:#FFFFFF;
+    background:#34495E;
+}
+QPushButton:hover {
+    color:#4E6D8C;
+    background:#e5e5e5;
+	border:2px solid #34495E;
+}
+QPushButton:pressed {
+    color:#000000;
+    background:#B8C6D1;
+}
+</string>
+             </property>
              <property name="text">
               <string>清空</string>
              </property>
@@ -755,6 +1104,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="src/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

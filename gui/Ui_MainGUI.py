@@ -14,14 +14,34 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(833, 667)
+        Form.resize(933, 752)
+        Form.setStyleSheet("background:rgb(248, 248, 248);")
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setObjectName("gridLayout")
         self.tabWidget = QtWidgets.QTabWidget(Form)
         font = QtGui.QFont()
-        font.setFamily("Microsoft JhengHei UI")
-        font.setPointSize(9)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
         self.tabWidget.setFont(font)
+        self.tabWidget.setStyleSheet("QPushButton {\n"
+"    border-style:none;\n"
+"    padding:10px;\n"
+"    border-radius:8px;\n"
+"    color:#FFFFFF;\n"
+"    background:#34495E;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    color:#4E6D8C;\n"
+"    background:#e5e5e5;\n"
+"    border:2px solid #34495E;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    color:#000000;\n"
+"    background:#B8C6D1;\n"
+"}\n"
+"")
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
@@ -30,52 +50,185 @@ class Ui_Form(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-
-        # 密码管理界面搜索框
         self.le_filiter = QtWidgets.QLineEdit(self.tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.le_filiter.sizePolicy().hasHeightForWidth())
         self.le_filiter.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.le_filiter.setFont(font)
+        self.le_filiter.setStyleSheet("QLineEdit {\n"
+"    border-style:none;\n"
+"    padding:3px;\n"
+"    border-radius:5px;\n"
+"    border:2px solid #DCE4EC;\n"
+"    background:rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit:focus {\n"
+"    border:2px solid #34495E;\n"
+"    background:rgb(255, 255, 255);\n"
+"}\n"
+"")
         self.le_filiter.setObjectName("le_filiter")
         self.horizontalLayout_2.addWidget(self.le_filiter)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-
-        # 搜索下拉选项框
         self.comboBox = QtWidgets.QComboBox(self.tab)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.comboBox.setFont(font)
+        self.comboBox.setStyleSheet("\n"
+"QComboBox {\n"
+"    border: 1px solid gray;   /* 边框 */\n"
+"    border-radius: 3px;   /* 圆角 */\n"
+"    padding: 1px 18px 1px 3px;   /* 字体填衬 */\n"
+"    color:#FFFFFF;\n"
+"    background:#34495E;\n"
+"}\n"
+"/* 下拉后，整个下拉窗体样式 */\n"
+"QComboBox QAbstractItemView {\n"
+"    /* 选定项的虚框 */\n"
+"    outline: 0px solid gray;\n"
+"    /* 整个下拉窗体的边框 */   \n"
+"    border: 1px solid white;   \n"
+"    color:#FFFFFF;\n"
+"    background:rgb(68, 96, 124);\n"
+"}\n"
+"\n"
+"")
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.horizontalLayout_2.addWidget(self.comboBox)
-        spacerItem1 = QtWidgets.QSpacerItem(400, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem1 = QtWidgets.QSpacerItem(380, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
-
-        # 添加 按键
+        self.pushButton = QtWidgets.QPushButton(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy)
+        self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton.setAcceptDrops(True)
+        self.pushButton.setAutoFillBackground(False)
+        self.pushButton.setStyleSheet("QPushButton\n"
+"{\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/delete1.png);\n"
+"}\n"
+"QPushButton:hover\n"
+"{\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/delete.png);\n"
+"}")
+        self.pushButton.setText("")
+        self.pushButton.setIconSize(QtCore.QSize(23, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout_2.addWidget(self.pushButton)
         self.pbt_add = QtWidgets.QPushButton(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pbt_add.sizePolicy().hasHeightForWidth())
+        self.pbt_add.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.pbt_add.setFont(font)
+        self.pbt_add.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pbt_add.setStyleSheet("QPushButton\n"
+"{\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/add.png);\n"
+"}\n"
+"QPushButton:hover\n"
+"{\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/add1.png);\n"
+"}")
+        self.pbt_add.setText("")
+        self.pbt_add.setIconSize(QtCore.QSize(23, 23))
         self.pbt_add.setObjectName("pbt_add")
         self.horizontalLayout_2.addWidget(self.pbt_add)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
-
-        # 展示表格
         self.table = QtWidgets.QTableWidget(self.tab)
+        self.table.setStyleSheet("QTableWidget {\n"
+"    color:#34495E;\n"
+"    background:#DCDCDC;\n"
+"    border:1px solid #b6b6b6;\n"
+"    alternate-background-color:#d2d2d2;\n"
+"    gridline-color:#ffffff;\n"
+"}\n"
+"QTableWidget::item{\n"
+"    border-radius:4px;\n"
+"}\n"
+"QTableWidget::item:selected{\n"
+"color:#ffffff;\n"
+"background:#73A1D0;\n"
+"}\n"
+"\n"
+"QTableWidget::item:hover{\n"
+"background:#5E84AA;\n"
+"color:#000000;\n"
+"    font-size:10;\n"
+"}\n"
+"QHeaderView::section{\n"
+"text-align:center;\n"
+"background:#496684;\n"
+"padding:2px;\n"
+"margin:1px;\n"
+"color:#ffffff;\n"
+"border:1px solid #242424;\n"
+"border-left-width:0;\n"
+"border-radius:4px;\n"
+"}\n"
+"QScrollBar:vertical{\n"
+"background:#484848;\n"
+"padding:0px;\n"
+"border-radius:6px;\n"
+"max-width:12px;\n"
+"}\n"
+"QScrollBar::handle:vertical{\n"
+"background:#CCCCCC;\n"
+"}\n"
+"QScrollBar::handle:hover:vertical,QScrollBar::handle:pressed:vertical{\n"
+"background:#A7A7A7;\n"
+"}\n"
+"QScrollBar::sub-page:vertical{\n"
+"background:444444;\n"
+"}\n"
+"QScrollBar::add-page:vertical{\n"
+"background:5B5B5B;\n"
+"}\n"
+"QScrollBar::add-line:vertical{\n"
+"background:none;\n"
+"}\n"
+"QScrollBar::sub-line:vertical{\n"
+"background:none;\n"
+"}\n"
+"")
+        self.table.setLineWidth(1)
         self.table.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)
         self.table.setDefaultDropAction(QtCore.Qt.CopyAction)
         self.table.setAlternatingRowColors(True)
         self.table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.table.setTextElideMode(QtCore.Qt.ElideMiddle)
-        self.table.setGridStyle(QtCore.Qt.DotLine)
+        self.table.setGridStyle(QtCore.Qt.SolidLine)
         self.table.setObjectName("table")
-        self.table.setColumnCount(7)
+        self.table.setColumnCount(6)
         self.table.setRowCount(0)
-        
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
@@ -121,14 +274,6 @@ class Ui_Form(object):
         font.setWeight(75)
         item.setFont(font)
         self.table.setHorizontalHeaderItem(5, item)
-        item = QtWidgets.QTableWidgetItem()
-        item.setTextAlignment(QtCore.Qt.AlignCenter)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.table.setHorizontalHeaderItem(6, item)
         self.table.horizontalHeader().setVisible(True)
         self.table.horizontalHeader().setCascadingSectionResizes(True)
         self.table.horizontalHeader().setDefaultSectionSize(112)
@@ -147,6 +292,12 @@ class Ui_Form(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.groupBox = QtWidgets.QGroupBox(self.tab_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setWeight(50)
+        self.groupBox.setFont(font)
         self.groupBox.setObjectName("groupBox")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -155,17 +306,29 @@ class Ui_Form(object):
         spacerItem3 = QtWidgets.QSpacerItem(110, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem3, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(self.groupBox)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.label.setFont(font)
         self.label.setObjectName("label")
         self.gridLayout_2.addWidget(self.label, 0, 1, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.groupBox)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.gridLayout_2.addWidget(self.label_2, 1, 1, 1, 1)
         spacerItem4 = QtWidgets.QSpacerItem(120, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem4, 0, 3, 1, 1)
         self.sb_minlen = QtWidgets.QSpinBox(self.groupBox)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        self.sb_minlen.setFont(font)
         self.sb_minlen.setObjectName("sb_minlen")
         self.gridLayout_2.addWidget(self.sb_minlen, 0, 2, 1, 1)
         self.sb_maxlen = QtWidgets.QSpinBox(self.groupBox)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        self.sb_maxlen.setFont(font)
         self.sb_maxlen.setObjectName("sb_maxlen")
         self.gridLayout_2.addWidget(self.sb_maxlen, 1, 2, 1, 1)
         spacerItem5 = QtWidgets.QSpacerItem(120, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -174,12 +337,21 @@ class Ui_Form(object):
         self.gridLayout_2.addItem(spacerItem6, 2, 1, 1, 1)
         self.horizontalLayout.addWidget(self.groupBox)
         self.groupBox_2 = QtWidgets.QGroupBox(self.tab_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setWeight(50)
+        self.groupBox_2.setFont(font)
         self.groupBox_2.setObjectName("groupBox_2")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.groupBox_2)
         self.gridLayout_4.setObjectName("gridLayout_4")
         spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem7, 0, 2, 1, 1)
         self.cb_specialchar = QtWidgets.QCheckBox(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.cb_specialchar.setFont(font)
         self.cb_specialchar.setObjectName("cb_specialchar")
         self.gridLayout_4.addWidget(self.cb_specialchar, 3, 1, 1, 1)
         spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
@@ -187,6 +359,9 @@ class Ui_Form(object):
         spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem9, 3, 2, 1, 1)
         self.cb_lowercase = QtWidgets.QCheckBox(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.cb_lowercase.setFont(font)
         self.cb_lowercase.setChecked(True)
         self.cb_lowercase.setObjectName("cb_lowercase")
         self.gridLayout_4.addWidget(self.cb_lowercase, 1, 1, 1, 1)
@@ -195,6 +370,9 @@ class Ui_Form(object):
         spacerItem11 = QtWidgets.QSpacerItem(130, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem11, 2, 0, 1, 1)
         self.cb_digitl = QtWidgets.QCheckBox(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.cb_digitl.setFont(font)
         self.cb_digitl.setChecked(True)
         self.cb_digitl.setObjectName("cb_digitl")
         self.gridLayout_4.addWidget(self.cb_digitl, 2, 1, 1, 1)
@@ -203,6 +381,9 @@ class Ui_Form(object):
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem13, 2, 2, 1, 1)
         self.cb_uppercase = QtWidgets.QCheckBox(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.cb_uppercase.setFont(font)
         self.cb_uppercase.setChecked(True)
         self.cb_uppercase.setObjectName("cb_uppercase")
         self.gridLayout_4.addWidget(self.cb_uppercase, 0, 1, 1, 1)
@@ -210,38 +391,118 @@ class Ui_Form(object):
         self.gridLayout_4.addItem(spacerItem14, 3, 0, 1, 1)
         self.horizontalLayout.addWidget(self.groupBox_2)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
-        spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem15 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_2.addItem(spacerItem15)
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.pbt_generate = QtWidgets.QPushButton(self.tab_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pbt_generate.setFont(font)
+        self.pbt_generate.setStyleSheet("QPushButton {\n"
+"    border-style:none;\n"
+"    padding:10px;\n"
+"    border-radius:8px;\n"
+"    color:#FFFFFF;\n"
+"    background:#34495E;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    color:#4E6D8C;\n"
+"    background:#e5e5e5;\n"
+"    border:2px solid #34495E;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    color:#000000;\n"
+"    background:#B8C6D1;\n"
+"}\n"
+"")
         self.pbt_generate.setObjectName("pbt_generate")
         self.gridLayout_3.addWidget(self.pbt_generate, 1, 2, 1, 1)
-        spacerItem16 = QtWidgets.QSpacerItem(130, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem16 = QtWidgets.QSpacerItem(120, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem16, 1, 1, 1, 1)
         self.textBrowser = QtWidgets.QTextBrowser(self.tab_2)
         font = QtGui.QFont()
         font.setFamily("Consolas")
         self.textBrowser.setFont(font)
         self.textBrowser.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
+        self.textBrowser.setStyleSheet("QTextEdit {\n"
+"    border-style:none;\n"
+"    padding:6px;\n"
+"    border-radius:5px;\n"
+"    border:2px solid #DCE4EC;\n"
+"    background: #ffffff;\n"
+"}\n"
+"QTextEdit:focus {\n"
+"    border:2px solid #34495E;\n"
+"}\n"
+"")
         self.textBrowser.setObjectName("textBrowser")
         self.gridLayout_3.addWidget(self.textBrowser, 0, 0, 3, 1)
-        spacerItem17 = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem17 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem17, 3, 2, 1, 1)
-        spacerItem18 = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem18 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem18, 2, 2, 1, 1)
-        spacerItem19 = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem19 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem19, 0, 2, 1, 1)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem20)
         self.pbt_copy = QtWidgets.QPushButton(self.tab_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pbt_copy.setFont(font)
+        self.pbt_copy.setStyleSheet("QPushButton {\n"
+"    border-style:none;\n"
+"    padding:10px;\n"
+"    border-radius:8px;\n"
+"    color:#FFFFFF;\n"
+"    background:#34495E;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    color:#4E6D8C;\n"
+"    background:#e5e5e5;\n"
+"    border:2px solid #34495E;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    color:#000000;\n"
+"    background:#B8C6D1;\n"
+"}\n"
+"")
         self.pbt_copy.setObjectName("pbt_copy")
         self.horizontalLayout_3.addWidget(self.pbt_copy)
-        spacerItem21 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        spacerItem21 = QtWidgets.QSpacerItem(150, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem21)
         self.pbt_clear = QtWidgets.QPushButton(self.tab_2)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pbt_clear.setFont(font)
+        self.pbt_clear.setStyleSheet("QPushButton {\n"
+"    border-style:none;\n"
+"    padding:10px;\n"
+"    border-radius:8px;\n"
+"    color:#FFFFFF;\n"
+"    background:#34495E;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    color:#4E6D8C;\n"
+"    background:#e5e5e5;\n"
+"    border:2px solid #34495E;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    color:#000000;\n"
+"    background:#B8C6D1;\n"
+"}\n"
+"")
         self.pbt_clear.setObjectName("pbt_clear")
         self.horizontalLayout_3.addWidget(self.pbt_clear)
         spacerItem22 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -265,22 +526,21 @@ class Ui_Form(object):
         self.comboBox.setItemText(1, _translate("Form", "名称"))
         self.comboBox.setItemText(2, _translate("Form", "账号"))
         self.comboBox.setItemText(3, _translate("Form", "邮箱/电话"))
-        self.pbt_add.setText(_translate("Form", "添加"))
+        self.pushButton.setToolTip(_translate("Form", "删除项"))
+        self.pbt_add.setToolTip(_translate("Form", "添加项"))
         self.table.setSortingEnabled(True)
         item = self.table.horizontalHeaderItem(0)
-        item.setText(_translate("Form", "名称"))
+        item.setText(_translate("Form", "id"))
         item = self.table.horizontalHeaderItem(1)
-        item.setText(_translate("Form", "账号"))
+        item.setText(_translate("Form", "名称"))
         item = self.table.horizontalHeaderItem(2)
-        item.setText(_translate("Form", "密码"))
+        item.setText(_translate("Form", "账号"))
         item = self.table.horizontalHeaderItem(3)
-        item.setText(_translate("Form", "邮箱/电话"))
+        item.setText(_translate("Form", "密码"))
         item = self.table.horizontalHeaderItem(4)
-        item.setText(_translate("Form", "备注"))
+        item.setText(_translate("Form", "邮箱/电话"))
         item = self.table.horizontalHeaderItem(5)
-        item.setText(_translate("Form", "查看"))
-        item = self.table.horizontalHeaderItem(6)
-        item.setText(_translate("Form", "操作"))
+        item.setText(_translate("Form", "备注"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Form", "密码管理"))
         self.groupBox.setTitle(_translate("Form", "密码长度"))
         self.label.setText(_translate("Form", "最小长度"))
@@ -295,3 +555,4 @@ class Ui_Form(object):
         self.pbt_copy.setText(_translate("Form", "复制"))
         self.pbt_clear.setText(_translate("Form", "清空"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Form", "密码生成"))
+import gui.src.icons_rc

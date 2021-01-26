@@ -17,6 +17,6 @@ dbAbsPath = 'C:\\Users\\%s\\AppData\\Local\\py-password-manager\\' % __import__(
 def get_admin_password():
     """ 获得管理员密码，也就是用户输入的密码
     """
-    ...
+    return 'Helloworld'
 
 

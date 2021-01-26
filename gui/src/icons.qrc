@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="mainui">
+    <file>icon/add.png</file>
+    <file>icon/add1.png</file>
+    <file>icon/delete.png</file>
+    <file>icon/delete1.png</file>
+  </qresource>
+  <qresource prefix="qss">
+    <file>qss/QPushButton.qss</file>
+  </qresource>
+</RCC>
