@@ -15,10 +15,12 @@ adminPswdFormat = re.compile(r'[0-9a-zA-Z\+\-\*\/\@]{6,256}')
 # 数据库及配置文件存放的绝对路径，根据此文件夹判断是否为第一次使用
 # 最后程序保留为protable形式，无论放在哪都能运行
 dbAbsPath = 'C:\\Users\\%s\\AppData\\Local\\py-password-manager\\' % __import__('getpass').getuser()
+# 用户数据数据库名为管理员stamp
 userDataDb = dbAbsPath + 'data.db'
 # 管理员密码储存，分为时间戳和key
 # 数据表名 admintable
 adminDataDb = dbAbsPath + 'admin.db'
+admintable = 'admintable'
 
 
 def is_first_to_use() -> bool:
@@ -29,35 +31,43 @@ def is_first_to_use() -> bool:
     """
     if not os.path.exists(dbAbsPath):
         os.makedirs(dbAbsPath)
-        return False
+        return True
 
-    if not os.path.exists(userDataDb):
-        return False
+    if not os.path.exists(adminDataDb):
+        return True
     else:
-        dbconnect = sql.connect(userDataDb)
+        dbconnect = sql.connect(adminDataDb)
         dbcursor = dbconnect.cursor()
-
-        script1 = """
-        select * from admintable
-        """
         try:
-            dbcursor.execute(script1)
+            dbcursor.execute('select * from %s' % admintable)
             values = dbcursor.fetchall()
             if len(values) == 0:
-                return False
-            else:
                 return True
+            else:
+                return False
         except:
-            return False
-    return True
-
+            return True
+    return False
 
 def get_admin_password():
     """ 获得管理员密码，也就是用户输入的密码
     """
-
     return 'Helloworld'
+
+def get_admin_key():
+    DBconnect = sql.connect(adminDataDb)
+    DBcursor = DBconnect.cursor()
+    try:
+        DBcursor.execute('select * from %s' % admintable)
+        values = DBcursor.fetchall()
+    except:
+        return None
+    finally:
+        DBcursor.close()
+        DBconnect.commit()
+        DBconnect.close()
+    return values[0]
 
 
 if __name__ == '__main__':
-    is_first_to_use()
+    get_admin_key()

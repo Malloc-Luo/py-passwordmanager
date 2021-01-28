@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>设置管理员密码</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="src/icons.qrc">
+    <normaloff>:/mainui/icon/MainIcon.ico</normaloff>:/mainui/icon/MainIcon.ico</iconset>
+  </property>
   <widget class="QLineEdit" name="le_pswd">
    <property name="geometry">
     <rect>
@@ -59,6 +63,9 @@ QLineEdit:focus {
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhEmailCharactersOnly</set>
+   </property>
+   <property name="maxLength">
+    <number>256</number>
    </property>
    <property name="clearButtonEnabled">
     <bool>true</bool>
@@ -92,6 +99,9 @@ QLineEdit:focus {
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhEmailCharactersOnly</set>
+   </property>
+   <property name="maxLength">
+    <number>256</number>
    </property>
    <property name="clearButtonEnabled">
     <bool>true</bool>
@@ -176,6 +186,9 @@ QPushButton:pressed {
       <property name="text">
        <string>取消</string>
       </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
     <item>
@@ -222,12 +235,16 @@ QPushButton:pressed {
     background:#B8C6D1;
 }
 QPushButton:disabled{
-	background:rgb(134, 134, 134)
+	background:rgb(134, 134, 134);
+	border-color:rgb(134, 134, 134);
 }
 </string>
       </property>
       <property name="text">
        <string>设置</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -252,29 +269,37 @@ QPushButton:disabled{
   <widget class="QPushButton" name="warning">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>240</y>
-     <width>141</width>
+     <x>114</x>
+     <y>230</y>
+     <width>212</width>
      <height>28</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Adobe 黑体 Std R</family>
-     <pointsize>10</pointsize>
+     <pointsize>9</pointsize>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">color:red;</string>
    </property>
    <property name="text">
-    <string>密码不一致！</string>
+    <string/>
    </property>
    <property name="flat">
     <bool>true</bool>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="src/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

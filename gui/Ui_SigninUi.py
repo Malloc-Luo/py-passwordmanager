@@ -21,6 +21,9 @@ class Ui_Signin(object):
         font.setFamily("Microsoft YaHei UI")
         font.setPointSize(10)
         Signin.setFont(font)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Signin.setWindowIcon(icon)
         self.le_pswd = QtWidgets.QLineEdit(Signin)
         self.le_pswd.setGeometry(QtCore.QRect(94, 110, 252, 41))
         font = QtGui.QFont()
@@ -37,6 +40,7 @@ class Ui_Signin(object):
 "}\n"
 "")
         self.le_pswd.setInputMethodHints(QtCore.Qt.ImhEmailCharactersOnly)
+        self.le_pswd.setMaxLength(256)
         self.le_pswd.setClearButtonEnabled(True)
         self.le_pswd.setObjectName("le_pswd")
         self.le_proof = QtWidgets.QLineEdit(Signin)
@@ -55,6 +59,7 @@ class Ui_Signin(object):
 "}\n"
 "")
         self.le_proof.setInputMethodHints(QtCore.Qt.ImhEmailCharactersOnly)
+        self.le_proof.setMaxLength(256)
         self.le_proof.setClearButtonEnabled(True)
         self.le_proof.setObjectName("le_proof")
         self.label = QtWidgets.QLabel(Signin)
@@ -96,6 +101,7 @@ class Ui_Signin(object):
 "    background:#B8C6D1;\n"
 "}\n"
 "")
+        self.pbt_cancel.setFlat(True)
         self.pbt_cancel.setObjectName("pbt_cancel")
         self.horizontalLayout.addWidget(self.pbt_cancel)
         spacerItem1 = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -124,20 +130,25 @@ class Ui_Signin(object):
 "    background:#B8C6D1;\n"
 "}\n"
 "QPushButton:disabled{\n"
-"    background:rgb(134, 134, 134)\n"
+"    background:rgb(134, 134, 134);\n"
+"    border-color:rgb(134, 134, 134);\n"
 "}\n"
 "")
+        self.pbt_setting.setFlat(True)
         self.pbt_setting.setObjectName("pbt_setting")
         self.horizontalLayout.addWidget(self.pbt_setting)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
         self.warning = QtWidgets.QPushButton(Signin)
-        self.warning.setGeometry(QtCore.QRect(90, 240, 141, 28))
+        self.warning.setGeometry(QtCore.QRect(114, 230, 212, 28))
         font = QtGui.QFont()
         font.setFamily("Adobe 黑体 Std R")
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.warning.setFont(font)
+        self.warning.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.warning.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.warning.setStyleSheet("color:red;")
+        self.warning.setText("")
         self.warning.setFlat(True)
         self.warning.setObjectName("warning")
 
@@ -152,4 +163,4 @@ class Ui_Signin(object):
 "密码长度为6~256，可包含字母、数字、符号（@ . # $）"))
         self.pbt_cancel.setText(_translate("Signin", "取消"))
         self.pbt_setting.setText(_translate("Signin", "设置"))
-        self.warning.setText(_translate("Signin", "密码不一致！"))
+import gui.src.icons_rc

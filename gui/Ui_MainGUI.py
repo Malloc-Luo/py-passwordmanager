@@ -15,6 +15,9 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(933, 752)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Form.setWindowIcon(icon)
         Form.setStyleSheet("background:rgb(248, 248, 248);")
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setObjectName("gridLayout")
@@ -219,6 +222,7 @@ class Ui_Form(object):
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)
         self.table.setDefaultDropAction(QtCore.Qt.CopyAction)
         self.table.setAlternatingRowColors(True)
+        self.table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.table.setTextElideMode(QtCore.Qt.ElideMiddle)
         self.table.setGridStyle(QtCore.Qt.SolidLine)
@@ -277,6 +281,7 @@ class Ui_Form(object):
         self.table.horizontalHeader().setVisible(True)
         self.table.horizontalHeader().setCascadingSectionResizes(True)
         self.table.horizontalHeader().setDefaultSectionSize(112)
+        self.table.horizontalHeader().setMinimumSectionSize(110)
         self.table.horizontalHeader().setSortIndicatorShown(True)
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.verticalHeader().setVisible(False)
@@ -520,14 +525,16 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "密码管理器"))
         self.le_filiter.setPlaceholderText(_translate("Form", "筛选"))
         self.comboBox.setItemText(0, _translate("Form", "全部"))
         self.comboBox.setItemText(1, _translate("Form", "名称"))
         self.comboBox.setItemText(2, _translate("Form", "账号"))
         self.comboBox.setItemText(3, _translate("Form", "邮箱/电话"))
         self.pushButton.setToolTip(_translate("Form", "删除项"))
+        self.pushButton.setShortcut(_translate("Form", "Del"))
         self.pbt_add.setToolTip(_translate("Form", "添加项"))
+        self.pbt_add.setShortcut(_translate("Form", "Ctrl+N"))
         self.table.setSortingEnabled(True)
         item = self.table.horizontalHeaderItem(0)
         item.setText(_translate("Form", "id"))

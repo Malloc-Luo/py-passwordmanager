@@ -22,8 +22,11 @@ class Ui_Login(object):
         Login.setSizePolicy(sizePolicy)
         Login.setMinimumSize(QtCore.QSize(400, 310))
         Login.setMaximumSize(QtCore.QSize(450, 400))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("d:\\FileBox\\Code\\Python\\PasswordManager\\py-passwordmanager\\gui\\src/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Login.setWindowIcon(icon)
         self.lineEdit = QtWidgets.QLineEdit(Login)
-        self.lineEdit.setGeometry(QtCore.QRect(100, 60, 200, 38))
+        self.lineEdit.setGeometry(QtCore.QRect(85, 70, 230, 45))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -37,43 +40,63 @@ class Ui_Login(object):
         self.lineEdit.setFont(font)
         self.lineEdit.setStyleSheet("QLineEdit {\n"
 "    border-style:none;\n"
-"    padding:6px;\n"
-"    border-radius:5px;\n"
+"    padding:8px;\n"
+"    border-radius:18px;\n"
 "    border:2px solid #DCE4EC;\n"
 "}\n"
 "QLineEdit:focus {\n"
 "    border:2px solid #34495E;\n"
 "}")
         self.lineEdit.setInputMethodHints(QtCore.Qt.ImhEmailCharactersOnly|QtCore.Qt.ImhHiddenText|QtCore.Qt.ImhNoAutoUppercase|QtCore.Qt.ImhNoPredictiveText|QtCore.Qt.ImhSensitiveData)
+        self.lineEdit.setMaxLength(256)
         self.lineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
+        self.lineEdit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.lineEdit.setCursorMoveStyle(QtCore.Qt.VisualMoveStyle)
         self.lineEdit.setClearButtonEnabled(True)
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton = QtWidgets.QPushButton(Login)
-        self.pushButton.setGeometry(QtCore.QRect(160, 170, 80, 80))
+        self.pushButton.setGeometry(QtCore.QRect(125, 185, 150, 45))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         self.pushButton.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton.setFont(font)
         self.pushButton.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.pushButton.setAutoFillBackground(False)
-        self.pushButton.setStyleSheet("QPushButton{\n"
-"    background:transparent;\n"
-"}")
-        self.pushButton.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("d:\\FileBox\\Code\\Python\\PasswordManager\\py-passwordmanager\\gui\\src/icon/lock.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        icon.addPixmap(QtGui.QPixmap("d:\\FileBox\\Code\\Python\\PasswordManager\\py-passwordmanager\\gui\\src/icon/redlock.png"), QtGui.QIcon.Disabled, QtGui.QIcon.On)
-        self.pushButton.setIcon(icon)
+        self.pushButton.setStyleSheet("QPushButton {\n"
+"    border-style:none;\n"
+"    padding:8px;\n"
+"    border-radius:18px;\n"
+"    color:#FFFFFF;\n"
+"    background:#34495E;\n"
+"    border:2px solid #34495E;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    color:#4E6D8C;\n"
+"    background:#F0F0F0;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    color:#2D3E50;\n"
+"    background:#B8C6D1;\n"
+"}\n"
+"QPushButton:disabled{\n"
+"    background:rgb(134, 134, 134);\n"
+"    border-color:rgb(134, 134, 134);\n"
+"}\n"
+"")
         self.pushButton.setIconSize(QtCore.QSize(70, 70))
         self.pushButton.setCheckable(False)
         self.pushButton.setDefault(True)
         self.pushButton.setFlat(True)
         self.pushButton.setObjectName("pushButton")
         self.pbt_warning = QtWidgets.QPushButton(Login)
-        self.pbt_warning.setGeometry(QtCore.QRect(100, 100, 93, 28))
+        self.pbt_warning.setGeometry(QtCore.QRect(80, 120, 93, 28))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -91,5 +114,6 @@ class Ui_Login(object):
         _translate = QtCore.QCoreApplication.translate
         Login.setWindowTitle(_translate("Login", "进入密码管理器"))
         self.lineEdit.setPlaceholderText(_translate("Login", "请输入密码"))
+        self.pushButton.setText(_translate("Login", "进入"))
         self.pushButton.setShortcut(_translate("Login", "Enter"))
         self.pbt_warning.setText(_translate("Login", "密码错误!!"))

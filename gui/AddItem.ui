@@ -39,6 +39,10 @@
   <property name="windowTitle">
    <string>添加密码</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="src/icons.qrc">
+    <normaloff>:/mainui/icon/MainIcon.ico</normaloff>:/mainui/icon/MainIcon.ico</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="7" column="1">
     <widget class="QLineEdit" name="le_email_or_phone">
@@ -53,13 +57,16 @@
 {
 	border-style:none;
 	padding:6px;
-	border-radius:5px;
+	border-radius:15px;
 	border:2px solid #DCE4EC;
 }
 QLineEdit:focus
 {
 	border:2px solid #34495E;
 }</string>
+     </property>
+     <property name="maxLength">
+      <number>256</number>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -82,13 +89,16 @@ QLineEdit:focus
 {
 	border-style:none;
 	padding:6px;
-	border-radius:5px;
+	border-radius:15px;
 	border:2px solid #DCE4EC;
 }
 QLineEdit:focus
 {
 	border:2px solid #34495E;
 }</string>
+     </property>
+     <property name="maxLength">
+      <number>256</number>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -210,13 +220,16 @@ QTextEdit:focus
 {
 	border-style:none;
 	padding:6px;
-	border-radius:5px;
+	border-radius:15px;
 	border:2px solid #DCE4EC;
 }
 QLineEdit:focus
 {
 	border:2px solid #34495E;
 }</string>
+     </property>
+     <property name="maxLength">
+      <number>256</number>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -270,7 +283,7 @@ QLineEdit:focus
 {
 	border-style:none;
 	padding:6px;
-	border-radius:5px;
+	border-radius:15px;
 	border:2px solid #DCE4EC;
 }
 QLineEdit:focus
@@ -344,7 +357,7 @@ QLineEdit:focus
         <string notr="true">QPushButton {
     border-style:none;
     padding:10px;
-    border-radius:8px;
+    border-radius:15px;
     color:#FFFFFF;
     background:#34495E;
 }
@@ -357,10 +370,19 @@ QPushButton:pressed {
     color:#000000;
     background:#B8C6D1;
 }
-</string>
+QPushButton:disabled{
+	background:rgb(134, 134, 134);
+	border-color:rgb(134, 134, 134);
+}</string>
        </property>
        <property name="text">
         <string>添加</string>
+       </property>
+       <property name="shortcut">
+        <string>Enter</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -378,7 +400,7 @@ QPushButton:pressed {
         <string notr="true">QPushButton {
     border-style:none;
     padding:10px;
-    border-radius:8px;
+    border-radius:15px;
     color:#FFFFFF;
     background:#34495E;
 }
@@ -395,6 +417,9 @@ QPushButton:pressed {
        </property>
        <property name="text">
         <string>取消</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -522,7 +547,7 @@ QPushButton:pressed {
 }</string>
      </property>
      <property name="text">
-      <string>名称不能为空！</string>
+      <string>*</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -543,7 +568,7 @@ QPushButton:pressed {
 }</string>
      </property>
      <property name="text">
-      <string>账号不能为空！</string>
+      <string>*</string>
      </property>
     </widget>
    </item>
@@ -561,7 +586,7 @@ QPushButton:pressed {
 }</string>
      </property>
      <property name="text">
-      <string>密码不能为空！</string>
+      <string>*</string>
      </property>
     </widget>
    </item>
@@ -576,6 +601,8 @@ QPushButton:pressed {
   <tabstop>pbt_cancel</tabstop>
   <tabstop>pbt_add</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="src/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

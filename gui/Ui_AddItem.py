@@ -26,6 +26,9 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setFamily("Microsoft JhengHei UI")
         Dialog.setFont(font)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Dialog.setWindowIcon(icon)
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
         self.le_email_or_phone = QtWidgets.QLineEdit(Dialog)
@@ -37,13 +40,14 @@ class Ui_Dialog(object):
 "{\n"
 "    border-style:none;\n"
 "    padding:6px;\n"
-"    border-radius:5px;\n"
+"    border-radius:15px;\n"
 "    border:2px solid #DCE4EC;\n"
 "}\n"
 "QLineEdit:focus\n"
 "{\n"
 "    border:2px solid #34495E;\n"
 "}")
+        self.le_email_or_phone.setMaxLength(256)
         self.le_email_or_phone.setAlignment(QtCore.Qt.AlignCenter)
         self.le_email_or_phone.setClearButtonEnabled(True)
         self.le_email_or_phone.setObjectName("le_email_or_phone")
@@ -57,13 +61,14 @@ class Ui_Dialog(object):
 "{\n"
 "    border-style:none;\n"
 "    padding:6px;\n"
-"    border-radius:5px;\n"
+"    border-radius:15px;\n"
 "    border:2px solid #DCE4EC;\n"
 "}\n"
 "QLineEdit:focus\n"
 "{\n"
 "    border:2px solid #34495E;\n"
 "}")
+        self.le_account.setMaxLength(256)
         self.le_account.setAlignment(QtCore.Qt.AlignCenter)
         self.le_account.setClearButtonEnabled(True)
         self.le_account.setObjectName("le_account")
@@ -113,13 +118,14 @@ class Ui_Dialog(object):
 "{\n"
 "    border-style:none;\n"
 "    padding:6px;\n"
-"    border-radius:5px;\n"
+"    border-radius:15px;\n"
 "    border:2px solid #DCE4EC;\n"
 "}\n"
 "QLineEdit:focus\n"
 "{\n"
 "    border:2px solid #34495E;\n"
 "}")
+        self.le_name.setMaxLength(256)
         self.le_name.setAlignment(QtCore.Qt.AlignCenter)
         self.le_name.setClearButtonEnabled(True)
         self.le_name.setObjectName("le_name")
@@ -145,7 +151,7 @@ class Ui_Dialog(object):
 "{\n"
 "    border-style:none;\n"
 "    padding:6px;\n"
-"    border-radius:5px;\n"
+"    border-radius:15px;\n"
 "    border:2px solid #DCE4EC;\n"
 "}\n"
 "QLineEdit:focus\n"
@@ -190,7 +196,7 @@ class Ui_Dialog(object):
         self.pbt_add.setStyleSheet("QPushButton {\n"
 "    border-style:none;\n"
 "    padding:10px;\n"
-"    border-radius:8px;\n"
+"    border-radius:15px;\n"
 "    color:#FFFFFF;\n"
 "    background:#34495E;\n"
 "}\n"
@@ -203,7 +209,11 @@ class Ui_Dialog(object):
 "    color:#000000;\n"
 "    background:#B8C6D1;\n"
 "}\n"
-"")
+"QPushButton:disabled{\n"
+"    background:rgb(134, 134, 134);\n"
+"    border-color:rgb(134, 134, 134);\n"
+"}")
+        self.pbt_add.setFlat(True)
         self.pbt_add.setObjectName("pbt_add")
         self.gridLayout_2.addWidget(self.pbt_add, 1, 1, 1, 1)
         self.pbt_cancel = QtWidgets.QPushButton(Dialog)
@@ -216,7 +226,7 @@ class Ui_Dialog(object):
         self.pbt_cancel.setStyleSheet("QPushButton {\n"
 "    border-style:none;\n"
 "    padding:10px;\n"
-"    border-radius:8px;\n"
+"    border-radius:15px;\n"
 "    color:#FFFFFF;\n"
 "    background:#34495E;\n"
 "}\n"
@@ -230,6 +240,7 @@ class Ui_Dialog(object):
 "    background:#B8C6D1;\n"
 "}\n"
 "")
+        self.pbt_cancel.setFlat(True)
         self.pbt_cancel.setObjectName("pbt_cancel")
         self.gridLayout_2.addWidget(self.pbt_cancel, 0, 1, 1, 1)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -304,8 +315,10 @@ class Ui_Dialog(object):
         self.label_3.setText(_translate("Dialog", "密码"))
         self.label_2.setText(_translate("Dialog", "邮箱/电话"))
         self.pbt_add.setText(_translate("Dialog", "添加"))
+        self.pbt_add.setShortcut(_translate("Dialog", "Enter"))
         self.pbt_cancel.setText(_translate("Dialog", "取消"))
         self.label.setText(_translate("Dialog", "备注"))
-        self.lb_name_warning.setText(_translate("Dialog", "名称不能为空！"))
-        self.lb_account_warning.setText(_translate("Dialog", "账号不能为空！"))
-        self.lb_pswd_warning.setText(_translate("Dialog", "密码不能为空！"))
+        self.lb_name_warning.setText(_translate("Dialog", "*"))
+        self.lb_account_warning.setText(_translate("Dialog", "*"))
+        self.lb_pswd_warning.setText(_translate("Dialog", "*"))
+import gui.src.icons_rc
