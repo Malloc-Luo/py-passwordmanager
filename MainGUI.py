@@ -147,14 +147,16 @@ class MainGUI(QWidget):
         self.add_line_item(userItem)
 
     def remove_line(self):
-        # 发送删除当前行的信号，确认数据库删除后显示界面再删除
-        r = self.ui.table.currentRow()
-        if r != -1:
-            # 发送删除信号，为删除项的ID
-            ID = self.ui.table.item(r, 0).text()
-            self.deleteItemSignal.emit(ID)
-            # TODO 测试阶段
-            self.ui.table.removeRow(r)
+        # 发送删除信息
+        msg = QMessageBox.information(self, '删除选项', '\t是否删除所选项？',
+                                      QMessageBox.Cancel | QMessageBox.Yes, QMessageBox.Yes)
+        if msg == QMessageBox.Yes:
+            # 发送删除当前行的信号，确认数据库删除后显示界面再删除
+            r = self.ui.table.currentRow()
+            if r != -1:
+                # 发送删除信号，为删除项的ID
+                ID = self.ui.table.item(r, 0).text()
+                self.deleteItemSignal.emit(ID)
 
     # def view_item(self):
     #     row = self.ui.table.currentRow()
@@ -237,10 +239,8 @@ class MainGUI(QWidget):
         # 清空列表
         self.ui.table.clearContents()
         self.ui.table.setRowCount(0)
-        # 将符合条件的列表添加进到table上
-        for userItem in self.itemList:
-            if userItem.id in luserItemID:
-                self.add_line_item(userItem)
+        for ID in luserItemID:
+            self.add_line_item(self.itemList[ID])
 
     def load_items(self, duserItem:dict):
         self.ui.table.clearContents()

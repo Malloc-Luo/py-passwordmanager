@@ -35,9 +35,11 @@ class Main(QObject):
         self.ui_mainW.deleteItemSignal.connect(self.database.delete_useritem)
         self.ui_mainW.addItemSignal.connect(self.database.add_useritem)
         self.ui_mainW.modifySignal.connect(self.database.modify_useritem)
+        self.ui_mainW.filiteSignal.connect(self.database.filite_useritem)
         self.database.sendUserItemsSignal.connect(self.ui_mainW.load_items)
         self.database.deleteItemSignal.connect(self.ui_mainW.get_delete_res)
         self.database.addItemSignal.connect(self.ui_mainW.get_add_res)
+        self.database.filiteResSignal.connect(self.ui_mainW.get_filite_id)
         # self.ui_loginW.sendDBNameSignal.connect(self.database.get_db_name)
         self.ui_loginW.sendDBRenameSignal.connect(self.database.get_new_name)
 

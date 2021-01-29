@@ -53,7 +53,7 @@ class LoginUi(QWidget):
         # self.ui.pushButton.installEventFilter(self)
         self.ui.pushButton.setDisabled(True)
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
-        from message import MyMessageBox
+        # from message import MyMessageBox
         # MyMessageBox(self, 'title', 'Hello world this is a ', QMessageBox.Yes | QMessageBox.No, QMessageBox.Warning).exec_()
 
     def init_connect(self):

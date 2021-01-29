@@ -10,7 +10,7 @@ class DataBase(QObject):
     # 发送UserItem对象的字典
     sendUserItemsSignal = pyqtSignal(dict)
     # 筛选结果信号
-    filiteResSignal = pyqtSignal(str)
+    filiteResSignal = pyqtSignal(list)
     # 删除结果的信号
     deleteItemSignal = pyqtSignal(bool, str)
     # 添加结果的信号
@@ -40,7 +40,7 @@ class DataBase(QObject):
         self.dbcur.execute('''create table if not exists 
                               userdata(id varchar(20) primary key not null,
                                         name text not null,
-                                        acount varchar(256) not null,
+                                        account varchar(256) not null,
                                         password varchar(256) not null,
                                         email_or_phone varchar(150),
                                         note text);
@@ -58,7 +58,7 @@ class DataBase(QObject):
         self.check_table_exists()
 
     def add_useritem(self, useritem:UserItem):
-        print('ADD', useritem)
+        print('add')
         # 插入一条useritem
         try:
             self.dbcur.execute('''
@@ -109,8 +109,29 @@ class DataBase(QObject):
             '''.format(item), (value, ID))
             self.dbcon.commit()
         except:
-        # 报错
+            # 报错
             print('modify error')
 
     def get_new_name(self, name:str):
         self.newName = name
+
+    def filite_useritem(self, item:str, descript:str):
+        try:
+            if item == '*':
+                self.dbcur.execute('''
+                select id
+                from userdata
+                where name like '%{}%' or account like '%{}%' or email_or_phone like '%{}%';
+                '''.format(descript, descript, descript))
+            else:
+                self.dbcur.execute('''
+                select id
+                from userdata
+                where {} like '%{}%';
+                '''.format(item, descript))
+            # 获取查询结果
+            buff = self.dbcur.fetchall()
+            buff = [b[0] for b in buff]
+            self.filiteResSignal.emit(buff)
+        except:
+            print('filite error')
