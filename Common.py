@@ -69,5 +69,10 @@ def get_admin_key():
     return values[0]
 
 
+def readQss(style):
+    with open(style, 'r') as f:
+        return f.read()
+
+
 if __name__ == '__main__':
     get_admin_key()

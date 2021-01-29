@@ -25,6 +25,7 @@ class Ui_Login(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("d:\\FileBox\\Code\\Python\\PasswordManager\\py-passwordmanager\\gui\\src/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Login.setWindowIcon(icon)
+        Login.setStyleSheet("background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(255, 255, 249, 247), stop:1 rgba(224, 254, 255, 255));")
         self.lineEdit = QtWidgets.QLineEdit(Login)
         self.lineEdit.setGeometry(QtCore.QRect(85, 70, 230, 45))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -33,8 +34,8 @@ class Ui_Login(object):
         sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
         self.lineEdit.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(10)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
         font.setBold(False)
         font.setWeight(50)
         self.lineEdit.setFont(font)
@@ -43,6 +44,7 @@ class Ui_Login(object):
 "    padding:8px;\n"
 "    border-radius:18px;\n"
 "    border:2px solid #DCE4EC;\n"
+"    background:white;\n"
 "}\n"
 "QLineEdit:focus {\n"
 "    border:2px solid #34495E;\n"

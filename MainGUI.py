@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QTableWidgetItem, QHeaderView, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QTableWidgetItem, QHeaderView, QMessageBox, QMenu, QAction
 from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QIcon, QCursor
 from gui.Ui_MainGUI import Ui_Form
 from AddItemUi import AddItemUi
 from UserItem import UserItem
+from Common import readQss
 import operate_password as op
 import sys
 
@@ -35,6 +37,7 @@ class MainGUI(QWidget):
         self.cellclicked = False
         # 设置表格
         self.set_tableWidget()
+        self.set_menu_style_sheet()
         self.init_connect()
 
     def init_connect(self):
@@ -46,6 +49,8 @@ class MainGUI(QWidget):
         self.ui.table.cellChanged.connect(self.edit_item)
         self.ui.table.cellDoubleClicked.connect(self.select_edit_item)
         self.ui.table.currentCellChanged.connect(self.view_item_changed)
+        # 添加右键菜单
+        self.ui.table.customContextMenuRequested.connect(self.create_right_menu)
 
     def set_tableWidget(self):
         self.ui.table.setColumnHidden(0, True)
@@ -55,13 +60,71 @@ class MainGUI(QWidget):
         for i in range(1, 6):
             self.ui.table.horizontalHeader().setSectionResizeMode(i, QHeaderView.ResizeToContents)
 
+    def set_menu_style_sheet(self):
+        self.setStyleSheet(readQss('gui/src/qss/QMebu.qss'))
+
     def refresh_table(self):
         # 刷新表格，发送信号到数据库重新加载
         self.ui.table.clearContents()
         self.ui.table.setRowCount(0)
         self.loadItemSignal.emit()
 
+    def write_into_clipboard(self, text:str):
+        clipboard = QApplication.clipboard()
+        clipboard.setText(text)
+
+    def get_selected_id(self) -> str:
+        r = self.ui.table.currentRow()
+        if r != -1:
+            ID = self.ui.table.item(r, 0).text()
+            return ID
+        return None
+
     # 内部的槽函数
+    # 右键菜单动作槽函数
+    def action_copy_account(self):
+        r = self.ui.table.currentRow()
+        if r != -1:
+            self.write_into_clipboard(self.ui.table.item(r, 2).text())
+
+    def action_copy_password(self):
+        r = self.ui.table.currentRow()
+        if r != -1:
+            self.write_into_clipboard(self.ui.table.item(r, 3).text())
+
+    def action_copy_email(self):
+        r = self.ui.table.currentRow()
+        if r != -1:
+            self.write_into_clipboard(self.ui.table.item(r, 4).text())
+
+    def create_right_menu(self):
+        # 创建右键菜单
+        self.tableMenu = QMenu(self)
+        self.actionCopyAccount = QAction(QIcon('gui/src/icon/account.png'), u'复制账号', self)
+        self.actionCopyPassword = QAction(QIcon('gui/src/icon/password.png'), u'复制密码', self)
+        self.actionCopyEmail = QAction(QIcon('gui/src/icon/connect.png'), u'复制邮箱/电话', self)
+        self.actionDelete = QAction(QIcon('gui/src/icon/delete1.png'), u'删除', self)
+        self.actionAdd = QAction(QIcon('gui/src/icon/add.png'), u'新建', self)
+
+        self.tableMenu.addAction(self.actionCopyAccount)
+        self.tableMenu.addAction(self.actionCopyPassword)
+        self.tableMenu.addAction(self.actionCopyEmail)
+        self.tableMenu.addAction(self.actionDelete)
+        self.tableMenu.addAction(self.actionAdd)
+        self.tableMenu.popup(QCursor.pos())
+
+        row = self.ui.table.currentRow()
+        self.actionCopyAccount.setDisabled(row == -1)
+        self.actionCopyEmail.setDisabled(row == -1)
+        self.actionCopyPassword.setDisabled(row == -1)
+        self.actionDelete.setDisabled(row == -1)
+
+        self.actionCopyAccount.triggered.connect(self.action_copy_account)
+        self.actionCopyPassword.triggered.connect(self.action_copy_password)
+        self.actionCopyEmail.triggered.connect(self.action_copy_email)
+        self.actionDelete.triggered.connect(self.remove_line)
+        self.actionAdd.triggered.connect(self.add_item_ui)
+
     def add_item_ui(self):
         """ 点击添加按钮槽函数      
         先获取填写的信息，而后向数据库发送信息，添加成功则显示在tableWidget中
@@ -107,6 +170,7 @@ class MainGUI(QWidget):
         # cr != -1 只出现一行的情况
         if cr != -1:
             ID = self.ui.table.item(cr, 0).text()
+            self.ui.table.selectRow(cr)
             # 解码的参数为管理员密码
             self.ui.table.item(cr, 3).setText(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
             if pr != -1 and pr != cr:

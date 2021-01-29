@@ -162,6 +162,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.pbt_add)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.table = QtWidgets.QTableWidget(self.tab)
+        self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.table.setStyleSheet("QTableWidget {\n"
 "    color:#34495E;\n"
 "    background:#DCDCDC;\n"
