@@ -92,11 +92,10 @@ class DataBase(QObject):
             ''')
             self.dbcon.commit()
             buff = self.dbcur.fetchall()
-            print(buff)
             # 将列表转换成字典
             itemList = {}
             for item in buff:
-                itemList[item[0]] = UserItem(item[0], item[1], item[2], item[3], item[4], item[5])
+                itemList[item[0]] = UserItem(item[0], item[1], item[2], password=item[3], email_or_phone=item[4], note=item[5])
             self.sendUserItemsSignal.emit(itemList)
         except:
             print('load error')

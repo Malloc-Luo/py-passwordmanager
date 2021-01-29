@@ -8,7 +8,9 @@ import operate_password as op
 from Common import get_admin_password
 
 class UserItem(object):
-    def __init__(self, ID, name, account, password=None, email_or_phone=None, note=None):
+    def __init__(self, ID, name, account, 
+                    password=None, email_or_phone=None, note=None,
+                    _plainpswd=None):
         self.id = ID
         self.name = name
         self.account = account
@@ -16,18 +18,15 @@ class UserItem(object):
         self.note = note
         # 这里的密码是密文，加载明文密码请直接使用 load_plaintext函数
         self.password = password
-        self._plainpswd = None
+        self._plainpswd = _plainpswd
 
-    def load_plaintext(self, pswd):
-        self._plainpswd = pswd
-        return self
+        if not ((self.password is None) ^ (self._plainpswd is None)):
+            raise ValueError('密文和明文在初始化时有且仅有一个为有效') 
 
     def load_key(self, key):
-        # if self._plainpswd is None:
-        #     raise ValueError('加载key之前请保证已经加载了密码明文')
-        # else:
         if self._plainpswd is not None:
             self.password = op.encrypt_password(self._plainpswd, key)
+            self._plainpswd = None
         return self
 
     def __getitem__(self, index):

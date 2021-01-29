@@ -45,7 +45,7 @@ class AddItemUi(QWidget):
         # 发送UserItem对象
         if len(name.replace(' ', '')) != 0 and len(account.replace(' ', '')) != 0 and len(password.replace(' ', '')) != 0:
             ID = str(int(time.time() * 100))[-10:]
-            self.emit_signal(UserItem(ID, name, account, email_or_phone=email_or_phone, note=note).load_plaintext(password))
+            self.emit_signal(UserItem(ID, name, account, email_or_phone=email_or_phone, note=note, _plainpswd=password))
             self.close()
 
     def emit_signal(self, item):

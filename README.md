@@ -58,13 +58,13 @@ A lite password manager
 
 输入的密码进行`md5`运算得到密钥，用数据库或注册表中保存的密钥验证，若成功则进入；~~否则在$n$ 次失败后锁定（或者删库）~~
 
-![image-20210129013101290](D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210129013101290.png)
+<img src="readme\image-20210129013101290.png" alt="image-20210129013101290" style="zoom:80%;" />
 
 ### 管理密码
 
 添加密码，弹出一个表单填写，列举出如下项目
 
-![image-20210129013231793](D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210129013231793.png)
+<img src="readme\image-20210129013231793.png" alt="image-20210129013231793" style="zoom:80%;" />
 
 每一个项目都有一个独立id作为标识，id为添加时刻时间戳，不在表中显示
 
@@ -74,9 +74,9 @@ A lite password manager
 
 其中，`名称`，`账号`，`密码`为必填项，`密码`需要加密保存，加密时使用管理员密码（也就是用户进入时输入的密码）的`hash`（跟上面不一样）
 
-![image-20210129013402419](D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210129013402419.png)
+<img src="readme\image-20210129013402419.png" alt="image-20210129013402419" style="zoom:80%;" />
 
-![image-20210129013436890](D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210129013436890.png)
+<img src="readme\image-20210129013436890.png" alt="image-20210129013436890" style="zoom:80%;" />
 
 *   单击表头按表头内容自动排序
 *   搜索框根据表头按照关键字筛选，实时显示
@@ -92,8 +92,4 @@ $n$ 分钟内无操作，密码管理器锁定，需要重新登录
 ### 密码生成
 
 附加功能
-
-<img src="D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210125144115358.png" alt="image-20210125144115358" style="zoom:80%;" />
-
-
 
