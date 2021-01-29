@@ -15,6 +15,7 @@ from Common import is_first_to_use
 class Main(QObject):
     def __init__(self):
         super().__init__()
+        self.isFirstUse = is_first_to_use()
         self.ui_loginW = LoginUi()
         self.ui_mainW = MainGUI()
         self.database = DataBase()
@@ -45,7 +46,7 @@ class Main(QObject):
 
     def start(self):
         # 如果是第一次用这个程序
-        if is_first_to_use() == True:
+        if self.isFirstUse == True:
             self.ui_siginW = SigninUi()
             self.ui_siginW.siginSignal.connect(self.call_for_loginui)
             self.ui_siginW.show()

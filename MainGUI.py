@@ -148,12 +148,10 @@ class MainGUI(QWidget):
 
     def remove_line(self):
         # 发送删除信息
-        msg = QMessageBox.information(self, '删除选项', '\t是否删除所选项？',
-                                      QMessageBox.Cancel | QMessageBox.Yes, QMessageBox.Yes)
-        if msg == QMessageBox.Yes:
-            # 发送删除当前行的信号，确认数据库删除后显示界面再删除
-            r = self.ui.table.currentRow()
-            if r != -1:
+        r = self.ui.table.currentRow()
+        if r != -1:
+            msg = QMessageBox.information(self, '删除选项', '\t是否删除所选项？', QMessageBox.Cancel | QMessageBox.Yes, QMessageBox.Yes)
+            if msg == QMessageBox.Yes:
                 # 发送删除信号，为删除项的ID
                 ID = self.ui.table.item(r, 0).text()
                 self.deleteItemSignal.emit(ID)
