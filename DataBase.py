@@ -4,6 +4,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 import sqlite3 as sql
 from UserItem import UserItem
 from Common import dbAbsPath
+import re
 
 
 class DataBase(QObject):
@@ -47,12 +48,16 @@ class DataBase(QObject):
         ''')
         self.dbcon.commit()
 
+    def sql_regexp_search(self, regexp, exp) -> bool:
+        # sql正则表达式搜索
+        return re.search(regexp, exp) is not None
 
     # 对外的槽函数
     def get_db_name(self, name):
         # 连接到数据库
         self.name = name
         self.dbcon = sql.connect(dbAbsPath + 'data.db')
+        self.dbcon.create_function('regexp', 2, self.sql_regexp_search)
         self.dbcur = self.dbcon.cursor()
         self.isConnectToDB = True
         self.check_table_exists()
@@ -67,9 +72,9 @@ class DataBase(QObject):
             ''', (useritem.id, useritem.name, useritem.account, useritem.password, useritem.email_or_phone, useritem.note))
             self.dbcon.commit()
             self.addItemSignal.emit(True)
-        except:
+        except sql.OperationalError as e:
             self.addItemSignal.emit(False)
-            print('add error')
+            print('add error: ', e)
 
     def delete_useritem(self, ID:str):
         try:
@@ -80,9 +85,9 @@ class DataBase(QObject):
             ''', (ID,))
             self.dbcon.commit()
             self.deleteItemSignal.emit(True, ID)
-        except:
+        except sql.OperationalError as e:
             self.deleteItemSignal.emit(False, ID)
-            print('delete error')
+            print('delete error: ', e)
 
     def load_items(self):
         print('load')
@@ -97,8 +102,8 @@ class DataBase(QObject):
             for item in buff:
                 itemList[item[0]] = UserItem(item[0], item[1], item[2], password=item[3], email_or_phone=item[4], note=item[5])
             self.sendUserItemsSignal.emit(itemList)
-        except:
-            print('load error')
+        except sql.OperationalError as e:
+            print('load error: ', e)
 
     def modify_useritem(self, ID:str, item:str, value:str):
         try:
@@ -108,9 +113,9 @@ class DataBase(QObject):
             where id = ?;
             '''.format(item), (value, ID))
             self.dbcon.commit()
-        except:
+        except sql.OperationalError as e:
             # 报错
-            print('modify error')
+            print('modify error: ', e)
 
     def get_new_name(self, name:str):
         self.newName = name
@@ -121,17 +126,17 @@ class DataBase(QObject):
                 self.dbcur.execute('''
                 select id
                 from userdata
-                where name like '%{}%' or account like '%{}%' or email_or_phone like '%{}%';
+                where name regexp '{}' or account regexp '{}' or email_or_phone regexp '{}';
                 '''.format(descript, descript, descript))
             else:
                 self.dbcur.execute('''
                 select id
                 from userdata
-                where {} like '%{}%';
+                where {} regexp '{}';
                 '''.format(item, descript))
             # 获取查询结果
             buff = self.dbcur.fetchall()
             buff = [b[0] for b in buff]
             self.filiteResSignal.emit(buff)
-        except:
-            print('filite error')
+        except sql.OperationalError as e:
+            print('filite error: ', e)

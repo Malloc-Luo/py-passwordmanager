@@ -3,9 +3,13 @@ A lite password manager
 
 ------
 
-`version = 0.9.0`
+`version = 0.9.1`
 
 ### UPDATE LOG
+
+#### 0.9.1
+
+*   支持正则表达式搜索
 
 #### 0.9.0
 
@@ -20,10 +24,10 @@ A lite password manager
 ### TO-DO:
 
 *   ~~内容筛选~~
-*   用户自定义设置项
+*   用户自定义设置选项
 *   自定义MessageBox
 *   美化右键菜单
-*   正则表达式筛选
+*   ~~正则表达式筛选~~
 
 ### BUGS
 
