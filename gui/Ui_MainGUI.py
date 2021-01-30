@@ -52,6 +52,7 @@ class Ui_Form(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.tab)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.le_filiter = QtWidgets.QLineEdit(self.tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -82,6 +83,7 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.comboBox.setFont(font)
+        self.comboBox.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.comboBox.setStyleSheet("\n"
 "QComboBox {\n"
 "    border: 1px solid gray;   /* 边框 */\n"
@@ -109,6 +111,28 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.comboBox)
         spacerItem1 = QtWidgets.QSpacerItem(380, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
+        self.pbt_setting = QtWidgets.QPushButton(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pbt_setting.sizePolicy().hasHeightForWidth())
+        self.pbt_setting.setSizePolicy(sizePolicy)
+        self.pbt_setting.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pbt_setting.setStyleSheet("QPushButton\n"
+"{\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/setting2.png);\n"
+"}\n"
+"QPushButton:hover\n"
+"{\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image:url(:/mainui/icon/setting.png);\n"
+"}")
+        self.pbt_setting.setText("")
+        self.pbt_setting.setObjectName("pbt_setting")
+        self.horizontalLayout_2.addWidget(self.pbt_setting)
         self.pushButton = QtWidgets.QPushButton(self.tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -282,7 +306,7 @@ class Ui_Form(object):
         self.table.horizontalHeader().setVisible(True)
         self.table.horizontalHeader().setCascadingSectionResizes(True)
         self.table.horizontalHeader().setDefaultSectionSize(112)
-        self.table.horizontalHeader().setMinimumSectionSize(110)
+        self.table.horizontalHeader().setMinimumSectionSize(125)
         self.table.horizontalHeader().setSortIndicatorShown(True)
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.verticalHeader().setVisible(False)

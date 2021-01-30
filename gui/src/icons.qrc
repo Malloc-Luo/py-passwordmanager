@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="mainui">
+    <file>icon/setting2.png</file>
+    <file>icon/setting.png</file>
     <file>icon/MainIcon.ico</file>
     <file>icon/secondmainicon.png</file>
     <file>icon/add.png</file>

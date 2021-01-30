@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QTableWidgetItem, QHeaderView, QMessageBox, QMenu, QAction
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QTableWidgetItem, QHeaderView, QMessageBox, QMenu, QAction, QToolTip
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon, QCursor
 from gui.Ui_MainGUI import Ui_Form
@@ -9,6 +9,7 @@ from UserItem import UserItem
 from Common import readQss
 import operate_password as op
 import sys
+from TipUi import TipUi
 
 
 class MainGUI(QWidget):
@@ -39,12 +40,16 @@ class MainGUI(QWidget):
         self.set_tableWidget()
         self.ui.tabWidget.removeTab(1)
         self.ui.tabWidget.setTabBarAutoHide(True)
+        # 开启鼠标捕获
+        self.ui.table.setMouseTracking(True)
+        # self.setWindowFlags(Qt.CustomizeWindowHint | Qt.FramelessWindowHint)
         self.set_menu_style_sheet()
         self.init_connect()
 
     def init_connect(self):
         self.ui.pbt_add.clicked.connect(self.add_item_ui)
         self.ui.pushButton.clicked.connect(self.remove_line)
+        self.ui.pbt_setting.clicked.connect(self.call_setting_ui)
         self.ui.le_filiter.cursorPositionChanged.connect(self.filite_item)
         self.ui.comboBox.currentTextChanged.connect(self.filite_item)
         # self.ui.table.clicked.connect(self.view_item)
@@ -53,6 +58,7 @@ class MainGUI(QWidget):
         self.ui.table.currentCellChanged.connect(self.view_item_changed)
         # 添加右键菜单
         self.ui.table.customContextMenuRequested.connect(self.create_right_menu)
+        self.ui.table.cellEntered.connect(self.set_tool_tips)
 
     def set_tableWidget(self):
         self.ui.table.setColumnHidden(0, True)
@@ -83,18 +89,34 @@ class MainGUI(QWidget):
         return None
 
     # 内部的槽函数
+    def call_setting_ui(self):
+        # 点击设置按键
+        self.tip = TipUi('功能尚未开放')
+        self.tip.show()
+
+    def set_tool_tips(self, r, c):
+        item = self.ui.table.item(r, c)
+        if item is not None:
+            QToolTip.showText(QCursor.pos(), item.text())
+
     # 右键菜单动作槽函数
     def action_copy_account(self):
+        self.tip = TipUi('复制账号成功')
+        self.tip.show()
         r = self.ui.table.currentRow()
         if r != -1:
             self.write_into_clipboard(self.ui.table.item(r, 2).text())
 
     def action_copy_password(self):
+        self.tip = TipUi('复制密码成功')
+        self.tip.show()
         r = self.ui.table.currentRow()
         if r != -1:
             self.write_into_clipboard(self.ui.table.item(r, 3).text())
 
     def action_copy_email(self):
+        self.tip = TipUi('复制邮/电成功')
+        self.tip.show()
         r = self.ui.table.currentRow()
         if r != -1:
             self.write_into_clipboard(self.ui.table.item(r, 4).text())
@@ -224,7 +246,9 @@ class MainGUI(QWidget):
 
     # 对外的槽函数
     def get_add_res(self, issuccess:bool):
-        ...
+        if issuccess == True:
+            self.tip = TipUi('添加成功')
+            self.tip.show()
 
     def get_delete_res(self, issuccess:bool, ID:str):
         # 删除成功信号
@@ -233,7 +257,9 @@ class MainGUI(QWidget):
             r = self.ui.table.currentRow()
             if r != -1:
                 self.ui.table.removeRow(r)
-            QMessageBox.information(self, '删除选项', '\t删除成功！！', QMessageBox.Yes)
+            self.tip = TipUi('删除成功')
+            self.tip.show()
+
 
     def get_filite_id(self, luserItemID:list):
         # 获取过滤结果元素的id列表

@@ -3,9 +3,14 @@ A lite password manager
 
 ------
 
-`version = 0.9.2`
+`version = 0.9.4`
 
 ### UPDATE LOG
+
+#### 0.9.4
+
+*   新增了操作提示气泡
+*   新增主界面单元格tool tips
 
 #### 0.9.3
 
@@ -32,6 +37,7 @@ A lite password manager
 *   自定义MessageBox
 *   美化右键菜单
 *   ~~正则表达式筛选~~
+*   记录修改日志，可以回退修改、删除、添加等
 
 ### BUGS
 
