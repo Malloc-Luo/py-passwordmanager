@@ -1,5 +1,5 @@
 from gui.Ui_tips import Ui_Dialog
-from PyQt5.QtWidgets import QWidget, QApplication, QDialog
+from PyQt5.QtWidgets import QWidget, QApplication, QDialog, QGraphicsDropShadowEffect
 from PyQt5.QtCore import Qt, QTimer, QRect
 import sys
 from math import log10
@@ -18,7 +18,14 @@ class TipUi(QDialog):
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.FramelessWindowHint | Qt.Tool)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setAttribute(Qt.WA_QuitOnClose, True)
+        # 设置窗口阴影
+        # self.shadow = QGraphicsDropShadowEffect(self)
+        # self.shadow.setOffset(10, 10)
+        # self.shadow.setBlurRadius(100)
+        # self.shadow.setColor(Qt.gray)
+        # self.setGraphicsEffect(self.shadow)
         self.windosAlpha = 0
+
         self.timer.timeout.connect(self.hide_windows)
         self.timer.start(25)
 

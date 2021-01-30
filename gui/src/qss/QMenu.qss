@@ -1,26 +1,27 @@
 QMenu {
-    background:purple;
+    /* background:purple; */
     border:1px solid lightgray;
-    border-color:green;
+    /* border-color:green; */
+    /* border: none; */
 }
 QMenu::item {
-    padding:0px 40px 0px 20px;
-    height:30px;
-    color:blue;
-    background:white;
-    margin:1px 0px 0px 0px;
+    padding:0px 10px 0px 10px;
+    height:28px;
+    color:rgb(0, 0, 0);
+    /* background:white; */
+    margin:2px 2px 2px 2px;
 }
 QMenu::item:selected:enabled {
-    background:lightgray;
+    background:#0078d7;
     color:white;
 }
 QMenu::separator {
     height:50px;
     width:1px;
     background:white;
-    margin:1px 1px 1px 1px;
+    margin:10px 10px 10px 10px;
 }
-QMenu#menu {
+/* QMenu#menu {
     background:white;
     border:1px solid lightgray;
 }
@@ -39,4 +40,4 @@ QMenu#menu::separator {
 }
 QMenu#menu::indicator {
     padding:10px;
-}
+} */

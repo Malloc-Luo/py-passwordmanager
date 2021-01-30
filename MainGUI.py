@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon, QCursor
 from gui.Ui_MainGUI import Ui_Form
 from AddItemUi import AddItemUi
 from UserItem import UserItem
-from Common import readQss
+from Common import read_qss
 import operate_password as op
 import sys
 from TipUi import TipUi
@@ -43,7 +43,6 @@ class MainGUI(QWidget):
         # 开启鼠标捕获
         self.ui.table.setMouseTracking(True)
         # self.setWindowFlags(Qt.CustomizeWindowHint | Qt.FramelessWindowHint)
-        self.set_menu_style_sheet()
         self.init_connect()
 
     def init_connect(self):
@@ -67,9 +66,6 @@ class MainGUI(QWidget):
         width = self.ui.table.width()
         for i in range(1, 6):
             self.ui.table.horizontalHeader().setSectionResizeMode(i, QHeaderView.ResizeToContents)
-
-    def set_menu_style_sheet(self):
-        self.setStyleSheet(readQss('gui/src/qss/QMebu.qss'))
 
     def refresh_table(self):
         # 刷新表格，发送信号到数据库重新加载
@@ -124,6 +120,7 @@ class MainGUI(QWidget):
     def create_right_menu(self):
         # 创建右键菜单
         self.tableMenu = QMenu(self)
+        self.tableMenu.setStyleSheet(read_qss('gui/src/qss/QMenu.qss'))
         self.actionCopyAccount = QAction(QIcon('gui/src/icon/account.png'), u'复制账号', self)
         self.actionCopyPassword = QAction(QIcon('gui/src/icon/password.png'), u'复制密码', self)
         self.actionCopyEmail = QAction(QIcon('gui/src/icon/connect.png'), u'复制邮箱/电话', self)

@@ -69,7 +69,7 @@ def get_admin_key():
     return values[0]
 
 
-def readQss(style):
+def read_qss(style):
     with open(style, 'r') as f:
         return f.read()
 
