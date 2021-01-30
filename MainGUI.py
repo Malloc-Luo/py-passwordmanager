@@ -37,6 +37,8 @@ class MainGUI(QWidget):
         self.cellclicked = False
         # 设置表格
         self.set_tableWidget()
+        self.ui.tabWidget.removeTab(1)
+        self.ui.tabWidget.setTabBarAutoHide(True)
         self.set_menu_style_sheet()
         self.init_connect()
 
@@ -234,19 +236,27 @@ class MainGUI(QWidget):
             QMessageBox.information(self, '删除选项', '\t删除成功！！', QMessageBox.Yes)
 
     def get_filite_id(self, luserItemID:list):
+        # 获取过滤结果元素的id列表
         # 清空列表
         self.ui.table.clearContents()
         self.ui.table.setRowCount(0)
+        # 禁用排序
+        self.ui.table.setSortingEnabled(False)
         for ID in luserItemID:
             self.add_line_item(self.itemList[ID])
+        # 再次开启排序
+        self.ui.table.setSortingEnabled(True)
 
     def load_items(self, duserItem:dict):
         self.ui.table.clearContents()
         self.ui.table.setRowCount(0)
         # 加载项目
         self.itemList = duserItem
+        # 添加的时候禁用排序，否则后面会混乱
+        self.ui.table.setSortingEnabled(False)
         for v in self.itemList.values():
             self.add_line_item(v)
+        self.ui.table.setSortingEnabled(True)
 
     def get_admin_password(self, adminPassword:str):
         self.adminPassword = adminPassword

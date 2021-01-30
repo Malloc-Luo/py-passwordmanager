@@ -3,9 +3,13 @@ A lite password manager
 
 ------
 
-`version = 0.9.1`
+`version = 0.9.2`
 
 ### UPDATE LOG
+
+#### 0.9.3
+
+*   修复了排序后tableWidget刷新内容混乱问题
 
 #### 0.9.1
 
