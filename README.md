@@ -3,9 +3,12 @@ A lite password manager
 
 ------
 
-`version = 0.9.4`
-
 ### UPDATE LOG
+
+#### 0.9.6
+
+*   将密码生成界面移动到添加界面上，并完善该功能
+*   移除之前的密码生成tabWidget界面
 
 #### 0.9.5
 

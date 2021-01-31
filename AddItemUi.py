@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
 from gui.Ui_AddItem import Ui_Dialog
 from UserItem import UserItem
+from GenPasswordUi import GenPasswordUi
 import time
 import sys
 
@@ -19,6 +20,7 @@ class AddItemUi(QWidget):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.ui.pbt_add.setDisabled(True)
+        self.ui_genW = GenPasswordUi()
         self.set_connect_slot()
         self.setAttribute(Qt.WA_DeleteOnClose, True)
 
@@ -28,6 +30,7 @@ class AddItemUi(QWidget):
         self.ui.le_name.cursorPositionChanged.connect(self.check_content)
         self.ui.le_account.cursorPositionChanged.connect(self.check_content)
         self.ui.le_password.cursorPositionChanged.connect(self.check_content)
+        self.ui.pbt_gen.clicked.connect(self.gen_password)
 
     def check_content(self):
         if self.ui.le_name.text() == '' or self.ui.le_account.text() == '' or self.ui.le_password.text() == '':
@@ -50,6 +53,14 @@ class AddItemUi(QWidget):
 
     def emit_signal(self, item):
         self.userItemSignal.emit(item)
+
+    def gen_password(self):
+        self.ui_genW = GenPasswordUi()
+        self.ui_genW.sendSignel.connect(self.add_password)
+        self.ui_genW.show()
+
+    def add_password(self, pswd):
+        self.ui.le_password.setText(pswd)
 
     def closeEvent(self, event):
         """ 窗口关闭事件

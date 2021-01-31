@@ -31,84 +31,18 @@ class Ui_Dialog(object):
         Dialog.setWindowIcon(icon)
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
-        self.le_email_or_phone = QtWidgets.QLineEdit(Dialog)
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(10)
-        self.le_email_or_phone.setFont(font)
-        self.le_email_or_phone.setStyleSheet("QLineEdit\n"
-"{\n"
-"    border-style:none;\n"
-"    padding:6px;\n"
-"    border-radius:15px;\n"
-"    border:2px solid #DCE4EC;\n"
-"}\n"
-"QLineEdit:focus\n"
-"{\n"
-"    border:2px solid #34495E;\n"
-"}")
-        self.le_email_or_phone.setMaxLength(256)
-        self.le_email_or_phone.setAlignment(QtCore.Qt.AlignCenter)
-        self.le_email_or_phone.setClearButtonEnabled(True)
-        self.le_email_or_phone.setObjectName("le_email_or_phone")
-        self.gridLayout.addWidget(self.le_email_or_phone, 7, 1, 1, 1)
-        self.le_account = QtWidgets.QLineEdit(Dialog)
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(10)
-        self.le_account.setFont(font)
-        self.le_account.setStyleSheet("QLineEdit\n"
-"{\n"
-"    border-style:none;\n"
-"    padding:6px;\n"
-"    border-radius:15px;\n"
-"    border:2px solid #DCE4EC;\n"
-"}\n"
-"QLineEdit:focus\n"
-"{\n"
-"    border:2px solid #34495E;\n"
-"}")
-        self.le_account.setMaxLength(256)
-        self.le_account.setAlignment(QtCore.Qt.AlignCenter)
-        self.le_account.setClearButtonEnabled(True)
-        self.le_account.setObjectName("le_account")
-        self.gridLayout.addWidget(self.le_account, 3, 1, 1, 1)
-        self.te_note = QtWidgets.QTextEdit(Dialog)
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(9)
-        self.te_note.setFont(font)
-        self.te_note.setStyleSheet("QTextEdit\n"
-"{\n"
-"    border-style:none;\n"
-"    padding:6px;\n"
-"    border-radius:5px;\n"
-"    border:2px solid #DCE4EC;\n"
-"}\n"
-"QTextEdit:focus\n"
-"{\n"
-"    border:2px solid #34495E;\n"
-"}")
-        self.te_note.setObjectName("te_note")
-        self.gridLayout.addWidget(self.te_note, 9, 1, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem, 4, 1, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(50, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.gridLayout.addItem(spacerItem1, 10, 1, 1, 1)
-        self.label_4 = QtWidgets.QLabel(Dialog)
+        self.gridLayout.addItem(spacerItem, 6, 1, 1, 1)
+        self.label = QtWidgets.QLabel(Dialog)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.label_4.setFont(font)
-        self.label_4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_4.setObjectName("label_4")
-        self.gridLayout.addWidget(self.label_4, 3, 0, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(80, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.gridLayout.addItem(spacerItem2, 8, 1, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem3, 6, 1, 1, 1)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 9, 0, 1, 1)
         self.le_name = QtWidgets.QLineEdit(Dialog)
         font = QtGui.QFont()
         font.setFamily("Consolas")
@@ -130,18 +64,52 @@ class Ui_Dialog(object):
         self.le_name.setClearButtonEnabled(True)
         self.le_name.setObjectName("le_name")
         self.gridLayout.addWidget(self.le_name, 1, 1, 1, 1)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem4, 2, 1, 1, 1)
-        self.label_5 = QtWidgets.QLabel(Dialog)
+        spacerItem1 = QtWidgets.QSpacerItem(80, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout.addItem(spacerItem1, 8, 1, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem2, 0, 1, 1, 1)
+        self.le_account = QtWidgets.QLineEdit(Dialog)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(10)
+        self.le_account.setFont(font)
+        self.le_account.setStyleSheet("QLineEdit\n"
+"{\n"
+"    border-style:none;\n"
+"    padding:6px;\n"
+"    border-radius:15px;\n"
+"    border:2px solid #DCE4EC;\n"
+"}\n"
+"QLineEdit:focus\n"
+"{\n"
+"    border:2px solid #34495E;\n"
+"}")
+        self.le_account.setMaxLength(256)
+        self.le_account.setAlignment(QtCore.Qt.AlignCenter)
+        self.le_account.setClearButtonEnabled(True)
+        self.le_account.setObjectName("le_account")
+        self.gridLayout.addWidget(self.le_account, 3, 1, 1, 1)
+        self.label_2 = QtWidgets.QLabel(Dialog)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.label_5.setFont(font)
-        self.label_5.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_5.setObjectName("label_5")
-        self.gridLayout.addWidget(self.label_5, 1, 0, 1, 1)
+        self.label_2.setFont(font)
+        self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.label_2, 7, 0, 1, 1)
+        self.lb_name_warning = QtWidgets.QLabel(Dialog)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.lb_name_warning.setFont(font)
+        self.lb_name_warning.setStyleSheet("QLabel\n"
+"{\n"
+"    color:rgb(255, 0, 0);\n"
+"}")
+        self.lb_name_warning.setTextFormat(QtCore.Qt.PlainText)
+        self.lb_name_warning.setObjectName("lb_name_warning")
+        self.gridLayout.addWidget(self.lb_name_warning, 1, 2, 1, 1)
         self.le_password = QtWidgets.QLineEdit(Dialog)
         font = QtGui.QFont()
         font.setFamily("Consolas")
@@ -174,16 +142,8 @@ class Ui_Dialog(object):
         self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_3.setObjectName("label_3")
         self.gridLayout.addWidget(self.label_3, 5, 0, 1, 1)
-        self.label_2 = QtWidgets.QLabel(Dialog)
-        font = QtGui.QFont()
-        font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_2.setFont(font)
-        self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_2.setObjectName("label_2")
-        self.gridLayout.addWidget(self.label_2, 7, 0, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(50, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout.addItem(spacerItem3, 10, 1, 1, 1)
         self.gridLayout_2 = QtWidgets.QGridLayout()
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.pbt_add = QtWidgets.QPushButton(Dialog)
@@ -243,40 +203,45 @@ class Ui_Dialog(object):
         self.pbt_cancel.setFlat(True)
         self.pbt_cancel.setObjectName("pbt_cancel")
         self.gridLayout_2.addWidget(self.pbt_cancel, 0, 1, 1, 1)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem4, 0, 0, 1, 1)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem5, 0, 0, 1, 1)
+        self.gridLayout_2.addItem(spacerItem5, 0, 2, 1, 1)
         spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem6, 0, 2, 1, 1)
+        self.gridLayout_2.addItem(spacerItem6, 1, 0, 1, 1)
         spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem7, 1, 0, 1, 1)
-        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem8, 1, 2, 1, 1)
+        self.gridLayout_2.addItem(spacerItem7, 1, 2, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 9, 2, 1, 1)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem9, 0, 1, 1, 1)
-        self.label = QtWidgets.QLabel(Dialog)
+        self.label_4 = QtWidgets.QLabel(Dialog)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 9, 0, 1, 1)
-        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem10, 8, 2, 1, 1)
-        self.lb_name_warning = QtWidgets.QLabel(Dialog)
+        self.label_4.setFont(font)
+        self.label_4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout.addWidget(self.label_4, 3, 0, 1, 1)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem8, 4, 1, 1, 1)
+        self.te_note = QtWidgets.QTextEdit(Dialog)
         font = QtGui.QFont()
-        font.setFamily("Microsoft YaHei UI")
-        self.lb_name_warning.setFont(font)
-        self.lb_name_warning.setStyleSheet("QLabel\n"
+        font.setFamily("Consolas")
+        font.setPointSize(9)
+        self.te_note.setFont(font)
+        self.te_note.setStyleSheet("QTextEdit\n"
 "{\n"
-"    color:rgb(255, 0, 0);\n"
+"    border-style:none;\n"
+"    padding:6px;\n"
+"    border-radius:5px;\n"
+"    border:2px solid #DCE4EC;\n"
+"}\n"
+"QTextEdit:focus\n"
+"{\n"
+"    border:2px solid #34495E;\n"
 "}")
-        self.lb_name_warning.setTextFormat(QtCore.Qt.PlainText)
-        self.lb_name_warning.setObjectName("lb_name_warning")
-        self.gridLayout.addWidget(self.lb_name_warning, 1, 2, 1, 1)
+        self.te_note.setObjectName("te_note")
+        self.gridLayout.addWidget(self.te_note, 9, 1, 1, 1)
         self.lb_account_warning = QtWidgets.QLabel(Dialog)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
@@ -287,16 +252,64 @@ class Ui_Dialog(object):
 "}")
         self.lb_account_warning.setObjectName("lb_account_warning")
         self.gridLayout.addWidget(self.lb_account_warning, 3, 2, 1, 1)
-        self.lb_pswd_warning = QtWidgets.QLabel(Dialog)
+        self.label_5 = QtWidgets.QLabel(Dialog)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        self.lb_pswd_warning.setFont(font)
-        self.lb_pswd_warning.setStyleSheet("QLabel\n"
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_5.setFont(font)
+        self.label_5.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_5.setObjectName("label_5")
+        self.gridLayout.addWidget(self.label_5, 1, 0, 1, 1)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem9, 8, 2, 1, 1)
+        self.le_email_or_phone = QtWidgets.QLineEdit(Dialog)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(10)
+        self.le_email_or_phone.setFont(font)
+        self.le_email_or_phone.setStyleSheet("QLineEdit\n"
+"{\n"
+"    border-style:none;\n"
+"    padding:6px;\n"
+"    border-radius:15px;\n"
+"    border:2px solid #DCE4EC;\n"
+"}\n"
+"QLineEdit:focus\n"
+"{\n"
+"    border:2px solid #34495E;\n"
+"}")
+        self.le_email_or_phone.setMaxLength(256)
+        self.le_email_or_phone.setAlignment(QtCore.Qt.AlignCenter)
+        self.le_email_or_phone.setClearButtonEnabled(True)
+        self.le_email_or_phone.setObjectName("le_email_or_phone")
+        self.gridLayout.addWidget(self.le_email_or_phone, 7, 1, 1, 1)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem10, 2, 1, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setContentsMargins(-1, -1, 160, -1)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label_6 = QtWidgets.QLabel(Dialog)
+        self.label_6.setStyleSheet("QLabel\n"
 "{\n"
 "    color:rgb(255, 0, 0);\n"
 "}")
-        self.lb_pswd_warning.setObjectName("lb_pswd_warning")
-        self.gridLayout.addWidget(self.lb_pswd_warning, 5, 2, 1, 1)
+        self.label_6.setObjectName("label_6")
+        self.horizontalLayout.addWidget(self.label_6)
+        self.pbt_gen = QtWidgets.QPushButton(Dialog)
+        self.pbt_gen.setStyleSheet("QPushButton {\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/gen2.png);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    image: url(:/mainui/icon/gen1.png);\n"
+"}")
+        self.pbt_gen.setText("")
+        self.pbt_gen.setFlat(True)
+        self.pbt_gen.setObjectName("pbt_gen")
+        self.horizontalLayout.addWidget(self.pbt_gen)
+        self.gridLayout.addLayout(self.horizontalLayout, 5, 2, 1, 1)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -310,15 +323,16 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "添加密码"))
-        self.label_4.setText(_translate("Dialog", "账号"))
-        self.label_5.setText(_translate("Dialog", "名称"))
-        self.label_3.setText(_translate("Dialog", "密码"))
+        self.label.setText(_translate("Dialog", "备注"))
         self.label_2.setText(_translate("Dialog", "邮箱/电话"))
+        self.lb_name_warning.setText(_translate("Dialog", "*"))
+        self.label_3.setText(_translate("Dialog", "密码"))
         self.pbt_add.setText(_translate("Dialog", "添加"))
         self.pbt_add.setShortcut(_translate("Dialog", "Enter"))
         self.pbt_cancel.setText(_translate("Dialog", "取消"))
-        self.label.setText(_translate("Dialog", "备注"))
-        self.lb_name_warning.setText(_translate("Dialog", "*"))
+        self.label_4.setText(_translate("Dialog", "账号"))
         self.lb_account_warning.setText(_translate("Dialog", "*"))
-        self.lb_pswd_warning.setText(_translate("Dialog", "*"))
+        self.label_5.setText(_translate("Dialog", "名称"))
+        self.label_6.setText(_translate("Dialog", "*"))
+        self.pbt_gen.setToolTip(_translate("Dialog", "生成密码"))
 import gui.src.icons_rc
