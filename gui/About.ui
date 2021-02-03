@@ -205,14 +205,13 @@ margin:5px;</string>
 	color:#34495E;
 	padding:4px;
 	padding-bottom:2px;
-	qproperty-icon: url(:/mainui/icon/code1.png);
 }
 
 QPushButton:hover {
 	color:#0078d7;
 	border-bottom-color:#0078d7;
-	qproperty-icon: url(:/mainui/icon/code0.png);
-}</string>
+}
+</string>
        </property>
        <property name="text">
         <string>项目源码</string>
@@ -252,13 +251,11 @@ QPushButton:hover {
 	color:#34495E;
 	padding:4px;
 	padding-bottom:2px;
-	qproperty-icon: url(:/mainui/icon/help1.png);
 }
 
 QPushButton:hover {
 	color:#0078d7;
 	border-bottom-color:#0078d7;
-	qproperty-icon: url(:/mainui/icon/help0.png);
 }</string>
        </property>
        <property name="text">
@@ -299,13 +296,11 @@ QPushButton:hover {
 	color:#34495E;
 	padding:4px;
 	padding-bottom:2px;
-	qproperty-icon: url(:/mainui/icon/update1.png);
 }
 
 QPushButton:hover {
 	color:#0078d7;
 	border-bottom-color:#0078d7;
-	qproperty-icon: url(:/mainui/icon/update0.png);
 }</string>
        </property>
        <property name="text">

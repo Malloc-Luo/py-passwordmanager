@@ -5,6 +5,10 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.10.2
+
+*   修复about界面的几个小bug
+
 #### 0.10.1
 
 *   调整qrc文件，体积减小了80%，不知道是否有用

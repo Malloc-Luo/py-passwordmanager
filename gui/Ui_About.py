@@ -99,14 +99,13 @@ class Ui_Dialog(object):
 "    color:#34495E;\n"
 "    padding:4px;\n"
 "    padding-bottom:2px;\n"
-"    qproperty-icon: url(:/mainui/icon/code1.png);\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
 "    color:#0078d7;\n"
 "    border-bottom-color:#0078d7;\n"
-"    qproperty-icon: url(:/mainui/icon/code0.png);\n"
-"}")
+"}\n"
+"")
         self.pbt_code.setObjectName("pbt_code")
         self.horizontalLayout_2.addWidget(self.pbt_code)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -125,13 +124,11 @@ class Ui_Dialog(object):
 "    color:#34495E;\n"
 "    padding:4px;\n"
 "    padding-bottom:2px;\n"
-"    qproperty-icon: url(:/mainui/icon/help1.png);\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
 "    color:#0078d7;\n"
 "    border-bottom-color:#0078d7;\n"
-"    qproperty-icon: url(:/mainui/icon/help0.png);\n"
 "}")
         self.pbt_help.setObjectName("pbt_help")
         self.horizontalLayout_2.addWidget(self.pbt_help)
@@ -151,13 +148,11 @@ class Ui_Dialog(object):
 "    color:#34495E;\n"
 "    padding:4px;\n"
 "    padding-bottom:2px;\n"
-"    qproperty-icon: url(:/mainui/icon/update1.png);\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
 "    color:#0078d7;\n"
 "    border-bottom-color:#0078d7;\n"
-"    qproperty-icon: url(:/mainui/icon/update0.png);\n"
 "}")
         self.pbt_update.setObjectName("pbt_update")
         self.horizontalLayout_2.addWidget(self.pbt_update)
