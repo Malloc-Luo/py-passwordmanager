@@ -18,7 +18,7 @@ class Ui_settingDialog(object):
         settingDialog.setMinimumSize(QtCore.QSize(390, 390))
         settingDialog.setMaximumSize(QtCore.QSize(390, 390))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/secondmainicon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         settingDialog.setWindowIcon(icon)
         settingDialog.setStyleSheet("QScrollArea {\n"
 "    border:none;\n"

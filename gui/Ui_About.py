@@ -19,7 +19,7 @@ class Ui_Dialog(object):
         Dialog.setMaximumSize(QtCore.QSize(460, 380))
         Dialog.setFocusPolicy(QtCore.Qt.StrongFocus)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/secondmainicon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")

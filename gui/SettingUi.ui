@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="src/icons.qrc">
-    <normaloff>:/mainui/icon/secondmainicon.png</normaloff>:/mainui/icon/secondmainicon.png</iconset>
+    <normaloff>:/mainui/icon/MainIcon.ico</normaloff>:/mainui/icon/MainIcon.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QScrollArea {
