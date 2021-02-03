@@ -188,10 +188,19 @@ QLineEdit:focus
    </item>
    <item row="1" column="2">
     <widget class="QLabel" name="lb_name_warning">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="font">
       <font>
        <family>Microsoft YaHei UI</family>
       </font>
+     </property>
+     <property name="toolTip">
+      <string>名称 为必填项</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QLabel
@@ -467,7 +476,7 @@ QPushButton:pressed {
       <string notr="true">QTextEdit
 {
 	border-style:none;
-	padding:6px;
+	padding:4px;
 	border-radius:5px;
 	border:2px solid #DCE4EC;
 }
@@ -480,10 +489,19 @@ QTextEdit:focus
    </item>
    <item row="3" column="2">
     <widget class="QLabel" name="lb_account_warning">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="font">
       <font>
        <family>Microsoft YaHei UI</family>
       </font>
+     </property>
+     <property name="toolTip">
+      <string>账号 为必填项</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QLabel
@@ -579,6 +597,9 @@ QLineEdit:focus
      </property>
      <item>
       <widget class="QLabel" name="label_6">
+       <property name="toolTip">
+        <string>密码 为必填项</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLabel
 {
@@ -592,6 +613,9 @@ QLineEdit:focus
      </item>
      <item>
       <widget class="QPushButton" name="pbt_gen">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="toolTip">
         <string>生成密码</string>
        </property>

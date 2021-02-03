@@ -14,11 +14,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(933, 752)
+        Form.resize(960, 780)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Form.setWindowIcon(icon)
-        Form.setStyleSheet("background:rgb(248, 248, 248);")
+        Form.setStyleSheet("QWidget {background:rgb(248, 248, 248);}\n"
+"\n"
+"QToolTip{\n"
+"    border:0px solid rgb(118, 118, 118); \n"
+"    background-color: #ffffff;\n"
+"    color:#484848; \n"
+"}\n"
+"")
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setObjectName("gridLayout")
         self.tabWidget = QtWidgets.QTabWidget(Form)
@@ -28,33 +35,161 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.tabWidget.setFont(font)
-        self.tabWidget.setStyleSheet("QPushButton {\n"
-"    border-style:none;\n"
-"    padding:10px;\n"
-"    border-radius:8px;\n"
-"    color:#FFFFFF;\n"
-"    background:#34495E;\n"
+        self.tabWidget.setStyleSheet("QTabWidget::pane {\n"
+"    border-color: #cccccc;\n"
 "}\n"
-"QPushButton:hover {\n"
-"    color:#4E6D8C;\n"
-"    background:#e5e5e5;\n"
-"    border:2px solid #34495E;\n"
+"QTabBar::tab {\n"
+"    min-width:90px;\n"
+"    color: #333333;\n"
+"    border: 2px solid;\n"
+"    padding:2px;\n"
+"    border-radius:5px;\n"
+"    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.494737 rgba(220, 220, 220, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"    border-color:rgb(220, 220, 220);\n"
+"    margin-right:2px;\n"
 "}\n"
-"QPushButton:pressed {\n"
-"    color:#000000;\n"
-"    background:#B8C6D1;\n"
+"\n"
+"QTabBar::tab:selected{\n"
+"    /*min-width:120px;\n"
+"    margin-left:50px;\n"
+"    margin-right:50px;\n"
+"    min-height:40px;*/\n"
+"    color: #1296DB;\n"
+"    border-top: 2px solid;\n"
+"    border-color: white;\n"
+"    border-top-color:#1296DB;\n"
+"    background-color:white;\n"
+"}\n"
+"QTabBar::tab:hover {\n"
+"    color:#1296DB;\n"
+"}\n"
+"\n"
+"QCheckBox {\n"
+"    padding: 2px;margin: 2px;\n"
+"    background:Transparent;\n"
+"}\n"
+"QCheckBox::indicator {\n"
+"    width: 15px;\n"
+"    height: 15px;\n"
+"}\n"
+"QCheckBox::indicator:unchecked {\n"
+"    border-radius:4px;\n"
+"    border-style:solid;\n"
+"    border-width:2px;\n"
+"    border-color:#34495E;\n"
+"      background-color:rgb(255,255,255);\n"
+"}\n"
+"QCheckBox::indicator:checked {\n"
+"    border-radius:4px;\n"
+"    border-style:solid;\n"
+"    border-width:2px;\n"
+"    border-color:#0078d7; \n"
+"    image: url(:/mainui/icon/selected.png);\n"
+"}\n"
+"QCheckBox::indicator:hover{\n"
+"    border-color:#0078d7; \n"
+"}\n"
+"QCheckBox:hover {\n"
+"    color:rgb(0, 0, 216);\n"
+"}\n"
+"\n"
+"/*\n"
+" * SpinBox \n"
+" */\n"
+"QSpinBox {\n"
+"    border-style:solid;\n"
+"    border-width:2px;\n"
+"    border-radius:6px;\n"
+"    border-color:#34495E;\n"
+"    padding-left:3px;\n"
+"    padding-right:3px;\n"
+"    margin: 1px;\n"
+"}\n"
+"QSpinBox:hover{\n"
+"    color:rgb(0, 0, 216);\n"
+"    border-color:#0078d7;\n"
+"}\n"
+"QSpinBox::up-button {\n"
+"    padding:1px;\n"
+"    background-color:transparent;\n"
+"}\n"
+"QSpinBox::down-button {\n"
+"    padding:1px;\n"
+"    background-color:transparent;\n"
+"}\n"
+"QSpinBox::down-button {\n"
+"    padding:1px;\n"
+"    background-color:transparent;\n"
+"}\n"
+"/* 向上箭头*/\n"
+"QSpinBox::up-arrow {\n"
+"    image:url(:/mainui/icon/up1.png);\n"
+"    height: 15px;\n"
+"}\n"
+"QSpinBox::up-arrow:hover {\n"
+"    \n"
+"    image: url(:/mainui/icon/up0.png);\n"
+"    height: 15px;\n"
+"}\n"
+"QSpinBox::up-arrow:pressed {\n"
+"    \n"
+"    image: url(:/mainui/icon/up0.png);\n"
+"    height: 13px;\n"
+"}\n"
+"/*向下箭头*/\n"
+"QSpinBox::down-arrow {\n"
+"    image: url(:/mainui/icon/down1.png);\n"
+"    height: 15px;\n"
+"}\n"
+"QSpinBox::down-arrow:hover {\n"
+"    image: url(:/mainui/icon/down0.png);\n"
+"    height: 15px;\n"
+"}\n"
+"QSpinBox::down-arrow:pressed {\n"
+"    image: url(:/mainui/icon/down0.png);\n"
+"    height: 13px;\n"
+"}\n"
+"/*\n"
+" * groupbox\n"
+" */\n"
+"QGroupBox {\n"
+"    background-color:#E5E5E5;\n"
+"    border-color:#E5E5E5;\n"
+"    border-radius:20px;\n"
+"    padding:3px;\n"
+"    margin:5px;\n"
+"}\n"
+"QGroupBox:hover {\n"
+"    background-color:#e6e6e6;\n"
+"    padding:5px;\n"
+"}\n"
+"QGroupBox::title {\n"
+"    color: rgb(0, 0, 0);\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    left:10px;\n"
+"    top:10px;\n"
+"    padding: 0px;\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"    background:Transparent;\n"
 "}\n"
 "")
+        self.tabWidget.setTabPosition(QtWidgets.QTabWidget.South)
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
+        self.tabWidget.setUsesScrollButtons(True)
+        self.tabWidget.setMovable(True)
+        self.tabWidget.setTabBarAutoHide(True)
         self.tabWidget.setObjectName("tabWidget")
-        self.tab = QtWidgets.QWidget()
-        self.tab.setObjectName("tab")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.tab)
+        self.tab0 = QtWidgets.QWidget()
+        self.tab0.setObjectName("tab0")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.tab0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.le_filiter = QtWidgets.QLineEdit(self.tab)
+        self.le_filiter = QtWidgets.QLineEdit(self.tab0)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -66,7 +201,7 @@ class Ui_Form(object):
         self.le_filiter.setStyleSheet("QLineEdit {\n"
 "    border-style:none;\n"
 "    padding:3px;\n"
-"    border-radius:5px;\n"
+"    border-radius:11px;\n"
 "    border:2px solid #DCE4EC;\n"
 "    background:rgb(255, 255, 255);\n"
 "}\n"
@@ -79,7 +214,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.le_filiter)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-        self.comboBox = QtWidgets.QComboBox(self.tab)
+        self.comboBox = QtWidgets.QComboBox(self.tab0)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.comboBox.setFont(font)
@@ -111,7 +246,36 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.comboBox)
         spacerItem1 = QtWidgets.QSpacerItem(380, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
-        self.pbt_setting = QtWidgets.QPushButton(self.tab)
+        self.pbt_about = QtWidgets.QPushButton(self.tab0)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pbt_about.sizePolicy().hasHeightForWidth())
+        self.pbt_about.setSizePolicy(sizePolicy)
+        self.pbt_about.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pbt_about.setToolTipDuration(0)
+        self.pbt_about.setStyleSheet("QPushButton\n"
+"{\n"
+"    padding:5px;\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/ab1.png);\n"
+"    padding-left:4px;\n"
+"}\n"
+"QPushButton:hover\n"
+"{\n"
+"    border: 0px;\n"
+"    background-color:transparent;\n"
+"    image: url(:/mainui/icon/ab0.png);\n"
+"}\n"
+"QPushButton:pressed\n"
+"{\n"
+"    padding:6px;\n"
+"}")
+        self.pbt_about.setText("")
+        self.pbt_about.setObjectName("pbt_about")
+        self.horizontalLayout_2.addWidget(self.pbt_about)
+        self.pbt_setting = QtWidgets.QPushButton(self.tab0)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -120,20 +284,28 @@ class Ui_Form(object):
         self.pbt_setting.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_setting.setStyleSheet("QPushButton\n"
 "{\n"
+"    padding:5px;\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
-"    image: url(:/mainui/icon/setting2.png);\n"
+"    \n"
+"    image: url(:/mainui/icon/set1.png);\n"
+"    padding-left:4px;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
-"    image:url(:/mainui/icon/setting.png);\n"
+"    \n"
+"    image: url(:/mainui/icon/set0.png);\n"
+"}\n"
+"QPushButton:pressed\n"
+"{\n"
+"    padding:6px;\n"
 "}")
         self.pbt_setting.setText("")
         self.pbt_setting.setObjectName("pbt_setting")
         self.horizontalLayout_2.addWidget(self.pbt_setting)
-        self.pushButton = QtWidgets.QPushButton(self.tab)
+        self.pushButton = QtWidgets.QPushButton(self.tab0)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -144,21 +316,27 @@ class Ui_Form(object):
         self.pushButton.setAutoFillBackground(False)
         self.pushButton.setStyleSheet("QPushButton\n"
 "{\n"
+"    padding:5px;\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/delete1.png);\n"
+"    padding-left:4px;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/delete.png);\n"
+"}\n"
+"QPushButton:pressed\n"
+"{\n"
+"    padding:6px;\n"
 "}")
         self.pushButton.setText("")
         self.pushButton.setIconSize(QtCore.QSize(23, 23))
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_2.addWidget(self.pushButton)
-        self.pbt_add = QtWidgets.QPushButton(self.tab)
+        self.pbt_add = QtWidgets.QPushButton(self.tab0)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -173,19 +351,25 @@ class Ui_Form(object):
 "    border: 0px;\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/add.png);\n"
+"    padding:5px;\n"
+"    padding-left:4px;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/add1.png);\n"
+"}\n"
+"QPushButton:pressed\n"
+"{\n"
+"    padding:6px;\n"
 "}")
         self.pbt_add.setText("")
         self.pbt_add.setIconSize(QtCore.QSize(23, 23))
         self.pbt_add.setObjectName("pbt_add")
         self.horizontalLayout_2.addWidget(self.pbt_add)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
-        self.table = QtWidgets.QTableWidget(self.tab)
+        self.table = QtWidgets.QTableWidget(self.tab0)
         self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.table.setStyleSheet("QTableWidget {\n"
 "    color:#34495E;\n"
@@ -193,9 +377,11 @@ class Ui_Form(object):
 "    border:1px solid #b6b6b6;\n"
 "    alternate-background-color:#d2d2d2;\n"
 "    gridline-color:#ffffff;\n"
+"    font-family:\'consolas,Microsoft YaHei\';\n"
+"    font-size:10pt;\n"
 "}\n"
 "QTableWidget::item{\n"
-"    border-radius:4px;\n"
+"    border-radius:6px;\n"
 "}\n"
 "QTableWidget::item:selected{\n"
 "color:#ffffff;\n"
@@ -249,7 +435,8 @@ class Ui_Form(object):
         self.table.setAlternatingRowColors(True)
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        self.table.setTextElideMode(QtCore.Qt.ElideMiddle)
+        self.table.setTextElideMode(QtCore.Qt.ElideRight)
+        self.table.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
         self.table.setGridStyle(QtCore.Qt.SolidLine)
         self.table.setObjectName("table")
         self.table.setColumnCount(6)
@@ -305,16 +492,20 @@ class Ui_Form(object):
         self.table.setHorizontalHeaderItem(5, item)
         self.table.horizontalHeader().setVisible(True)
         self.table.horizontalHeader().setCascadingSectionResizes(True)
-        self.table.horizontalHeader().setDefaultSectionSize(125)
-        self.table.horizontalHeader().setMinimumSectionSize(125)
+        self.table.horizontalHeader().setDefaultSectionSize(140)
+        self.table.horizontalHeader().setMinimumSectionSize(100)
         self.table.horizontalHeader().setSortIndicatorShown(True)
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.verticalHeader().setVisible(False)
-        self.table.verticalHeader().setDefaultSectionSize(43)
+        self.table.verticalHeader().setDefaultSectionSize(40)
         self.table.verticalHeader().setHighlightSections(True)
         self.table.verticalHeader().setStretchLastSection(False)
         self.verticalLayout.addWidget(self.table)
-        self.tabWidget.addTab(self.tab, "")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/mainui/icon/mgr1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(":/mainui/icon/mgr0.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap(":/mainui/icon/mgr0.png"), QtGui.QIcon.Selected, QtGui.QIcon.Off)
+        self.tabWidget.addTab(self.tab0, icon1, "")
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
@@ -329,6 +520,8 @@ class Ui_Form(object):
         self.comboBox.setItemText(1, _translate("Form", "名称"))
         self.comboBox.setItemText(2, _translate("Form", "账号"))
         self.comboBox.setItemText(3, _translate("Form", "邮箱/电话"))
+        self.pbt_about.setToolTip(_translate("Form", "关于"))
+        self.pbt_setting.setToolTip(_translate("Form", "设置"))
         self.pushButton.setToolTip(_translate("Form", "删除项"))
         self.pushButton.setShortcut(_translate("Form", "Del"))
         self.pbt_add.setToolTip(_translate("Form", "添加项"))
@@ -346,5 +539,5 @@ class Ui_Form(object):
         item.setText(_translate("Form", "邮箱/电话"))
         item = self.table.horizontalHeaderItem(5)
         item.setText(_translate("Form", "备注"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Form", "密码管理"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab0), _translate("Form", "密码管理"))
 import gui.src.icons_rc

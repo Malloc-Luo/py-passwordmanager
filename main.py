@@ -10,6 +10,7 @@ from AddItemUi import AddItemUi
 from Login import LoginUi, SigninUi
 from DataBase import DataBase
 from Common import is_first_to_use
+from Setting import Setting
 
 
 class Main(QObject):
@@ -20,7 +21,6 @@ class Main(QObject):
         self.ui_mainW = MainGUI()
         self.database = DataBase()
         self.timer = QTimer()
-        self.timeForClose = 60000 * 3
         self.ui_siginW = None
         self.init_connect()
         # 子窗口是否被打开
@@ -43,6 +43,11 @@ class Main(QObject):
         self.database.filiteResSignal.connect(self.ui_mainW.get_filite_id)
         # self.ui_loginW.sendDBNameSignal.connect(self.database.get_db_name)
         self.ui_loginW.sendDBRenameSignal.connect(self.database.get_new_name)
+        self.ui_loginW.broadcastSettingSignal.connect(self.ui_mainW.get_setting)
+        self.ui_loginW.broadcastSettingSignal.connect(self.database.get_setting)
+        self.ui_mainW.ui_settingW.broadcastSettingSignal.connect(self.database.get_setting)
+        self.ui_loginW.broadcastSettingSignal.connect(self.get_setting)
+        self.ui_mainW.ui_settingW.broadcastSettingSignal.connect(self.get_setting)
 
     def start(self):
         # 如果是第一次用这个程序
@@ -84,6 +89,9 @@ class Main(QObject):
         if state == True:
             self.ui_mainW.addItemUi.installEventFilter(self)
 
+    def get_setting(self, setting:Setting):
+        self.setting = setting
+        self.timeForClose = self.setting.autoLockTime * 60000
 
 
 def main():

@@ -5,6 +5,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
 from gui.Ui_AddItem import Ui_Dialog
 from UserItem import UserItem
 from GenPasswordUi import GenPasswordUi
+from TipUi import TipUi
 import time
 import sys
 
@@ -22,7 +23,8 @@ class AddItemUi(QWidget):
         self.ui.pbt_add.setDisabled(True)
         self.ui_genW = GenPasswordUi()
         self.set_connect_slot()
-        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        # self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.subWCreated = False
 
     def set_connect_slot(self):
         self.ui.pbt_cancel.clicked.connect(self.close)
@@ -55,17 +57,35 @@ class AddItemUi(QWidget):
         self.userItemSignal.emit(item)
 
     def gen_password(self):
-        self.ui_genW = GenPasswordUi()
+        # self.ui_genW = GenPasswordUi()
+        # 子窗口被创建
+        self.subWCreated = True
+        # 连接槽函数
         self.ui_genW.sendSignel.connect(self.add_password)
+        self.ui_genW.tellSupWClosed.connect(self.subW_closed_notify)
         self.ui_genW.show()
 
     def add_password(self, pswd):
         self.ui.le_password.setText(pswd)
+        self.tip = TipUi('已复制密码')
+        self.tip.show()
+
+    def subW_closed_notify(self):
+        # 子窗口被关闭的时候接收到信号
+        self.subWCreated = False
 
     def closeEvent(self, event):
-        """ 窗口关闭事件
-        """
+        # 关闭窗口事件，发送关闭信号
         self.closeSubWSignal.emit()
+
+    def hideEvent(self, event):
+        if self.subWCreated == True:
+            self.ui_genW.hide()
+    
+    def showEvent(self, event):
+        # 显示事件，如果子窗口被打开了则显示子窗口
+        if self.subWCreated == True:
+            self.ui_genW.show()
 
 
 if __name__ == '__main__':

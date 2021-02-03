@@ -70,9 +70,4 @@ class UserItem(object):
     def __str__(self):
         return ('id: %s\nname: %s\naccount: %s\npassword: %s\nemail/phone: %s\nnote: %s\n'
                 % (self.id, self.name, self.account, self.password, self.email_or_phone, self.note))
-
-
-if __name__ == '__main__':
-    user = UserItem('12345', '1231', '24230', '******', '465456', '4654')
-    print(user['name'])
-    print(user)
+                

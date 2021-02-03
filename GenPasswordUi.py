@@ -4,12 +4,14 @@ from PyQt5.QtWidgets import QDialog, QApplication, QWidget
 from PyQt5.QtCore import pyqtSignal, Qt
 from gui.Ui_GenPasswordUi import Ui_GenPassword
 from random import randint, shuffle
+from TipUi import TipUi
 import secrets, string
 import sys
 
 
 class GenPasswordUi(QWidget):
     sendSignel = pyqtSignal(str)
+    tellSupWClosed = pyqtSignal()
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_GenPassword()
@@ -25,6 +27,8 @@ class GenPasswordUi(QWidget):
 
     def sure_pressed(self):
         self.sendSignel.emit(self.genPswd)
+        clipboard = QApplication.clipboard()
+        clipboard.setText(self.genPswd)
         self.close()
 
     def check_checked_box(self):
@@ -36,13 +40,13 @@ class GenPasswordUi(QWidget):
         self.content, pswd = {}, []
         maxl = self.ui.spb_maxl.value()
         minl = self.ui.spb_minl.value()
-        self.length = randint(min(maxl, minl), max(maxl, minl))
         self.content['uppercase'] = self.ui.cbx_uppercase.isChecked()
         self.content['lowercase'] = self.ui.cbx_lowercase.isChecked()
         self.content['digital'] = self.ui.cbx_digital.isChecked()
         self.content['char'] = self.ui.cbx_char.isChecked()
         # 选中的项数
         kind = sum(self.content.values())
+        self.length = randint(max(min(maxl, minl), kind), max(maxl, minl, kind))
 
         lengths = self.split_number(self.length, kind)
         index = 0
@@ -75,9 +79,5 @@ class GenPasswordUi(QWidget):
         lengths.append(rlength - sum(lengths))
         return lengths
 
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    w = GenPasswordUi()
-    w.show()
-    sys.exit(app.exec_())
+    def closeEvent(self, event):
+        self.tellSupWClosed.emit()

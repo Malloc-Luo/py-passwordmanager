@@ -4,6 +4,8 @@ QPushButton {
     border-radius:8px;
     color:#FFFFFF;
     background:#34495E;
+    font-family: 'Microsoft YaHei Ui';
+    font-size: 10pt;
 }
 QPushButton:hover {
     color:#4E6D8C;

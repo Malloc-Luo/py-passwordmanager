@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 import sys, os
 from PyQt5.QtCore import QObject, pyqtSignal
-import sqlite3 as sql
+from Setting import Setting
 from UserItem import UserItem
 from Common import dbAbsPath
-import re
+import sqlite3 as sql
+import time, re
 
 
 class DataBase(QObject):
@@ -32,6 +33,12 @@ class DataBase(QObject):
             self.dbcur.close()
             self.dbcon.commit()
             self.dbcon.close()
+        if self.setting.autoBackup == True:
+            path = dbAbsPath + 'backup'
+            if os.path.exists(path) == False:
+                # 备份文件路径，看文件夹是否存在
+                os.makedirs(path)
+            os.popen('copy %s %s' % (dbAbsPath + self.name, path + str(int(time.time())) + '.db.bk'))
             # os.rename(self.name, self.newName)
 
     def check_table_exists(self):
@@ -40,11 +47,11 @@ class DataBase(QObject):
         # 检查数据表是否存在，不存在则创建一个
         self.dbcur.execute('''create table if not exists 
                               userdata(id varchar(20) primary key not null,
-                                        name text not null,
-                                        account varchar(256) not null,
-                                        password varchar(256) not null,
-                                        email_or_phone varchar(150),
-                                        note text);
+                                    name text not null,
+                                    account varchar(256) not null,
+                                    password varchar(256) not null,
+                                    email_or_phone varchar(150),
+                                    note text);
         ''')
         self.dbcon.commit()
 
@@ -63,7 +70,6 @@ class DataBase(QObject):
         self.check_table_exists()
 
     def add_useritem(self, useritem:UserItem):
-        print('add')
         # 插入一条useritem
         try:
             self.dbcur.execute('''
@@ -90,11 +96,8 @@ class DataBase(QObject):
             print('delete error: ', e)
 
     def load_items(self):
-        print('load')
         try:
-            self.dbcur.execute('''
-            select * from userdata;
-            ''')
+            self.dbcur.execute('select * from userdata;')
             self.dbcon.commit()
             buff = self.dbcur.fetchall()
             # 将列表转换成字典
@@ -109,8 +112,7 @@ class DataBase(QObject):
         try:
             self.dbcur.execute('''
             update userdata
-            set {}=?
-            where id = ?;
+            set {}=? where id = ?;
             '''.format(item), (value, ID))
             self.dbcon.commit()
         except sql.OperationalError as e:
@@ -122,21 +124,36 @@ class DataBase(QObject):
 
     def filite_useritem(self, item:str, descript:str):
         try:
-            if item == '*':
-                self.dbcur.execute('''
-                select id
-                from userdata
-                where name regexp '{}' or account regexp '{}' or email_or_phone regexp '{}';
-                '''.format(descript, descript, descript))
+            if self.setting.useRegExpFilite == True:
+                # 使用正则表达式搜索
+                if item == '*':
+                    self.dbcur.execute('''
+                    select id from userdata
+                    where name regexp '{}' or account regexp '{}' or email_or_phone regexp '{}';
+                    '''.format(descript, descript, descript))
+                else:
+                    self.dbcur.execute('''
+                    select id from userdata
+                    where {} regexp '{}';
+                    '''.format(item, descript))
             else:
-                self.dbcur.execute('''
-                select id
-                from userdata
-                where {} regexp '{}';
-                '''.format(item, descript))
+                # 仅使用关键字搜索
+                if item == '*':
+                    self.dbcur.execute('''
+                    select id from userdata
+                    where name like '%{}%' or account like '%{}%' or  email_or_phone like '%{}%';
+                    '''.format(descript, descript, descript))
+                else:
+                    self.dbcur.execute('''
+                    select id from userdata
+                    where {} like '%{}%';
+                    '''.format(item, descript))
             # 获取查询结果
             buff = self.dbcur.fetchall()
             buff = [b[0] for b in buff]
             self.filiteResSignal.emit(buff)
         except sql.OperationalError as e:
             print('filite error: ', e)
+
+    def get_setting(self, setting:Setting):
+        self.setting = setting

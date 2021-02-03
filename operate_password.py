@@ -7,7 +7,6 @@
 4. 得到的结果根据asiic表转换成字符合成字符串作为密文
 5. 解码时执行1~4操作，但2需要保存密码换成密文
 """
-
 from hashlib import sha256
 from random import randint
 from functools import reduce
@@ -62,16 +61,3 @@ def decrypt_password(encryptText:str, keytext:str) -> str:
     decryptText = list(map(lambda x, y: x ^ y, encryptTextList, key))
     # 去掉中间的空格
     return reduce(lambda x, y: x + y, [chr(i) for i in decryptText]).replace('\t', '')
-
-
-
-if __name__ == '__main__':
-
-    keypswd = '12345678910'
-    pswd = 'Helloworld2'
-
-    s = encrypt_password(pswd, keypswd)
-    print(s)
-
-    d = decrypt_password(s, '12345678910')
-    print(d)

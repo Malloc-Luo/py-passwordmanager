@@ -23,7 +23,7 @@ class Ui_Login(object):
         Login.setMinimumSize(QtCore.QSize(400, 310))
         Login.setMaximumSize(QtCore.QSize(450, 400))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("d:\\FileBox\\Code\\Python\\PasswordManager\\py-passwordmanager\\gui\\src/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Login.setWindowIcon(icon)
         Login.setStyleSheet("background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(255, 255, 249, 247), stop:1 rgba(224, 254, 255, 255));")
         self.lineEdit = QtWidgets.QLineEdit(Login)
@@ -34,7 +34,7 @@ class Ui_Login(object):
         sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
         self.lineEdit.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setFamily("Microsoft YaHei UI")
+        font.setFamily("Microsoft YaHei")
         font.setPointSize(9)
         font.setBold(False)
         font.setWeight(50)
@@ -104,6 +104,9 @@ class Ui_Login(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pbt_warning.sizePolicy().hasHeightForWidth())
         self.pbt_warning.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.pbt_warning.setFont(font)
         self.pbt_warning.setStyleSheet("color:red;\n"
 "")
         self.pbt_warning.setFlat(True)
@@ -119,3 +122,4 @@ class Ui_Login(object):
         self.pushButton.setText(_translate("Login", "进入"))
         self.pushButton.setShortcut(_translate("Login", "Enter"))
         self.pbt_warning.setText(_translate("Login", "密码错误!!"))
+import gui.src.icons_rc

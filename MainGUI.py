@@ -6,10 +6,12 @@ from PyQt5.QtGui import QIcon, QCursor
 from gui.Ui_MainGUI import Ui_Form
 from AddItemUi import AddItemUi
 from UserItem import UserItem
+from Setting import Setting, SettingUi
+from AboutUi import AboutUi
 from Common import read_qss
+from TipUi import TipUi
 import operate_password as op
 import sys
-from TipUi import TipUi
 
 
 class MainGUI(QWidget):
@@ -32,40 +34,49 @@ class MainGUI(QWidget):
         super().__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        # 构造ui界面
         self.addItemUi = AddItemUi()
+        self.ui_settingW = SettingUi()
+        self.ui_aboutW = None
+        # 项目字典，key是id，value为userItem对象
         self.itemList = {}
         # 单元格是否双击选中
         self.cellclicked = False
-        # 设置表格
+        # 设置表格的样式和属性
         self.set_tableWidget()
-        self.ui.tabWidget.removeTab(1)
-        self.ui.tabWidget.setTabBarAutoHide(True)
-        # 开启鼠标捕获
+        # 开启鼠标捕获，在表格里显示tooltips
         self.ui.table.setMouseTracking(True)
-        # self.setWindowFlags(Qt.CustomizeWindowHint | Qt.FramelessWindowHint)
+        # 槽函数初始化连接（主要的）
         self.init_connect()
 
     def init_connect(self):
         self.ui.pbt_add.clicked.connect(self.add_item_ui)
         self.ui.pushButton.clicked.connect(self.remove_line)
-        self.ui.pbt_setting.clicked.connect(self.call_setting_ui)
         self.ui.le_filiter.cursorPositionChanged.connect(self.filite_item)
         self.ui.comboBox.currentTextChanged.connect(self.filite_item)
-        # self.ui.table.clicked.connect(self.view_item)
         self.ui.table.cellChanged.connect(self.edit_item)
         self.ui.table.cellDoubleClicked.connect(self.select_edit_item)
         self.ui.table.currentCellChanged.connect(self.view_item_changed)
+        self.ui.pbt_setting.clicked.connect(self.call_setting_ui)
+        self.ui.pbt_about.clicked.connect(self.call_about_ui)
         # 添加右键菜单
         self.ui.table.customContextMenuRequested.connect(self.create_right_menu)
         self.ui.table.cellEntered.connect(self.set_tool_tips)
+        # 获取设置
+        self.ui_settingW.broadcastSettingSignal.connect(self.get_setting)
 
     def set_tableWidget(self):
         self.ui.table.setColumnHidden(0, True)
         self.ui.table.setColumnHidden(6, True)
         self.ui.table.setColumnHidden(7, True)
-        width = self.ui.table.width()
-        for i in range(1, 6):
-            self.ui.table.horizontalHeader().setSectionResizeMode(i, QHeaderView.ResizeToContents)
+        self.ui.table.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.ui.table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
+        self.ui.table.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+        self.ui.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.Stretch)
+        self.ui.table.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeToContents)
+        # self.ui.table.setVerticalHeader()
+        self.ui.table.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
+        self.ui.table.verticalHeader().setDefaultSectionSize(40)
 
     def refresh_table(self):
         # 刷新表格，发送信号到数据库重新加载
@@ -87,12 +98,15 @@ class MainGUI(QWidget):
     # 内部的槽函数
     def call_setting_ui(self):
         # 点击设置按键
-        self.tip = TipUi('功能尚未开放')
-        self.tip.show()
+        self.ui_settingW.show()
+
+    def call_about_ui(self):
+        self.ui_aboutW = AboutUi()
+        self.ui_aboutW.show()
 
     def set_tool_tips(self, r, c):
         item = self.ui.table.item(r, c)
-        if item is not None:
+        if item is not None and self.setting.showToolTips == True:
             QToolTip.showText(QCursor.pos(), item.text())
 
     # 右键菜单动作槽函数
@@ -126,20 +140,20 @@ class MainGUI(QWidget):
         self.actionCopyEmail = QAction(QIcon('gui/src/icon/connect.png'), u'复制邮箱/电话', self)
         self.actionDelete = QAction(QIcon('gui/src/icon/delete1.png'), u'删除', self)
         self.actionAdd = QAction(QIcon('gui/src/icon/add.png'), u'新建', self)
-
+        # 添加按键到右键菜单
         self.tableMenu.addAction(self.actionCopyAccount)
         self.tableMenu.addAction(self.actionCopyPassword)
         self.tableMenu.addAction(self.actionCopyEmail)
         self.tableMenu.addAction(self.actionDelete)
         self.tableMenu.addAction(self.actionAdd)
         self.tableMenu.popup(QCursor.pos())
-
+        # 检查是否可用
         row = self.ui.table.currentRow()
         self.actionCopyAccount.setDisabled(row == -1)
         self.actionCopyEmail.setDisabled(row == -1)
         self.actionCopyPassword.setDisabled(row == -1)
         self.actionDelete.setDisabled(row == -1)
-
+        # 连接槽函数
         self.actionCopyAccount.triggered.connect(self.action_copy_account)
         self.actionCopyPassword.triggered.connect(self.action_copy_password)
         self.actionCopyEmail.triggered.connect(self.action_copy_email)
@@ -171,17 +185,15 @@ class MainGUI(QWidget):
         # 发送删除信息
         r = self.ui.table.currentRow()
         if r != -1:
-            msg = QMessageBox.information(self, '删除选项', '\t是否删除所选项？', QMessageBox.Cancel | QMessageBox.Yes, QMessageBox.Yes)
-            if msg == QMessageBox.Yes:
-                # 发送删除信号，为删除项的ID
+            if self.setting.applyBeforeDel == True:
+                msg = QMessageBox.information(self, '删除选项', '\t是否删除所选项？', QMessageBox.Cancel | QMessageBox.Yes, QMessageBox.Yes)
+                if msg == QMessageBox.Yes:
+                    # 发送删除信号，为删除项的ID
+                    ID = self.ui.table.item(r, 0).text()
+                    self.deleteItemSignal.emit(ID)
+            else:
                 ID = self.ui.table.item(r, 0).text()
                 self.deleteItemSignal.emit(ID)
-
-    # def view_item(self):
-    #     row = self.ui.table.currentRow()
-    #     # 获取选中行的id
-    #     ID = self.ui.table.item(row, 0).text()
-    #     self.ui.table.item(row, 3).setText(self.itemList[ID].plaintext)
 
     def view_item_changed(self, cr, cc, pr, pc):
         """ 查看项目变化        
@@ -242,7 +254,9 @@ class MainGUI(QWidget):
             ...
 
     # 对外的槽函数
+    # 在main.py里连接别的窗口的信号
     def get_add_res(self, issuccess:bool):
+        # 获取添加的结果，如果添加成功则为真，否则为False
         if issuccess == True:
             self.tip = TipUi('添加成功')
             self.tip.show()
@@ -286,6 +300,11 @@ class MainGUI(QWidget):
         # 发送信号加载项目
         self.loadItemSignal.emit()
 
+    def get_setting(self, setting:Setting):
+        # 获取设置
+        self.setting = setting
+        # 决定行号是否可见
+        self.ui.table.verticalHeader().setVisible(self.setting.showLineIndex)
 
 
 if __name__ == '__main__':

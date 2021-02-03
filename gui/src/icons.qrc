@@ -1,5 +1,18 @@
 <RCC>
   <qresource prefix="mainui">
+    <file>icon/ab0.png</file>
+    <file>icon/ab1.png</file>
+    <file>icon/mgr0.png</file>
+    <file>icon/mgr1.png</file>
+    <file>icon/set0.png</file>
+    <file>icon/set1.png</file>
+    <file>icon/about.png</file>
+    <file>icon/code0.png</file>
+    <file>icon/code1.png</file>
+    <file>icon/help0.png</file>
+    <file>icon/help1.png</file>
+    <file>icon/update0.png</file>
+    <file>icon/update1.png</file>
     <file>icon/gen1.png</file>
     <file>icon/gen2.png</file>
     <file>icon/down0.png</file>
@@ -7,8 +20,6 @@
     <file>icon/up0.png</file>
     <file>icon/up1.png</file>
     <file>icon/selected.png</file>
-    <file>icon/setting2.png</file>
-    <file>icon/setting.png</file>
     <file>icon/MainIcon.ico</file>
     <file>icon/secondmainicon.png</file>
     <file>icon/add.png</file>
@@ -16,7 +27,4 @@
     <file>icon/delete.png</file>
     <file>icon/delete1.png</file>
   </qresource>
-  <!-- <qresource prefix="qss">
-    <file>qss/QPushButton.qss</file>
-  </qresource> -->
 </RCC>

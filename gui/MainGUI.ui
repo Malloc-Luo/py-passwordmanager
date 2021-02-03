@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>933</width>
-    <height>752</height>
+    <width>960</width>
+    <height>780</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,14 @@
     <normaloff>:/mainui/icon/MainIcon.ico</normaloff>:/mainui/icon/MainIcon.ico</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background:rgb(248, 248, 248);</string>
+   <string notr="true">QWidget {background:rgb(248, 248, 248);}
+
+QToolTip{
+	border:0px solid rgb(118, 118, 118); 
+	background-color: #ffffff;
+	color:#484848; 
+}
+</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -32,23 +39,150 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-    border-style:none;
-    padding:10px;
-    border-radius:8px;
-    color:#FFFFFF;
-    background:#34495E;
+      <string notr="true">QTabWidget::pane {
+    border-color: #cccccc;
 }
-QPushButton:hover {
-    color:#4E6D8C;
-    background:#e5e5e5;
-	border:2px solid #34495E;
+QTabBar::tab {
+    min-width:90px;
+    color: #333333;
+    border: 2px solid;
+	padding:2px;
+	border-radius:5px;
+	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.494737 rgba(220, 220, 220, 255), stop:1 rgba(255, 255, 255, 255));
+	border-color:rgb(220, 220, 220);
+	margin-right:2px;
 }
-QPushButton:pressed {
-    color:#000000;
-    background:#B8C6D1;
+
+QTabBar::tab:selected{
+    /*min-width:120px;
+    margin-left:50px;
+    margin-right:50px;
+    min-height:40px;*/
+    color: #1296DB;
+    border-top: 2px solid;
+    border-color: white;
+	border-top-color:#1296DB;
+	background-color:white;
+}
+QTabBar::tab:hover {
+	color:#1296DB;
+}
+
+QCheckBox {
+    padding: 2px;margin: 2px;
+	background:Transparent;
+}
+QCheckBox::indicator {
+    width: 15px;
+    height: 15px;
+}
+QCheckBox::indicator:unchecked {
+    border-radius:4px;
+	border-style:solid;
+	border-width:2px;
+	border-color:#34495E;
+  	background-color:rgb(255,255,255);
+}
+QCheckBox::indicator:checked {
+	border-radius:4px;
+	border-style:solid;
+	border-width:2px;
+	border-color:#0078d7; 
+	image: url(:/mainui/icon/selected.png);
+}
+QCheckBox::indicator:hover{
+	border-color:#0078d7; 
+}
+QCheckBox:hover {
+	color:rgb(0, 0, 216);
+}
+
+/*
+ * SpinBox 
+ */
+QSpinBox {
+	border-style:solid;
+	border-width:2px;
+	border-radius:6px;
+	border-color:#34495E;
+	padding-left:3px;
+	padding-right:3px;
+	margin: 1px;
+}
+QSpinBox:hover{
+	color:rgb(0, 0, 216);
+	border-color:#0078d7;
+}
+QSpinBox::up-button {
+    padding:1px;
+    background-color:transparent;
+}
+QSpinBox::down-button {
+    padding:1px;
+    background-color:transparent;
+}
+QSpinBox::down-button {
+    padding:1px;
+    background-color:transparent;
+}
+/* 向上箭头*/
+QSpinBox::up-arrow {
+	image:url(:/mainui/icon/up1.png);
+	height: 15px;
+}
+QSpinBox::up-arrow:hover {
+	
+	image: url(:/mainui/icon/up0.png);
+	height: 15px;
+}
+QSpinBox::up-arrow:pressed {
+	
+	image: url(:/mainui/icon/up0.png);
+	height: 13px;
+}
+/*向下箭头*/
+QSpinBox::down-arrow {
+	image: url(:/mainui/icon/down1.png);
+	height: 15px;
+}
+QSpinBox::down-arrow:hover {
+	image: url(:/mainui/icon/down0.png);
+	height: 15px;
+}
+QSpinBox::down-arrow:pressed {
+	image: url(:/mainui/icon/down0.png);
+	height: 13px;
+}
+/*
+ * groupbox
+ */
+QGroupBox {
+	background-color:#E5E5E5;
+	border-color:#E5E5E5;
+	border-radius:20px;
+	padding:3px;
+	margin:5px;
+}
+QGroupBox:hover {
+	background-color:#e6e6e6;
+	padding:5px;
+}
+QGroupBox::title {
+	color: rgb(0, 0, 0);
+	subcontrol-origin: margin;
+	subcontrol-position: top left;
+	left:10px;
+	top:10px;
+	padding: 0px;
+}
+
+QLabel {
+	background:Transparent;
 }
 </string>
+     </property>
+     <property name="tabPosition">
+      <enum>QTabWidget::South</enum>
      </property>
      <property name="tabShape">
       <enum>QTabWidget::Rounded</enum>
@@ -56,7 +190,22 @@ QPushButton:pressed {
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <property name="usesScrollButtons">
+      <bool>true</bool>
+     </property>
+     <property name="movable">
+      <bool>true</bool>
+     </property>
+     <property name="tabBarAutoHide">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="tab0">
+      <attribute name="icon">
+       <iconset resource="src/icons.qrc">
+        <normaloff>:/mainui/icon/mgr1.png</normaloff>
+        <normalon>:/mainui/icon/mgr0.png</normalon>
+        <selectedoff>:/mainui/icon/mgr0.png</selectedoff>:/mainui/icon/mgr1.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>密码管理</string>
       </attribute>
@@ -83,7 +232,7 @@ QPushButton:pressed {
             <string notr="true">QLineEdit {
 	border-style:none;
 	padding:3px;
-	border-radius:5px;
+	border-radius:11px;
 	border:2px solid #DCE4EC;
 	background:rgb(255, 255, 255);
 }
@@ -184,6 +333,48 @@ QComboBox QAbstractItemView {
           </spacer>
          </item>
          <item>
+          <widget class="QPushButton" name="pbt_about">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="toolTip">
+            <string>关于</string>
+           </property>
+           <property name="toolTipDuration">
+            <number>0</number>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+{
+	padding:5px;
+	border: 0px;
+	background-color:transparent;
+	image: url(:/mainui/icon/ab1.png);
+	padding-left:4px;
+}
+QPushButton:hover
+{
+	border: 0px;
+	background-color:transparent;
+	image: url(:/mainui/icon/ab0.png);
+}
+QPushButton:pressed
+{
+	padding:6px;
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="pbt_setting">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -194,18 +385,29 @@ QComboBox QAbstractItemView {
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
+           <property name="toolTip">
+            <string>设置</string>
+           </property>
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
+	padding:5px;
 	border: 0px;
 	background-color:transparent;
-	image: url(:/mainui/icon/setting2.png);
+	
+	image: url(:/mainui/icon/set1.png);
+	padding-left:4px;
 }
 QPushButton:hover
 {
 	border: 0px;
 	background-color:transparent;
-	image:url(:/mainui/icon/setting.png);
+	
+	image: url(:/mainui/icon/set0.png);
+}
+QPushButton:pressed
+{
+	padding:6px;
 }</string>
            </property>
            <property name="text">
@@ -236,15 +438,21 @@ QPushButton:hover
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
+	padding:5px;
 	border: 0px;
 	background-color:transparent;
 	image: url(:/mainui/icon/delete1.png);
+	padding-left:4px;
 }
 QPushButton:hover
 {
 	border: 0px;
 	background-color:transparent;
 	image: url(:/mainui/icon/delete.png);
+}
+QPushButton:pressed
+{
+	padding:6px;
 }</string>
            </property>
            <property name="text">
@@ -286,12 +494,18 @@ QPushButton:hover
 	border: 0px;
 	background-color:transparent;
 	image: url(:/mainui/icon/add.png);
+	padding:5px;
+	padding-left:4px;
 }
 QPushButton:hover
 {
 	border: 0px;
 	background-color:transparent;
 	image: url(:/mainui/icon/add1.png);
+}
+QPushButton:pressed
+{
+	padding:6px;
 }</string>
            </property>
            <property name="text">
@@ -322,9 +536,11 @@ QPushButton:hover
     border:1px solid #b6b6b6;
     alternate-background-color:#d2d2d2;
     gridline-color:#ffffff;
+	font-family:'consolas,Microsoft YaHei';
+	font-size:10pt;
 }
 QTableWidget::item{
-    border-radius:4px;
+    border-radius:6px;
 }
 QTableWidget::item:selected{
 color:#ffffff;
@@ -394,7 +610,10 @@ background:none;
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
          <property name="textElideMode">
-          <enum>Qt::ElideMiddle</enum>
+          <enum>Qt::ElideRight</enum>
+         </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
          </property>
          <property name="gridStyle">
           <enum>Qt::SolidLine</enum>
@@ -409,10 +628,10 @@ background:none;
           <bool>true</bool>
          </attribute>
          <attribute name="horizontalHeaderMinimumSectionSize">
-          <number>125</number>
+          <number>100</number>
          </attribute>
          <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>125</number>
+          <number>140</number>
          </attribute>
          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
           <bool>true</bool>
@@ -424,7 +643,7 @@ background:none;
           <bool>false</bool>
          </attribute>
          <attribute name="verticalHeaderDefaultSectionSize">
-          <number>43</number>
+          <number>40</number>
          </attribute>
          <attribute name="verticalHeaderHighlightSections">
           <bool>true</bool>

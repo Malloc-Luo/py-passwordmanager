@@ -17,6 +17,7 @@ from gui.Ui_SigninUi import Ui_Signin
 from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
 from PyQt5.QtCore import QEvent, QObject, QSize, pyqtSignal, QRegExp, Qt
 from PyQt5.QtGui import QHoverEvent, QMouseEvent
+from Setting import Setting
 import sqlite3 as sql
 import time
 import secrets
@@ -43,6 +44,8 @@ class LoginUi(QWidget):
     sendDBNameSignal = pyqtSignal(str)
     # 发送数据库重命名
     sendDBRenameSignal = pyqtSignal(str)
+    # 加载设置并广播
+    broadcastSettingSignal = pyqtSignal(Setting)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -105,6 +108,8 @@ class LoginUi(QWidget):
             self.sendSignal.emit(self.adminpswd)
             # 发送数据库的名字，用这个打开数据库
             self.sendDBNameSignal.emit(dbAbsPath + key[-15:] + '.db')
+            # 加载之后向外广播设置
+            self.broadcastSettingSignal.emit(Setting(dbAbsPath + '.settings'))
             # 验证成功可以登录，发送信号打开主界面
             self.loginSignal.emit(True)
             self.close()
@@ -169,12 +174,3 @@ class SigninUi(QWidget):
         else:
             ...
         self.ui.pbt_setting.setDisabled(not self.passby)
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    w = LoginUi()
-    # w = SigninUi()
-    w.show()
-    sys.exit(app.exec_())
-    # print(get_stamp(100))

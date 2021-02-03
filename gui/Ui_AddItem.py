@@ -100,6 +100,11 @@ class Ui_Dialog(object):
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 7, 0, 1, 1)
         self.lb_name_warning = QtWidgets.QLabel(Dialog)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lb_name_warning.sizePolicy().hasHeightForWidth())
+        self.lb_name_warning.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.lb_name_warning.setFont(font)
@@ -232,7 +237,7 @@ class Ui_Dialog(object):
         self.te_note.setStyleSheet("QTextEdit\n"
 "{\n"
 "    border-style:none;\n"
-"    padding:6px;\n"
+"    padding:4px;\n"
 "    border-radius:5px;\n"
 "    border:2px solid #DCE4EC;\n"
 "}\n"
@@ -243,6 +248,11 @@ class Ui_Dialog(object):
         self.te_note.setObjectName("te_note")
         self.gridLayout.addWidget(self.te_note, 9, 1, 1, 1)
         self.lb_account_warning = QtWidgets.QLabel(Dialog)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lb_account_warning.sizePolicy().hasHeightForWidth())
+        self.lb_account_warning.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.lb_account_warning.setFont(font)
@@ -298,6 +308,7 @@ class Ui_Dialog(object):
         self.label_6.setObjectName("label_6")
         self.horizontalLayout.addWidget(self.label_6)
         self.pbt_gen = QtWidgets.QPushButton(Dialog)
+        self.pbt_gen.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_gen.setStyleSheet("QPushButton {\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/gen2.png);\n"
@@ -325,14 +336,17 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "添加密码"))
         self.label.setText(_translate("Dialog", "备注"))
         self.label_2.setText(_translate("Dialog", "邮箱/电话"))
+        self.lb_name_warning.setToolTip(_translate("Dialog", "名称 为必填项"))
         self.lb_name_warning.setText(_translate("Dialog", "*"))
         self.label_3.setText(_translate("Dialog", "密码"))
         self.pbt_add.setText(_translate("Dialog", "添加"))
         self.pbt_add.setShortcut(_translate("Dialog", "Enter"))
         self.pbt_cancel.setText(_translate("Dialog", "取消"))
         self.label_4.setText(_translate("Dialog", "账号"))
+        self.lb_account_warning.setToolTip(_translate("Dialog", "账号 为必填项"))
         self.lb_account_warning.setText(_translate("Dialog", "*"))
         self.label_5.setText(_translate("Dialog", "名称"))
+        self.label_6.setToolTip(_translate("Dialog", "密码 为必填项"))
         self.label_6.setText(_translate("Dialog", "*"))
         self.pbt_gen.setToolTip(_translate("Dialog", "生成密码"))
 import gui.src.icons_rc
