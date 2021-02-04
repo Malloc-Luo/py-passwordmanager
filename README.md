@@ -5,6 +5,10 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.10.3
+
+*   修复数据备份的bug
+
 #### 0.10.2
 
 *   修复about界面的几个小bug

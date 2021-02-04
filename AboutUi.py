@@ -8,6 +8,7 @@ from TipUi import TipUi
 import gui.src.icons_rc
 import requests, re
 import sys
+import time
 
 
 class AboutUi(QDialog):
@@ -16,8 +17,8 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.10.0'
-        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.version = '0.10.3'
+        # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数
         self.ui.pbt_code.clicked.connect(self.open_source_code_website)
@@ -78,7 +79,9 @@ class AboutUi(QDialog):
             self.tip = TipUi('已是最新版本')
         elif diff[0] < 0 or (diff[0] == 0 and diff[1] < 0) or (diff[0] == 0 and diff[1] == 0 and diff[2] < 0):
             self.tip = TipUi('有新版本可用')
+            time.sleep(2)
             QDesktopServices.openUrl(QUrl('https://github.com/Malloc-Luo/py-passwordmanager/releases'))
+            self.close()
         self.tip.show()
 
     def call_help(self):

@@ -37,7 +37,7 @@ class MainGUI(QWidget):
         # 构造ui界面
         self.addItemUi = AddItemUi()
         self.ui_settingW = SettingUi()
-        self.ui_aboutW = None
+        self.ui_aboutW = AboutUi()
         # 项目字典，key是id，value为userItem对象
         self.itemList = {}
         # 单元格是否双击选中
@@ -74,24 +74,25 @@ class MainGUI(QWidget):
         self.ui.table.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
         self.ui.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.Stretch)
         self.ui.table.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeToContents)
-        # self.ui.table.setVerticalHeader()
         self.ui.table.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
         self.ui.table.verticalHeader().setDefaultSectionSize(40)
 
     def refresh_table(self):
-        # 刷新表格，发送信号到数据库重新加载
+        # 刷新表格，将当前表格清空，发送信号到数据库重新加载
         self.ui.table.clearContents()
         self.ui.table.setRowCount(0)
         self.loadItemSignal.emit()
 
     def write_into_clipboard(self, text:str):
+        # 写入到计算机剪贴板
         clipboard = QApplication.clipboard()
         clipboard.setText(text)
 
     def get_selected_id(self) -> str:
-        r = self.ui.table.currentRow()
-        if r != -1:
-            ID = self.ui.table.item(r, 0).text()
+        # 获取选中项目的id
+        row = self.ui.table.currentRow()
+        if row != -1:
+            ID = self.ui.table.item(row, 0).text()
             return ID
         return None
 
@@ -101,7 +102,6 @@ class MainGUI(QWidget):
         self.ui_settingW.show()
 
     def call_about_ui(self):
-        self.ui_aboutW = AboutUi()
         self.ui_aboutW.show()
 
     def set_tool_tips(self, r, c):
@@ -305,6 +305,10 @@ class MainGUI(QWidget):
         self.setting = setting
         # 决定行号是否可见
         self.ui.table.verticalHeader().setVisible(self.setting.showLineIndex)
+
+    def closeEvent(self, event):
+        if self.ui_aboutW is not None:
+            self.ui_aboutW.close()
 
 
 if __name__ == '__main__':

@@ -6,6 +6,7 @@ from UserItem import UserItem
 from Common import dbAbsPath
 import sqlite3 as sql
 import time, re
+import shutil
 
 
 class DataBase(QObject):
@@ -24,8 +25,8 @@ class DataBase(QObject):
         self.dbcur = None
         # 是否连接到了数据库
         self.isConnectToDB = False
-        self.newName = ''
-        self.name = ''
+        # 备份数据库标志，如果允许备份且没有备份则备份，之后清空
+        self.backupDatabaseFlag = False
         self.get_db_name('')
 
     def __del__(self):
@@ -33,13 +34,12 @@ class DataBase(QObject):
             self.dbcur.close()
             self.dbcon.commit()
             self.dbcon.close()
-        if self.setting.autoBackup == True:
-            path = dbAbsPath + 'backup'
-            if os.path.exists(path) == False:
-                # 备份文件路径，看文件夹是否存在
-                os.makedirs(path)
-            os.popen('copy %s %s' % (dbAbsPath + self.name, path + str(int(time.time())) + '.db.bk'))
-            # os.rename(self.name, self.newName)
+
+    def backup_database(self):
+        path = dbAbsPath + 'backup'
+        if os.path.exists(path) == False:
+            os.makedirs(path)
+        shutil.copyfile(dbAbsPath + 'data.db', dbAbsPath + 'backup\\%s.db.bk' % str(int(time.time()))[-10:])
 
     def check_table_exists(self):
         """ 检查数据表data.db是否存在   
@@ -157,3 +157,7 @@ class DataBase(QObject):
 
     def get_setting(self, setting:Setting):
         self.setting = setting
+        # 需要自动备份，登陆后自动备份
+        if self.setting.autoBackup == True and self.backupDatabaseFlag == False:
+            self.backup_database()
+            self.backupDatabaseFlag = True

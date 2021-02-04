@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>380</height>
+    <width>470</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>460</width>
-    <height>380</height>
+    <width>470</width>
+    <height>420</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>460</width>
-    <height>380</height>
+    <width>470</width>
+    <height>420</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -141,7 +141,7 @@ margin:5px;</string>
          </font>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#000000;&quot;&gt;说明&lt;/span&gt;&lt;/p&gt;&lt;p&gt;本软件中的用户数据均储存在&lt;span style=&quot; color:#000000;&quot;&gt;本地&lt;/span&gt;，不会被上传到服务器.&lt;/p&gt;&lt;p&gt;一般情况下本软件不会主动连接到互联网，只有当用户主动使用检查更新功能时，才会连接网络，仅用于访问github网站提供的API，获取软件版本信息。&lt;/p&gt;&lt;p&gt;若在使用中遇到问题，可以点击&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;使用帮助&lt;/span&gt;获取帮助。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#000000;&quot;&gt;说明&lt;/span&gt;&lt;/p&gt;&lt;p&gt;本软件中的用户数据均储存在&lt;span style=&quot; color:#000000;&quot;&gt;本地&lt;/span&gt;，不会被上传到服务器。&lt;/p&gt;&lt;p&gt;本软件在运行中及储存文件中不会保存用户的密码明文，主界面获取的密码明是根据用户提供的登录密码经过一定运算得到；用户的登录密码没有保存在本地文件中。&lt;/p&gt;&lt;p&gt;一般情况下本软件不会主动连接到互联网，只有当用户主动使用检查更新功能时，才会连接网络，仅用于访问github网站提供的API，获取软件版本信息。&lt;/p&gt;&lt;p&gt;若在使用中遇到问题，可以点击&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;使用帮助&lt;/span&gt;获取帮助。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

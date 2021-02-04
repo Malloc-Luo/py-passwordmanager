@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(460, 380)
-        Dialog.setMinimumSize(QtCore.QSize(460, 380))
-        Dialog.setMaximumSize(QtCore.QSize(460, 380))
+        Dialog.resize(470, 420)
+        Dialog.setMinimumSize(QtCore.QSize(470, 420))
+        Dialog.setMaximumSize(QtCore.QSize(470, 420))
         Dialog.setFocusPolicy(QtCore.Qt.StrongFocus)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -169,7 +169,7 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "关于"))
         self.label.setText(_translate("Dialog", "version 0.9.7"))
-        self.label_2.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600; color:#000000;\">说明</span></p><p>本软件中的用户数据均储存在<span style=\" color:#000000;\">本地</span>，不会被上传到服务器.</p><p>一般情况下本软件不会主动连接到互联网，只有当用户主动使用检查更新功能时，才会连接网络，仅用于访问github网站提供的API，获取软件版本信息。</p><p>若在使用中遇到问题，可以点击<span style=\" text-decoration: underline; color:#0000ff;\">使用帮助</span>获取帮助。</p></body></html>"))
+        self.label_2.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600; color:#000000;\">说明</span></p><p>本软件中的用户数据均储存在<span style=\" color:#000000;\">本地</span>，不会被上传到服务器。</p><p>本软件在运行中及储存文件中不会保存用户的密码明文，主界面获取的密码明是根据用户提供的登录密码经过一定运算得到；用户的登录密码没有保存在本地文件中。</p><p>一般情况下本软件不会主动连接到互联网，只有当用户主动使用检查更新功能时，才会连接网络，仅用于访问github网站提供的API，获取软件版本信息。</p><p>若在使用中遇到问题，可以点击<span style=\" text-decoration: underline; color:#0000ff;\">使用帮助</span>获取帮助。</p></body></html>"))
         self.pbt_code.setText(_translate("Dialog", "项目源码"))
         self.pbt_help.setText(_translate("Dialog", "使用帮助"))
         self.pbt_update.setText(_translate("Dialog", "检查更新"))
