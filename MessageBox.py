@@ -131,9 +131,26 @@ class MessageBox(QDialog):
         box.exec()
         return box.ret_val()
 
+    @staticmethod
+    def question(parent, title, text, btype=YES, default=YES):
+        box = MessageBox(parent, title, text, btype, default)
+        box.ui.pbt_icon.setIcon(QIcon(QPixmap(":/mainui/icon/question.png")))
+        box.exec()
+        return box.ret_val()
+
+    @staticmethod
+    def success(parent, title, text, btype=YES, default=YES):
+        box = MessageBox(parent, title, text, btype, default)
+        box.ui.pbt_icon.setIcon(QIcon(QPixmap(":/mainui/icon/success.png")))
+        box.exec()
+        return box.ret_val()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    btn = MessageBox.error(None, 'messagebx', '这是一个box', MessageBox.YES | MessageBox.NO)
-    print(btn)
+    MessageBox.error(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
+    MessageBox.information(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
+    MessageBox.success(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
+    MessageBox.question(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
+    MessageBox.warning(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
     sys.exit(app.exec_())

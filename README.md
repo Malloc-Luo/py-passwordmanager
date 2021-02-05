@@ -5,6 +5,10 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.10.6
+
+*   增加一些Messagebox样式
+
 #### 0.10.5
 
 *   增加一些设置项
