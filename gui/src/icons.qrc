@@ -1,12 +1,14 @@
 <RCC>
   <qresource prefix="mainui">
     <file>icon/ab0.png</file>
+    <file>icon/error.png</file>
+    <file>icon/notify.png</file>
+    <file>icon/warning.png</file>
     <file>icon/ab1.png</file>
     <file>icon/mgr0.png</file>
     <file>icon/mgr1.png</file>
     <file>icon/set0.png</file>
     <file>icon/set1.png</file>
-    <!-- <file>icon/about.png</file> -->
     <file>icon/code0.png</file>
     <file>icon/code1.png</file>
     <file>icon/help0.png</file>
@@ -21,7 +23,6 @@
     <file>icon/up1.png</file>
     <file>icon/selected.png</file>
     <file>icon/MainIcon.ico</file>
-    <!-- <file>icon/secondmainicon.png</file> -->
     <file>icon/add.png</file>
     <file>icon/add1.png</file>
     <file>icon/delete.png</file>

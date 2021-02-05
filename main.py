@@ -11,6 +11,7 @@ from Login import LoginUi, SigninUi
 from DataBase import DataBase
 from Common import is_first_to_use
 from Setting import Setting
+from TipUi import TipUi
 
 
 class Main(QObject):
@@ -67,7 +68,8 @@ class Main(QObject):
             self.timer.start(self.timeForClose)
             self.ui_mainW.installEventFilter(self)
         else:
-            ...
+            self.tip = TipUi('密码错误')
+            self.tip.show()
 
     def call_for_loginui(self):
         self.ui_loginW.show()

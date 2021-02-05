@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QTableWidgetItem, QHeaderView, QMessageBox, QMenu, QAction, QToolTip
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QTableWidgetItem, QHeaderView, QMenu, QAction, QToolTip
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon, QCursor
 from gui.Ui_MainGUI import Ui_Form
 from AddItemUi import AddItemUi
 from UserItem import UserItem
 from Setting import Setting, SettingUi
+from MessageBox import MessageBox
 from AboutUi import AboutUi
 from Common import read_qss
 from TipUi import TipUi
@@ -186,8 +187,8 @@ class MainGUI(QWidget):
         r = self.ui.table.currentRow()
         if r != -1:
             if self.setting.applyBeforeDel == True:
-                msg = QMessageBox.information(self, '删除选项', '\t是否删除所选项？', QMessageBox.Cancel | QMessageBox.Yes, QMessageBox.Yes)
-                if msg == QMessageBox.Yes:
+                msg = MessageBox.information(self, '删除选项', '是否删除所选项？', MessageBox.YES | MessageBox.CANCEL)
+                if msg == MessageBox.YES:
                     # 发送删除信号，为删除项的ID
                     ID = self.ui.table.item(r, 0).text()
                     self.deleteItemSignal.emit(ID)

@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 import pickle as pkl
 from Common import dbAbsPath
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox
+from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.QtCore import pyqtSignal
+from MessageBox import MessageBox
 from gui.Ui_SettingUi import Ui_settingDialog
 import os, sys
 
@@ -94,11 +95,14 @@ class SettingUi(QDialog):
                     self.setting.applyBeforeDel != self.ui.cb_deleteTips.isChecked() or \
                         self.setting.autoBackup != self.ui.cb_autoBackup.isChecked() or \
                             self.setting.useRegExpFilite != self.ui.cb_useRegExpSearch.isChecked():
-
-            pbt = QMessageBox.warning(self, '保存设置', '设置修改后尚未保存，\n关闭之后将会丢失，是否保存？', QMessageBox.Yes | QMessageBox.No)
-            if pbt == QMessageBox.Yes:
+            pbt = MessageBox.warning(self, '保存设置', '设置修改后尚未保存，\n关闭后将会丢失，是否保存？', MessageBox.YES | MessageBox.NO | MessageBox.CANCEL)
+            if pbt == MessageBox.YES:
                 self.save_settings()
-        self.accept()
+                event.accept()
+            elif pbt == MessageBox.CANCEL:
+                event.ignore()
+            else:
+                event.accept()
 
     def showEvent(self, event):
         self.show_setting()

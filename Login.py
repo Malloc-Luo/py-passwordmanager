@@ -14,9 +14,10 @@
 from Common import dbAbsPath, adminDataDb, get_admin_key
 from gui.Ui_LoginUi import Ui_Login
 from gui.Ui_SigninUi import Ui_Signin
-from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
+from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5.QtCore import QEvent, QObject, QSize, pyqtSignal, QRegExp, Qt
 from PyQt5.QtGui import QHoverEvent, QMouseEvent
+from MessageBox import MessageBox
 from Setting import Setting
 import sqlite3 as sql
 import time
@@ -53,11 +54,7 @@ class LoginUi(QWidget):
         self.ui.setupUi(self)
         self.ui.pbt_warning.hide()
         self.init_connect()
-        # self.ui.pushButton.installEventFilter(self)
         self.ui.pushButton.setDisabled(True)
-        # self.setAttribute(Qt.WA_DeleteOnClose, True)
-        # from message import MyMessageBox
-        # MyMessageBox(self, 'title', 'Hello world this is a ', QMessageBox.Yes | QMessageBox.No, QMessageBox.Warning).exec_()
 
     def init_connect(self):
         self.ui.pushButton.clicked.connect(self.submit_admin_password)
@@ -78,26 +75,13 @@ class LoginUi(QWidget):
     def closeEvent(self, event):
         self.ui.lineEdit.clear()
 
-    # 事件过滤器，处理鼠标动作特效
-    # def eventFilter(self, obj, event):
-    #     if obj == self.ui.pushButton:
-    #         if event.type() == QHoverEvent.Enter:
-    #             self.ui.pushButton.setIconSize(QSize(80, 80))
-    #         elif event.type() == QHoverEvent.Leave:
-    #             self.ui.pushButton.setIconSize(QSize(70, 70))
-    #         elif event.type() == QEvent.MouseButtonPress:
-    #             self.ui.pushButton.setIconSize(QSize(70, 70))
-    #         elif event.type() == QEvent.MouseButtonRelease:
-    #             self.ui.pushButton.setIconSize(QSize(80, 80))
-    #     return QObject.eventFilter(self, obj, event)
-
     # 对内槽函数
     def submit_admin_password(self):
         self.adminpswd = str(self.ui.lineEdit.text())
         key = get_admin_key()[0]
         # 如果数据库突然丢了或者没有读到数据则退出程序
         if key is None:
-            QMessageBox.critical(self, '进入密码管理器', '发生错误，退出程序，请尝试重新启动', QMessageBox.Yes)
+            MessageBox.error(self, '进入密码管理器', '发生错误，退出程序，请尝试重新启动', QMessageBox.Yes)
             sys.exit()
         # 如果登录成功则需要更新储存的密码
         if get_md5hex(self.adminpswd + key[-15:]) == key[:-15]:
@@ -115,6 +99,7 @@ class LoginUi(QWidget):
             self.close()
         else:
             self.ui.pbt_warning.show()
+            self.loginSignal.emit(False)
 
     def pushbutton_style(self):
         if len(self.ui.lineEdit.text()) < 6:
@@ -125,7 +110,9 @@ class LoginUi(QWidget):
 
 
 class SigninUi(QWidget):
+    # 注册成功信号
     siginSignal = pyqtSignal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_Signin()
@@ -155,7 +142,7 @@ class SigninUi(QWidget):
         DBcursor.close()
         DBconnect.commit()
         DBconnect.close()
-        QMessageBox.information(self, '设置管理员密码', '设置成功！请妥善保存此密码，\n如若丢失，无法找回', QMessageBox.Yes)
+        MessageBox.information(self, '设置管理员密码', '设置成功！请妥善保管此密码\n如若丢失则无法找回', MessageBox.YES)
         self.siginSignal.emit()
         self.close()
 
