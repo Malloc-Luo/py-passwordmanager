@@ -29,16 +29,18 @@ def is_first_to_use() -> bool:
     2. 查看用户数据库admin.db是否存在
     3. admin.db中是否有密码
     """
+    # 检查文件夹是否存在，不存在则创建一个
     if not os.path.exists(dbAbsPath):
         os.makedirs(dbAbsPath)
         return True
-
+    # 检查管理员验证的数据库是否存在
     if not os.path.exists(adminDataDb):
         return True
     else:
         dbconnect = sql.connect(adminDataDb)
         dbcursor = dbconnect.cursor()
         try:
+            # 读取数据库验证信息
             dbcursor.execute('select * from %s' % admintable)
             values = dbcursor.fetchall()
             if len(values) == 0:
@@ -49,10 +51,6 @@ def is_first_to_use() -> bool:
             return True
     return False
 
-def get_admin_password():
-    """ 获得管理员密码，也就是用户输入的密码
-    """
-    return 'Helloworld'
 
 def get_admin_key():
     DBconnect = sql.connect(adminDataDb)
@@ -69,10 +67,6 @@ def get_admin_key():
     return values[0]
 
 
-def read_qss(style):
+def read_qss(style) -> str:
     with open(style, 'r') as f:
         return f.read()
-
-
-if __name__ == '__main__':
-    get_admin_key()

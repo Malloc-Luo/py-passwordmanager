@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>390</width>
-    <height>390</height>
+    <width>472</width>
+    <height>510</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -18,8 +18,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>390</width>
-    <height>390</height>
+    <width>600</width>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -130,6 +130,10 @@ QScrollBar::sub-line:vertical {
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="styleSheet">
+      <string notr="true">
+background-color:white;</string>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -138,8 +142,8 @@ QScrollBar::sub-line:vertical {
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>360</width>
-        <height>384</height>
+        <width>454</width>
+        <height>414</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -154,7 +158,7 @@ QScrollBar::sub-line:vertical {
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>60</height>
+           <height>50</height>
           </size>
          </property>
          <property name="title">
@@ -280,37 +284,13 @@ QSpinBox::down-arrow:pressed {
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>300</height>
+           <height>336</height>
           </size>
          </property>
          <property name="title">
           <string/>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="1" column="1">
-           <widget class="QCheckBox" name="cb_showLineIndex">
-            <property name="font">
-             <font>
-              <family>Microsoft YaHei UI</family>
-             </font>
-            </property>
-            <property name="text">
-             <string>显示行号</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QCheckBox" name="cb_useRegExpSearch">
-            <property name="font">
-             <font>
-              <family>Microsoft YaHei UI</family>
-             </font>
-            </property>
-            <property name="text">
-             <string>使用正则表达式搜索</string>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="1">
            <widget class="QCheckBox" name="cb_autoBackup">
             <property name="font">
@@ -320,6 +300,18 @@ QSpinBox::down-arrow:pressed {
             </property>
             <property name="text">
              <string>自动备份</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="cb_deleteTips">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei UI</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>删除时确认提示</string>
             </property>
            </widget>
           </item>
@@ -348,15 +340,39 @@ QSpinBox::down-arrow:pressed {
             </property>
            </spacer>
           </item>
-          <item row="2" column="1">
-           <widget class="QCheckBox" name="cb_deleteTips">
+          <item row="5" column="1">
+           <widget class="QCheckBox" name="cb_pushCtrl">
             <property name="font">
              <font>
               <family>Microsoft YaHei UI</family>
              </font>
             </property>
             <property name="text">
-             <string>删除时确认提示</string>
+             <string>按住Ctrl键显示密码</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="cb_showLineIndex">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei UI</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>显示行号</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="cb_useRegExpSearch">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei UI</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>使用正则表达式搜索</string>
             </property>
            </widget>
           </item>
@@ -372,6 +388,18 @@ QSpinBox::down-arrow:pressed {
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="6" column="1">
+           <widget class="QCheckBox" name="cb_mouseClickSelect">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei UI</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>鼠标单击选中行</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

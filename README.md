@@ -5,6 +5,10 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.10.5
+
+*   增加一些设置项
+
 #### 0.10.4
 
 *   改用自定义MessageBox，比自带的好看

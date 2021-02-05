@@ -25,7 +25,7 @@ class Ui_Dialog(object):
 "    color:#000000;\n"
 "    background-color:transparent;\n"
 "    font-family: \'Microsoft YaHei Ui\';\n"
-"    font-size: 10pt;\n"
+"    font-size: 9pt;\n"
 "    font-weight: bold;\n"
 "}\n"
 "QPushButton:hover {\n"
@@ -70,6 +70,9 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.lb_text.setFont(font)
+        self.lb_text.setStyleSheet("QLabel {\n"
+"    background-color:transparent;\n"
+"}")
         self.lb_text.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
         self.lb_text.setWordWrap(True)
         self.lb_text.setObjectName("lb_text")

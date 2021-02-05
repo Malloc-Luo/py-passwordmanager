@@ -124,6 +124,11 @@ border:none;</string>
          <family>Microsoft YaHei UI</family>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	background-color:transparent;
+}</string>
+       </property>
        <property name="text">
         <string>提示框</string>
        </property>

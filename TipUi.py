@@ -40,9 +40,14 @@ class TipUi(QDialog):
         if self.windosAlpha >= 63:
             self.close()
 
+    @staticmethod
+    def show_tip(text):
+        tip = TipUi(text)
+        tip.show()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    w = TipUi('复制成功')
-    w.show()
+    # w = TipUi('复制成功')
+    # w.show()
     sys.exit(app.exec_())

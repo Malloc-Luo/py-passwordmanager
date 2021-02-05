@@ -5,7 +5,6 @@
 用于与数据库、UI交互
 """
 import operate_password as op
-from Common import get_admin_password
 
 class UserItem(object):
     def __init__(self, ID, name, account, 

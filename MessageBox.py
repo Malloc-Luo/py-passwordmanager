@@ -11,7 +11,6 @@ import sys
 class MessageBox(QDialog):
     """ 自定义MessageBox，继承自QDialog     
     其中有3个static method可用: information, warning, error，使用方法与QMessageBox基本一致，
-    不过还没有默认按钮
     
     Args:   
         parent: 父窗口
@@ -48,21 +47,25 @@ class MessageBox(QDialog):
             self.set_button(self.yesbtn, u'Yes')
             self.btnList[MessageBox.YES] = self.yesbtn
             self.yesbtn.clicked.connect(self.btn_yes)
+        # 如果按钮是no
         if btype & MessageBox.NO == MessageBox.NO:
             self.nobtn = QPushButton(self)
             self.set_button(self.nobtn, u'No')
             self.btnList[MessageBox.NO] = self.nobtn
             self.nobtn.clicked.connect(self.btn_no)
+        # 如果按钮是cancel
         if btype & MessageBox.CANCEL == MessageBox.CANCEL:
             self.cancelbtn = QPushButton(self)
             self.set_button(self.cancelbtn, u'Cancel')
             self.btnList[MessageBox.CANCEL] = self.cancelbtn
             self.cancelbtn.clicked.connect(self.btn_cancel)
+        # 如果按钮是close
         if btype & MessageBox.CLOSE == MessageBox.CLOSE:
             self.closebtn = QPushButton(self)
             self.set_button(self.closebtn, u'Close')
             self.btnList[MessageBox.CLOSE] = self.closebtn
             self.closebtn.clicked.connect(self.btn_close)
+        # 如果按钮是ok
         if btype & MessageBox.OK == MessageBox.OK:
             self.okbtn = QPushButton(self)
             self.set_button(self.okbtn, u'Ok')
@@ -108,22 +111,22 @@ class MessageBox(QDialog):
 
     # 使用时调用的静态方法
     @staticmethod
-    def information(parent, title, text, btype):
-        box = MessageBox(parent, title, text, btype)
+    def information(parent, title, text, btype=YES, default=YES):
+        box = MessageBox(parent, title, text, btype, default)
         box.ui.pbt_icon.setIcon(QIcon(QPixmap(":/mainui/icon/notify.png")))
         box.exec()
         return box.ret_val()
 
     @staticmethod
-    def warning(parent, title, text, btype):
-        box = MessageBox(parent, title, text, btype)
+    def warning(parent, title, text, btype=YES, default=YES):
+        box = MessageBox(parent, title, text, btype, default)
         box.ui.pbt_icon.setIcon(QIcon(QPixmap(":/mainui/icon/warning.png")))
         box.exec()
         return box.ret_val()
 
     @staticmethod
-    def error(parent, title, text, btype):
-        box = MessageBox(parent, title, text, btype)
+    def error(parent, title, text, btype=YES, default=YES):
+        box = MessageBox(parent, title, text, btype, default)
         box.ui.pbt_icon.setIcon(QIcon(QPixmap(":/mainui/icon/error.png")))
         box.exec()
         return box.ret_val()

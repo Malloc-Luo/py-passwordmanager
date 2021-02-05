@@ -43,6 +43,8 @@ class MainGUI(QWidget):
         self.itemList = {}
         # 单元格是否双击选中
         self.cellclicked = False
+        # ctrl键是否被按下
+        self.ctrlPressed = False
         # 设置表格的样式和属性
         self.set_tableWidget()
         # 开启鼠标捕获，在表格里显示tooltips
@@ -97,6 +99,16 @@ class MainGUI(QWidget):
             return ID
         return None
 
+    def set_plaintext_visible(self, r, isvisible):
+        # 获取选中行的id
+        ID = self.get_selected_id()
+        if ID is not None:
+            # 设置特定行的密码明文是否可见
+            if isvisible == True:
+                self.ui.table.item(r, 3).setText(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
+            else:
+                self.ui.table.item(r, 3).setText('******')
+
     # 内部的槽函数
     def call_setting_ui(self):
         # 点击设置按键
@@ -109,6 +121,8 @@ class MainGUI(QWidget):
         item = self.ui.table.item(r, c)
         if item is not None and self.setting.showToolTips == True:
             QToolTip.showText(QCursor.pos(), item.text())
+        if item is not None and self.setting.singalClickSelect == False:
+            self.ui.table.selectRow(r)
 
     # 右键菜单动作槽函数
     def action_copy_account(self):
@@ -202,15 +216,10 @@ class MainGUI(QWidget):
         对应当前行显示密码明文，上次被选中的行变成星号
         """
         # cr != -1 只出现一行的情况
-        if cr != -1:
-            ID = self.ui.table.item(cr, 0).text()
-            self.ui.table.selectRow(cr)
-            # 解码的参数为管理员密码
-            self.ui.table.item(cr, 3).setText(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
+        if cr != -1 and (self.ctrlPressed == True or self.setting.ctrlSelect == False):
+            self.set_plaintext_visible(cr, True)
             if pr != -1 and pr != cr:
-                self.ui.table.item(pr, 3).setText('******')
-        else:
-            ...
+                self.set_plaintext_visible(pr, False)
 
     def add_line_item(self, userItem:UserItem):
         # 新建项目，在这里加载key
@@ -306,6 +315,19 @@ class MainGUI(QWidget):
         self.setting = setting
         # 决定行号是否可见
         self.ui.table.verticalHeader().setVisible(self.setting.showLineIndex)
+        # 刷新一次表格
+        if len(self.ui.le_filiter.text().replace(' ', '')) == 0:
+            self.refresh_table()
+
+    def keyPressEvent(self, event):
+        self.ctrlPressed = (event.key() == Qt.Key_Control)
+        if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect == True:
+            self.set_plaintext_visible(self.ui.table.currentRow(), True)
+
+    def keyReleaseEvent(self, event):
+        self.ctrlPressed = not (event.key() == Qt.Key_Control)
+        if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect == True:
+            self.set_plaintext_visible(self.ui.table.currentRow(), False)
 
     def closeEvent(self, event):
         if self.ui_aboutW is not None:
