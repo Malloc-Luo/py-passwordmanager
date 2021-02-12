@@ -27,7 +27,7 @@ class Ui_Login(object):
         Login.setWindowIcon(icon)
         Login.setStyleSheet("background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(255, 255, 249, 247), stop:1 rgba(224, 254, 255, 255));")
         self.lineEdit = QtWidgets.QLineEdit(Login)
-        self.lineEdit.setGeometry(QtCore.QRect(85, 70, 230, 45))
+        self.lineEdit.setGeometry(QtCore.QRect(75, 70, 250, 46))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -42,8 +42,8 @@ class Ui_Login(object):
         self.lineEdit.setStyleSheet("QLineEdit {\n"
 "    border-style:none;\n"
 "    padding:8px;\n"
-"    border-radius:18px;\n"
-"    border:2px solid #DCE4EC;\n"
+"    border-radius:15px;\n"
+"    border:3px solid #DCE4EC;\n"
 "    background:white;\n"
 "}\n"
 "QLineEdit:focus {\n"
@@ -57,7 +57,7 @@ class Ui_Login(object):
         self.lineEdit.setClearButtonEnabled(True)
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton = QtWidgets.QPushButton(Login)
-        self.pushButton.setGeometry(QtCore.QRect(125, 185, 150, 45))
+        self.pushButton.setGeometry(QtCore.QRect(125, 195, 150, 48))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -73,7 +73,7 @@ class Ui_Login(object):
         self.pushButton.setAutoFillBackground(False)
         self.pushButton.setStyleSheet("QPushButton {\n"
 "    border-style:none;\n"
-"    padding:8px;\n"
+"    padding:10px;\n"
 "    border-radius:18px;\n"
 "    color:#FFFFFF;\n"
 "    background:#34495E;\n"

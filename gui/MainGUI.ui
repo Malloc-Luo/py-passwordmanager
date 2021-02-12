@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
-    <height>780</height>
+    <width>951</width>
+    <height>815</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,18 @@ QToolTip{
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>1</number>
+   </property>
+   <property name="topMargin">
+    <number>1</number>
+   </property>
+   <property name="rightMargin">
+    <number>1</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="font">
@@ -210,8 +222,26 @@ QLabel {
        <string>密码管理</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>3</number>
+       </property>
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>4</number>
+         </property>
          <property name="sizeConstraint">
           <enum>QLayout::SetFixedSize</enum>
          </property>
@@ -222,6 +252,12 @@ QLabel {
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="font">
             <font>
@@ -265,6 +301,12 @@ QLineEdit:focus {
          </item>
          <item>
           <widget class="QComboBox" name="comboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <family>Microsoft YaHei UI</family>
@@ -352,11 +394,10 @@ QComboBox QAbstractItemView {
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
-	padding:5px;
+	padding:6px;
 	border: 0px;
 	background-color:transparent;
 	image: url(:/mainui/icon/ab1.png);
-	padding-left:4px;
 }
 QPushButton:hover
 {
@@ -391,18 +432,15 @@ QPushButton:pressed
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
-	padding:5px;
+	padding:6px;
 	border: 0px;
 	background-color:transparent;
-	
 	image: url(:/mainui/icon/set1.png);
-	padding-left:4px;
 }
 QPushButton:hover
 {
 	border: 0px;
 	background-color:transparent;
-	
 	image: url(:/mainui/icon/set0.png);
 }
 QPushButton:pressed
@@ -438,11 +476,10 @@ QPushButton:pressed
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
-	padding:5px;
+	padding:6px;
 	border: 0px;
 	background-color:transparent;
 	image: url(:/mainui/icon/delete1.png);
-	padding-left:4px;
 }
 QPushButton:hover
 {
@@ -491,11 +528,10 @@ QPushButton:pressed
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
+	padding:6px;
 	border: 0px;
 	background-color:transparent;
 	image: url(:/mainui/icon/add.png);
-	padding:5px;
-	padding-left:4px;
 }
 QPushButton:hover
 {
@@ -641,6 +677,9 @@ background:none;
          </attribute>
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>28</number>
          </attribute>
          <attribute name="verticalHeaderDefaultSectionSize">
           <number>40</number>

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(960, 780)
+        Form.resize(951, 815)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Form.setWindowIcon(icon)
@@ -27,6 +27,7 @@ class Ui_Form(object):
 "}\n"
 "")
         self.gridLayout = QtWidgets.QGridLayout(Form)
+        self.gridLayout.setContentsMargins(1, 1, 1, 3)
         self.gridLayout.setObjectName("gridLayout")
         self.tabWidget = QtWidgets.QTabWidget(Form)
         font = QtGui.QFont()
@@ -185,9 +186,12 @@ class Ui_Form(object):
         self.tab0 = QtWidgets.QWidget()
         self.tab0.setObjectName("tab0")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.tab0)
+        self.verticalLayout.setContentsMargins(9, 9, 9, 9)
+        self.verticalLayout.setSpacing(3)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+        self.horizontalLayout_2.setSpacing(4)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.le_filiter = QtWidgets.QLineEdit(self.tab0)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -195,6 +199,7 @@ class Ui_Form(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.le_filiter.sizePolicy().hasHeightForWidth())
         self.le_filiter.setSizePolicy(sizePolicy)
+        self.le_filiter.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.le_filiter.setFont(font)
@@ -215,6 +220,11 @@ class Ui_Form(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.comboBox = QtWidgets.QComboBox(self.tab0)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
+        self.comboBox.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.comboBox.setFont(font)
@@ -256,11 +266,10 @@ class Ui_Form(object):
         self.pbt_about.setToolTipDuration(0)
         self.pbt_about.setStyleSheet("QPushButton\n"
 "{\n"
-"    padding:5px;\n"
+"    padding:6px;\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/ab1.png);\n"
-"    padding-left:4px;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
@@ -284,18 +293,15 @@ class Ui_Form(object):
         self.pbt_setting.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_setting.setStyleSheet("QPushButton\n"
 "{\n"
-"    padding:5px;\n"
+"    padding:6px;\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
-"    \n"
 "    image: url(:/mainui/icon/set1.png);\n"
-"    padding-left:4px;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
-"    \n"
 "    image: url(:/mainui/icon/set0.png);\n"
 "}\n"
 "QPushButton:pressed\n"
@@ -316,11 +322,10 @@ class Ui_Form(object):
         self.pushButton.setAutoFillBackground(False)
         self.pushButton.setStyleSheet("QPushButton\n"
 "{\n"
-"    padding:5px;\n"
+"    padding:6px;\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/delete1.png);\n"
-"    padding-left:4px;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
@@ -348,11 +353,10 @@ class Ui_Form(object):
         self.pbt_add.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_add.setStyleSheet("QPushButton\n"
 "{\n"
+"    padding:6px;\n"
 "    border: 0px;\n"
 "    background-color:transparent;\n"
 "    image: url(:/mainui/icon/add.png);\n"
-"    padding:5px;\n"
-"    padding-left:4px;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
@@ -499,6 +503,7 @@ class Ui_Form(object):
         self.table.verticalHeader().setVisible(False)
         self.table.verticalHeader().setDefaultSectionSize(40)
         self.table.verticalHeader().setHighlightSections(True)
+        self.table.verticalHeader().setMinimumSectionSize(28)
         self.table.verticalHeader().setStretchLastSection(False)
         self.verticalLayout.addWidget(self.table)
         icon1 = QtGui.QIcon()

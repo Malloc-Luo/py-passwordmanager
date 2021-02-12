@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>150</width>
-    <height>54</height>
+    <width>167</width>
+    <height>70</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
+     <x>10</x>
+     <y>10</y>
      <width>151</width>
      <height>51</height>
     </rect>
@@ -47,12 +47,6 @@
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:rgb(250, 255, 213);
-border-style:none;
-padding:8px;
-border-radius:25px;</string>
    </property>
    <property name="text">
     <string>提示框</string>

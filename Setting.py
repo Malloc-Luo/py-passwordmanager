@@ -1,17 +1,16 @@
 # -*- coding:utf-8 -*-
 import pickle as pkl
 from Common import dbAbsPath
-from PyQt5.QtWidgets import QDialog, QApplication
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import pyqtSignal, Qt
 from MessageBox import MessageBox
 from TipUi import TipUi
 from gui.Ui_SettingUi import Ui_settingDialog
-import os, sys
+import os
 
 
 class Setting:
-    """ 设置内容    
-    目前支持的设置项：
+    """ 设置内容，目前支持的设置项：
         1. 无动作后自动锁定时间
         2. 显示tooltips
         3. 显示行号
@@ -37,7 +36,7 @@ class Setting:
                     self.singalClickSelect = setting.singalClickSelect
             else:
                 self.set_default()
-        except:
+        except IOError:
             self.set_default()
 
     def set_default(self):
@@ -57,8 +56,7 @@ class Setting:
             pkl.dump(self, f)
 
 
-
-class SettingUi(QDialog):
+class SettingUi(QWidget):
     # 向其它对象广播设置
     broadcastSettingSignal = pyqtSignal(Setting)
 
@@ -66,6 +64,7 @@ class SettingUi(QDialog):
         super().__init__(parent)
         self.ui = Ui_settingDialog()
         self.ui.setupUi(self)
+        self.setWindowModality(Qt.ApplicationModal)
         self.path = dbAbsPath + '.settings'
         self.setting = Setting(self.path)
         self.show_setting()
@@ -104,16 +103,14 @@ class SettingUi(QDialog):
         # 如果设置没有保存
         if self.setting.autoLockTime != self.ui.sb_autoLockTime.value() or \
             self.setting.showToolTips != self.ui.cb_showToolTips.isChecked() or \
-                self.setting.showLineIndex != self.ui.cb_showLineIndex.isChecked() or \
-                    self.setting.applyBeforeDel != self.ui.cb_deleteTips.isChecked() or \
-                        self.setting.autoBackup != self.ui.cb_autoBackup.isChecked() or \
-                            self.setting.useRegExpFilite != self.ui.cb_useRegExpSearch.isChecked() or \
-                                self.setting.singalClickSelect != self.ui.cb_mouseClickSelect.isChecked() or \
-                                    self.setting.ctrlSelect != self.ui.cb_pushCtrl.isChecked():
+            self.setting.showLineIndex != self.ui.cb_showLineIndex.isChecked() or \
+            self.setting.applyBeforeDel != self.ui.cb_deleteTips.isChecked() or \
+            self.setting.autoBackup != self.ui.cb_autoBackup.isChecked() or \
+            self.setting.useRegExpFilite != self.ui.cb_useRegExpSearch.isChecked() or \
+            self.setting.singalClickSelect != self.ui.cb_mouseClickSelect.isChecked() or \
+           self.setting.ctrlSelect != self.ui.cb_pushCtrl.isChecked():
 
-            pbt = MessageBox.warning(self, '保存设置', '设置修改后尚未保存，\n关闭后将会丢失，是否保存？', \
-                                    MessageBox.YES | MessageBox.NO | MessageBox.CANCEL, \
-                                    MessageBox.YES)
+            pbt = MessageBox.warning(self, '保存设置', '设置修改后尚未保存，\n关闭后将会丢失，是否保存？', MessageBox.YES | MessageBox.NO | MessageBox.CANCEL, MessageBox.YES)
             if pbt == MessageBox.YES:
                 self.save_settings()
                 event.accept()

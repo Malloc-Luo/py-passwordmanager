@@ -1,30 +1,41 @@
 from gui.Ui_tips import Ui_Dialog
-from PyQt5.QtWidgets import QApplication, QDialog, QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.QtCore import Qt, QTimer, QRect
 import sys
 
+NormalStyleSheet = "background-color:rgb(37, 255, 237);\nborder-style:none;\npadding:8px;\nborder-radius:25px;"
+WarningStyleSheet = "background-color:rgb(255, 255, 127);\ncolor:rgb(255, 0, 127);\nborder-style:none;\npadding:8px;\nborder-radius:25px;"
+ErrorStyleSheet = """background-color:qlineargradient(spread:pad, x1:0.368421, y1:0, x2:0.389, y2:1, stop:0 rgba(255, 85, 127, 255), stop:1 rgba(255, 170, 255, 255));
+                    color:rgb(0, 0, 0);\nborder-style:none;\npadding:8px;\nborder-radius:25px;"""
+
 
 class TipUi(QDialog):
-    """ 气泡弹窗界面        
-    在界面上弹出一个气泡，非模态，显示时常2500ms，在前800ms透明度为1.0，后1700ms透明度线性降低      
+    """ 气泡弹窗界面\n
+    在界面上弹出一个气泡，非模态，显示时常2500ms，在前800ms透明度为1.0，后1700ms透明度线性降低\n
     后续扩展：动态上升、移动，改变颜色。
     仅用于提示
-    Args:       
+    Args:\n
         text: 显示气泡的文本
         parent: 父窗口
     """
-    def __init__(self, text:str, parent=None):
+    NORMAL = 0x00
+    WARNING = 0x01
+    ERROR = 0x02
+
+    def __init__(self, text: str, style=NORMAL, parent=None):
         super().__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.timer = QTimer()
 
         desktop = QApplication.desktop()
-        self.setGeometry(QRect(int(desktop.width() / 2 - 75), int(desktop.height() * 0.83), 152, 50))
+        self.setGeometry(QRect(int(desktop.width() / 2 - 75), int(desktop.height() * 0.83), 167, 70))
         self.ui.pushButton.setText(text)
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.FramelessWindowHint | Qt.Tool)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setAttribute(Qt.WA_QuitOnClose, True)
+        styleSheet = {TipUi.NORMAL: NormalStyleSheet, TipUi.WARNING: WarningStyleSheet, TipUi.ERROR: ErrorStyleSheet}
+        self.setStyleSheet(styleSheet[style])
         self.windosAlpha = 0
         # 启动定时器，周期25毫秒
         self.timer.timeout.connect(self.hide_windows)
@@ -32,7 +43,7 @@ class TipUi(QDialog):
 
     def hide_windows(self):
         self.timer.start(25)
-        if self.windosAlpha <= 30 :
+        if self.windosAlpha <= 30:
             self.setWindowOpacity(1.0)
         else:
             self.setWindowOpacity(1.882 - 0.0294 * self.windosAlpha)
@@ -48,6 +59,6 @@ class TipUi(QDialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    # w = TipUi('复制成功')
-    # w.show()
+    w = TipUi('复制成功', TipUi.NORMAL)
+    w.show()
     sys.exit(app.exec_())

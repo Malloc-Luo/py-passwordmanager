@@ -4,15 +4,14 @@ from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QSizePolicy
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QPixmap, QIcon
 from gui.Ui_MessageBox import Ui_Dialog
-import gui.src.icons_rc
+# import gui.src.icons_rc
 import sys
 
 
 class MessageBox(QDialog):
-    """ 自定义MessageBox，继承自QDialog     
-    其中有3个static method可用: information, warning, error，使用方法与QMessageBox基本一致，
-    
-    Args:   
+    """ 自定义MessageBox，继承自QDialog\n
+    其中有3个static method可用: information, warning, error，使用方法与QMessageBox基本一致。\n
+    Args:\n
         parent: 父窗口
         title: MessageBox窗口标题 Window Title
         text: 消息文本
@@ -20,11 +19,11 @@ class MessageBox(QDialog):
         default: 默认按钮，默认值为YES
     """
     # 仅支持这几个按键
-    YES    = 0x01
-    NO     = 0x02
+    YES = 0x01
+    NO = 0x02
     CANCEL = 0x04
-    CLOSE  = 0x08
-    OK     = 0x10
+    CLOSE = 0x08
+    OK = 0x10
     # 返回值
     retValue = 0
 
@@ -79,11 +78,11 @@ class MessageBox(QDialog):
         if default & btype != 0:
             self.btnList[default].setDefault(True)
 
-    def set_button(self, btn:QPushButton, text:str):
+    def set_button(self, btn: QPushButton, text: str):
         # 设置按钮的一些参数
         btn.setText(text)
         btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        btn.setFixedSize(QSize(95, 35))
+        btn.setFixedSize(QSize(95, 38))
         self.ui.hlayout.addWidget(btn)
 
     def btn_yes(self):
@@ -148,9 +147,9 @@ class MessageBox(QDialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    MessageBox.error(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
-    MessageBox.information(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
-    MessageBox.success(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
-    MessageBox.question(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
-    MessageBox.warning(None, 'messagebx', '这是一个messagebox', MessageBox.OK)
+    MessageBox.error(None, 'messagebx', '这是一个messagebox', MessageBox.OK | MessageBox.CANCEL)
+    MessageBox.information(None, 'messagebx', '这是一个messagebox', MessageBox.OK | MessageBox.CANCEL)
+    MessageBox.success(None, 'messagebx', '这是一个messagebox', MessageBox.OK | MessageBox.CANCEL)
+    MessageBox.question(None, 'messagebx', '这是一个messagebox', MessageBox.OK | MessageBox.CANCEL)
+    MessageBox.warning(None, 'messagebx', '这是一个messagebox', MessageBox.OK | MessageBox.CANCEL)
     sys.exit(app.exec_())

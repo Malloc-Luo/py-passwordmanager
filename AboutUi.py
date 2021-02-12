@@ -1,13 +1,13 @@
 # -*- coding:utf-8 -*-
 
-from PyQt5.QtWidgets import QDialog, QApplication
-from PyQt5.QtGui import QHoverEvent, QMouseEvent, QDesktopServices, QPixmap, QIcon
-from PyQt5.QtCore import QObject, QUrl, Qt
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtGui import QHoverEvent, QDesktopServices, QPixmap, QIcon
+from PyQt5.QtCore import QObject, QUrl
 from gui.Ui_About import Ui_Dialog
 from TipUi import TipUi
 import gui.src.icons_rc
-import requests, re
-import sys
+import requests
+# import sys
 import time
 
 
@@ -17,7 +17,7 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.10.6'
+        self.version = '0.10.7'
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数
@@ -73,7 +73,7 @@ class AboutUi(QDialog):
         versionNow = [int(s) for s in self.version.split('.')]
         versionGet = [int(s) for s in version.split('.')]
         # 两个版本的差值
-        diff = list(map(lambda x, y:x - y, versionNow, versionGet))
+        diff = list(map(lambda x, y: x - y, versionNow, versionGet))
         # 版本相同
         if version == self.version:
             self.tip = TipUi('已是最新版本')

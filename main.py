@@ -2,11 +2,11 @@
 """ 主函数
 在Main对象中调用别的窗口及连接不同窗口间的信号和槽
 """
-import os, sys
+import sys
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QObject, QTimer, pyqtSignal
+from PyQt5.QtCore import QObject, QTimer
 from MainGUI import MainGUI
-from AddItemUi import AddItemUi
+# from AddItemUi import AddItemUi
 from Login import LoginUi, SigninUi
 from DataBase import DataBase
 from Common import is_first_to_use
@@ -52,7 +52,7 @@ class Main(QObject):
 
     def start(self):
         # 如果是第一次用这个程序
-        if self.isFirstUse == True:
+        if self.isFirstUse is True:
             self.ui_siginW = SigninUi()
             self.ui_siginW.siginSignal.connect(self.call_for_loginui)
             self.ui_siginW.show()
@@ -60,10 +60,10 @@ class Main(QObject):
             self.call_for_loginui()
 
     # 对内槽函数
-    def call_for_maingui(self, status:bool):
-        if status == True:
+    def call_for_maingui(self, status: bool):
+        if status is True:
             self.ui_mainW.show()
-            if self.isSubWOpened == True:
+            if self.isSubWOpened is True:
                 self.ui_mainW.addItemUi.show()
             self.timer.start(self.timeForClose)
             self.ui_mainW.installEventFilter(self)
@@ -77,7 +77,7 @@ class Main(QObject):
     def timeout_function(self):
         self.timer.stop()
         self.ui_mainW.hide()
-        if self.isSubWOpened == True:
+        if self.isSubWOpened is True:
             self.ui_mainW.addItemUi.hide()
         self.start()
 
@@ -86,12 +86,12 @@ class Main(QObject):
             self.timer.start(self.timeForClose)
         return QObject.eventFilter(self, obj, event)
 
-    def get_subW_state(self, state:bool):
+    def get_subW_state(self, state: bool):
         self.isSubWOpened = state
-        if state == True:
+        if state is True:
             self.ui_mainW.addItemUi.installEventFilter(self)
 
-    def get_setting(self, setting:Setting):
+    def get_setting(self, setting: Setting):
         self.setting = setting
         self.timeForClose = self.setting.autoLockTime * 60000
 
@@ -101,6 +101,7 @@ def main():
     w = Main()
     w.start()
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
     main()
