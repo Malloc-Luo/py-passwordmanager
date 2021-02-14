@@ -17,7 +17,7 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.10.7'
+        self.version = '0.11.0'
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数
@@ -59,7 +59,7 @@ class AboutUi(QDialog):
         r = None
         try:
             r = requests.get('https://api.github.com/repos/Malloc-Luo/py-passwordmanager/releases/latest')
-        except:
+        except requests.ConnectionError:
             self.tip = TipUi('网络错误')
             self.tip.show()
         if 'tag_name' in r.json().keys():

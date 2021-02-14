@@ -3,18 +3,21 @@
 """
 通用模块，一些供全局使用的模块
 """
-import re
-import winreg as wg
-import ctypes, sys, os
+import os
 import sqlite3 as sql
-import time
+import platform
+import getpass
 
-# 管理员密码格式限制
-adminPswdFormat = re.compile(r'[0-9a-zA-Z\+\-\*\/\@]{6,256}')
+# 判断当前操作系统
+operatorSystem = platform.system()
+# 用户名
+operatorUserName = getpass.getuser()
 
 # 数据库及配置文件存放的绝对路径，根据此文件夹判断是否为第一次使用
 # 最后程序保留为protable形式，无论放在哪都能运行
-dbAbsPath = 'C:\\Users\\%s\\AppData\\Local\\py-password-manager\\' % __import__('getpass').getuser()
+dbAbsPath = {'Windows': 'C:\\Users\\%s\\AppData\\Local\\py-password-manager\\' % operatorUserName,
+             'Linux': '/home/%s/.py-password-manager/' % operatorUserName}[operatorSystem]
+
 # 用户数据数据库名为管理员stamp
 userDataDb = dbAbsPath + 'data.db'
 # 管理员密码储存，分为时间戳和key
@@ -24,7 +27,7 @@ admintable = 'admintable'
 
 
 def is_first_to_use() -> bool:
-    """ 是否是第一次使用该程序      
+    """ 是否是第一次使用该程序\n
     1. 查看路径是否存在，不存在则创建一个
     2. 查看用户数据库admin.db是否存在
     3. admin.db中是否有密码
@@ -47,7 +50,7 @@ def is_first_to_use() -> bool:
                 return True
             else:
                 return False
-        except:
+        except sql.OperationalError:
             return True
     return False
 
@@ -58,7 +61,8 @@ def get_admin_key():
     try:
         DBcursor.execute('select * from %s' % admintable)
         values = DBcursor.fetchall()
-    except:
+    except sql.OperationalError as e:
+        print('get admin key error: ', e)
         return None
     finally:
         DBcursor.close()

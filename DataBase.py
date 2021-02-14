@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
-import sys, os
 from PyQt5.QtCore import QObject, pyqtSignal
 from Setting import Setting
 from UserItem import UserItem
 from Common import dbAbsPath
 import sqlite3 as sql
-import time, re
+import re
+import time
 import shutil
+import os
 
 
 class DataBase(QObject):
@@ -30,29 +31,28 @@ class DataBase(QObject):
         self.get_db_name('')
 
     def __del__(self):
-        if self.isConnectToDB == True:
+        if self.isConnectToDB is True:
             self.dbcur.close()
             self.dbcon.commit()
             self.dbcon.close()
 
     def backup_database(self):
         path = dbAbsPath + 'backup'
-        if os.path.exists(path) == False:
+        if os.path.exists(path) is False:
             os.makedirs(path)
         shutil.copyfile(dbAbsPath + 'data.db', dbAbsPath + 'backup\\%s.db.bk' % str(int(time.time()))[-10:])
 
     def check_table_exists(self):
-        """ 检查数据表data.db是否存在   
+        """ 检查数据表data.db是否存在
         """
         # 检查数据表是否存在，不存在则创建一个
-        self.dbcur.execute('''create table if not exists 
-                              userdata(id varchar(20) primary key not null,
-                                    name text not null,
-                                    account varchar(256) not null,
-                                    password varchar(256) not null,
-                                    email_or_phone varchar(150),
-                                    note text);
-        ''')
+        self.dbcur.execute('''create table if not exists
+                            userdata(id varchar(20) primary key not null,
+                            name text not null,
+                            account varchar(256) not null,
+                            password varchar(256) not null,
+                            email_or_phone varchar(150),
+                            note text);''')
         self.dbcon.commit()
 
     def sql_regexp_search(self, regexp, exp) -> bool:
@@ -69,7 +69,7 @@ class DataBase(QObject):
         self.isConnectToDB = True
         self.check_table_exists()
 
-    def add_useritem(self, useritem:UserItem):
+    def add_useritem(self, useritem: UserItem):
         # 插入一条useritem
         try:
             self.dbcur.execute('''
@@ -82,7 +82,7 @@ class DataBase(QObject):
             self.addItemSignal.emit(False)
             print('add error: ', e)
 
-    def delete_useritem(self, ID:str):
+    def delete_useritem(self, ID: str):
         try:
             # 删除对应id项目
             self.dbcur.execute('''
@@ -108,7 +108,7 @@ class DataBase(QObject):
         except sql.OperationalError as e:
             print('load error: ', e)
 
-    def modify_useritem(self, ID:str, item:str, value:str):
+    def modify_useritem(self, ID: str, item: str, value: str):
         try:
             self.dbcur.execute('''
             update userdata
@@ -119,12 +119,12 @@ class DataBase(QObject):
             # 报错
             print('modify error: ', e)
 
-    def get_new_name(self, name:str):
+    def get_new_name(self, name: str):
         self.newName = name
 
-    def filite_useritem(self, item:str, descript:str):
+    def filite_useritem(self, item: str, descript: str):
         try:
-            if self.setting.useRegExpFilite == True:
+            if self.setting.useRegExpFilite is True:
                 # 使用正则表达式搜索
                 if item == '*':
                     self.dbcur.execute('''
@@ -155,9 +155,9 @@ class DataBase(QObject):
         except sql.OperationalError as e:
             print('filite error: ', e)
 
-    def get_setting(self, setting:Setting):
+    def get_setting(self, setting: Setting):
         self.setting = setting
         # 需要自动备份，登陆后自动备份
-        if self.setting.autoBackup == True and self.backupDatabaseFlag == False:
+        if self.setting.autoBackup is True and self.backupDatabaseFlag is False:
             self.backup_database()
             self.backupDatabaseFlag = True

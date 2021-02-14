@@ -393,7 +393,7 @@ class Ui_Form(object):
 "}\n"
 "\n"
 "QTableWidget::item:hover{\n"
-"background:#5E84AA;\n"
+"background:rgb(104, 200, 252);\n"
 "color:#000000;\n"
 "    font-size:10;\n"
 "}\n"

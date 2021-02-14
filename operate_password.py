@@ -12,7 +12,7 @@ from random import randint
 from functools import reduce
 
 
-def insert_random_space(s:str, length:int) -> str:
+def insert_random_space(s: str, length: int) -> str:
     """ 向字符串中插入随机空格至指定长度
     Args:
         s: 输入字符串
@@ -26,7 +26,7 @@ def insert_random_space(s:str, length:int) -> str:
     return ''.join(ls)
 
 
-def encrypt_password(pswdtext:str, keytext:str) -> str:
+def encrypt_password(pswdtext: str, keytext: str) -> str:
     """ 加密密码
     Args:
         pswdtext: 需要被加密的密码
@@ -46,7 +46,7 @@ def encrypt_password(pswdtext:str, keytext:str) -> str:
     return reduce(lambda x, y: x + y, [chr(i) for i in encryptText])
 
 
-def decrypt_password(encryptText:str, keytext:str) -> str:
+def decrypt_password(encryptText: str, keytext: str) -> str:
     """ 根据key密码解码
     Args:
         encryptText: 密文

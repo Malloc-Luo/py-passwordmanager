@@ -584,7 +584,7 @@ background:#73A1D0;
 }
 
 QTableWidget::item:hover{
-background:#5E84AA;
+background:rgb(104, 200, 252);
 color:#000000;
     font-size:10;
 }

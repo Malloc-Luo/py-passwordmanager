@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import QWidget, QApplication
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
+from PyQt5.QtCore import pyqtSignal
 from gui.Ui_AddItem import Ui_Dialog
 from UserItem import UserItem
 from GenPasswordUi import GenPasswordUi
@@ -42,8 +42,8 @@ class AddItemUi(QWidget):
 
     def get_item_content(self):
         # 获取填写的内容
-        name     = self.ui.le_name.text()
-        account  = self.ui.le_account.text()
+        name = self.ui.le_name.text()
+        account = self.ui.le_account.text()
         password = self.ui.le_password.text()
         email_or_phone = self.ui.le_email_or_phone.text()
         note = self.ui.te_note.toPlainText().replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
@@ -79,12 +79,12 @@ class AddItemUi(QWidget):
         self.closeSubWSignal.emit()
 
     def hideEvent(self, event):
-        if self.subWCreated == True:
+        if self.subWCreated is True:
             self.ui_genW.hide()
-    
+
     def showEvent(self, event):
         # 显示事件，如果子窗口被打开了则显示子窗口
-        if self.subWCreated == True:
+        if self.subWCreated is True:
             self.ui_genW.show()
 
 

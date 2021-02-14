@@ -1,17 +1,17 @@
 # -*- coding:utf-8 -*-
 
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtCore import pyqtSignal, Qt
 from gui.Ui_GenPasswordUi import Ui_GenPassword
 from random import randint, shuffle
-from TipUi import TipUi
-import secrets, string
-import sys
+import secrets
+import string
 
 
 class GenPasswordUi(QWidget):
     sendSignel = pyqtSignal(str)
     tellSupWClosed = pyqtSignal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_GenPassword()
@@ -51,7 +51,7 @@ class GenPasswordUi(QWidget):
         lengths = self.split_number(self.length, kind)
         index = 0
         for item in self.content.items():
-            if item[1] == True:
+            if item[1] is True:
                 if item[0] == 'uppercase':
                     pswd += [secrets.choice(string.ascii_uppercase) for i in range(lengths[index])]
                 elif item[0] == 'lowercase':
@@ -73,9 +73,9 @@ class GenPasswordUi(QWidget):
         while True:
             if kind == 1:
                 break
-            l = randint(1, length - kind + 1)
-            lengths.append(l)
-            kind, length = kind - 1, length - l
+            selectedLength = randint(1, length - kind + 1)
+            lengths.append(selectedLength)
+            kind, length = kind - 1, length - selectedLength
         lengths.append(rlength - sum(lengths))
         return lengths
 

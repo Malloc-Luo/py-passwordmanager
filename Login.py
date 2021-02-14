@@ -14,26 +14,27 @@
 from Common import dbAbsPath, adminDataDb, get_admin_key
 from gui.Ui_LoginUi import Ui_Login
 from gui.Ui_SigninUi import Ui_Signin
-from PyQt5.QtWidgets import QWidget, QApplication
-from PyQt5.QtCore import QEvent, QObject, QSize, pyqtSignal, QRegExp, Qt
-from PyQt5.QtGui import QHoverEvent, QMouseEvent
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import pyqtSignal, Qt
+# from PyQt5.QtGui import QHoverEvent, QMouseEvent
 from MessageBox import MessageBox
 from Setting import Setting
 import sqlite3 as sql
-import time
+# import time
 import secrets
 import string
 import hashlib
 import sys
 
-def get_stamp(length:int) -> str:
+
+def get_stamp(length: int) -> str:
     return ''.join([secrets.choice(string.hexdigits) for i in range(length)])
 
-def get_md5hex(text:str) -> str:
+
+def get_md5hex(text: str) -> str:
     md5 = hashlib.md5()
     md5.update(text.encode('utf-8'))
     return str(md5.hexdigest())
-
 
 
 class LoginUi(QWidget):
@@ -81,7 +82,7 @@ class LoginUi(QWidget):
         key = get_admin_key()[0]
         # 如果数据库突然丢了或者没有读到数据则退出程序
         if key is None:
-            MessageBox.error(self, '进入密码管理器', '发生错误，退出程序，请尝试重新启动', QMessageBox.Yes)
+            MessageBox.error(self, '进入密码管理器', '发生错误，退出程序，请尝试重新启动', MessageBox.Yes)
             sys.exit()
         # 如果登录成功则需要更新储存的密码
         if get_md5hex(self.adminpswd + key[-15:]) == key[:-15]:
@@ -106,7 +107,6 @@ class LoginUi(QWidget):
             self.ui.pushButton.setDisabled(True)
         else:
             self.ui.pushButton.setDisabled(False)
-
 
 
 class SigninUi(QWidget):
