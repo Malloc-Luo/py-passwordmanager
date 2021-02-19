@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\FileBox\Code\Python\PasswordManager\py-passwordmanager\gui\About.ui'
+# Form implementation generated from reading ui file '/media/orion/DATA/FileBox/Code/Python/PasswordManager/py-passwordmanager/gui/About.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.2
 #
@@ -60,9 +60,9 @@ class Ui_Dialog(object):
         self.groupBox.setSizePolicy(sizePolicy)
         self.groupBox.setMinimumSize(QtCore.QSize(0, 240))
         self.groupBox.setStyleSheet("border-color:red;\n"
-"background-color:white;\n"
-"border-radius:25px;\n"
-"margin:5px;")
+                                    "background-color:white;\n"
+                                    "border-radius:25px;\n"
+                                    "margin:5px;")
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox)
@@ -74,7 +74,7 @@ class Ui_Dialog(object):
         font.setBold(False)
         font.setWeight(50)
         self.label_2.setFont(font)
-        self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label_2.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
         self.label_2.setWordWrap(True)
         self.label_2.setObjectName("label_2")
         self.verticalLayout_2.addWidget(self.label_2)
@@ -94,18 +94,18 @@ class Ui_Dialog(object):
         self.pbt_code.setFont(font)
         self.pbt_code.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_code.setStyleSheet("QPushButton {\n"
-"    background:Transparent;\n"
-"    border:2px solid Transparent;\n"
-"    color:#34495E;\n"
-"    padding:4px;\n"
-"    padding-bottom:2px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    color:#0078d7;\n"
-"    border-bottom-color:#0078d7;\n"
-"}\n"
-"")
+                                    "    background:Transparent;\n"
+                                    "    border:2px solid Transparent;\n"
+                                    "    color:#34495E;\n"
+                                    "    padding:4px;\n"
+                                    "    padding-bottom:2px;\n"
+                                    "}\n"
+                                    "\n"
+                                    "QPushButton:hover {\n"
+                                    "    color:#0078d7;\n"
+                                    "    border-bottom-color:#0078d7;\n"
+                                    "}\n"
+                                    "")
         self.pbt_code.setObjectName("pbt_code")
         self.horizontalLayout_2.addWidget(self.pbt_code)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -119,17 +119,17 @@ class Ui_Dialog(object):
         self.pbt_help.setFont(font)
         self.pbt_help.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_help.setStyleSheet("QPushButton {\n"
-"    background:Transparent;\n"
-"    border:2px solid Transparent;\n"
-"    color:#34495E;\n"
-"    padding:4px;\n"
-"    padding-bottom:2px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    color:#0078d7;\n"
-"    border-bottom-color:#0078d7;\n"
-"}")
+                                    "    background:Transparent;\n"
+                                    "    border:2px solid Transparent;\n"
+                                    "    color:#34495E;\n"
+                                    "    padding:4px;\n"
+                                    "    padding-bottom:2px;\n"
+                                    "}\n"
+                                    "\n"
+                                    "QPushButton:hover {\n"
+                                    "    color:#0078d7;\n"
+                                    "    border-bottom-color:#0078d7;\n"
+                                    "}")
         self.pbt_help.setObjectName("pbt_help")
         self.horizontalLayout_2.addWidget(self.pbt_help)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -168,9 +168,10 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "关于"))
-        self.label.setText(_translate("Dialog", "version 0.9.7"))
+        self.label.setText(_translate("Dialog", "version 0.0.0"))
         self.label_2.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600; color:#000000;\">说明</span></p><p>本软件中的用户数据均储存在<span style=\" color:#000000;\">本地</span>，不会被上传到服务器。</p><p>本软件在运行中及储存文件中不会保存用户的密码明文，主界面获取的密码明是根据用户提供的登录密码经过一定运算得到；用户的登录密码没有保存在本地文件中。</p><p>一般情况下本软件不会主动连接到互联网，只有当用户主动使用检查更新功能时，才会连接网络，仅用于访问github网站提供的API，获取软件版本信息。</p><p>若在使用中遇到问题，可以点击<span style=\" text-decoration: underline; color:#0000ff;\">使用帮助</span>获取帮助。</p></body></html>"))
         self.pbt_code.setText(_translate("Dialog", "项目源码"))
         self.pbt_help.setText(_translate("Dialog", "使用帮助"))
         self.pbt_update.setText(_translate("Dialog", "检查更新"))
+
 import gui.src.icons_rc

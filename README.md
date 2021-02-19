@@ -5,6 +5,10 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.11.1
+
+*   修复一些小问题
+
 #### 0.11.0
 
 *   适配linux平台，仅目前测试过ubuntu 20.04

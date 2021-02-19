@@ -5,7 +5,9 @@
 ```python
 class UserItem(object):
     def __init__(self, ID, name, account, 
-                    password=None, email_or_phone=None, note=None,
+                    password=None, 
+                 	email_or_phone=None, 
+                 	note=None,
                     _plainpswd=None):
         self.id = ID
         self.name = name
@@ -17,7 +19,8 @@ class UserItem(object):
         # 密码明文，使用后删除
         self._plainpswd = _plainpswd
         
-        if not ((self.password is None) ^ (self._plainpswd is None)):
+        if not ((self.password is None) ^ 
+                (self._plainpswd is None)):
             raise ValueError('密文和明文在初始化时有且仅有一个为有效') 
 ```
 

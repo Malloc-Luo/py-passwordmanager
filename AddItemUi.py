@@ -21,6 +21,7 @@ class AddItemUi(QWidget):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.ui.pbt_add.setDisabled(True)
+        self.ui.pbt_gen.setFlat(True)
         self.ui_genW = GenPasswordUi()
         self.set_connect_slot()
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
@@ -33,6 +34,9 @@ class AddItemUi(QWidget):
         self.ui.le_account.cursorPositionChanged.connect(self.check_content)
         self.ui.le_password.cursorPositionChanged.connect(self.check_content)
         self.ui.pbt_gen.clicked.connect(self.gen_password)
+        # 连接密码添加界面的槽函数
+        self.ui_genW.sendSignel.connect(self.add_password)
+        self.ui_genW.tellSupWClosed.connect(self.subW_closed_notify)
 
     def check_content(self):
         if self.ui.le_name.text() == '' or self.ui.le_account.text() == '' or self.ui.le_password.text() == '':
@@ -58,11 +62,7 @@ class AddItemUi(QWidget):
 
     def gen_password(self):
         # self.ui_genW = GenPasswordUi()
-        # 子窗口被创建
         self.subWCreated = True
-        # 连接槽函数
-        self.ui_genW.sendSignel.connect(self.add_password)
-        self.ui_genW.tellSupWClosed.connect(self.subW_closed_notify)
         self.ui_genW.show()
 
     def add_password(self, pswd):

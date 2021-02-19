@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\FileBox\Code\Python\PasswordManager\py-passwordmanager\gui\AddItem.ui'
+# Form implementation generated from reading ui file '/media/orion/DATA/FileBox/Code/Python/PasswordManager/py-passwordmanager/gui/AddItem.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.2
 #
@@ -314,9 +314,14 @@ class Ui_Dialog(object):
 "    image: url(:/mainui/icon/gen2.png);\n"
 "}\n"
 "QPushButton:hover {\n"
+"    background-color:transparent;\n"
 "    image: url(:/mainui/icon/gen1.png);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color:transparent;\n"
 "}")
         self.pbt_gen.setText("")
+        self.pbt_gen.setAutoDefault(False)
         self.pbt_gen.setFlat(True)
         self.pbt_gen.setObjectName("pbt_gen")
         self.horizontalLayout.addWidget(self.pbt_gen)

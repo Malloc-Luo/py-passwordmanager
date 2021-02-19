@@ -8,6 +8,9 @@ import sqlite3 as sql
 import platform
 import getpass
 
+Linux = 'Linux'
+Windows = 'Windows'
+
 # 判断当前操作系统
 operatorSystem = platform.system()
 # 用户名
@@ -72,5 +75,8 @@ def get_admin_key():
 
 
 def read_qss(style) -> str:
-    with open(style, 'r') as f:
-        return f.read()
+    try:
+        with open(style, 'r', encoding='utf-8') as f:
+            return f.read()
+    except IOError:
+        return ' '

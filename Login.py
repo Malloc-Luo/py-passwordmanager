@@ -1,26 +1,19 @@
 # -*- coding: utf-8 -*-
 
-"""
-    登录
-    初次登录的时候要求设置密码，之后可以使用
-"""
-#
 # 管理员数据库，用于验证密码
 # 数据库名为 admin.db，数据表 admintable
 # 数据表内容：
 # +-----+------+
 # | key | -----|
-#
-from Common import dbAbsPath, adminDataDb, get_admin_key
+from Common import dbAbsPath, adminDataDb, get_admin_key, operatorSystem
 from gui.Ui_LoginUi import Ui_Login
 from gui.Ui_SigninUi import Ui_Signin
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import pyqtSignal, Qt
-# from PyQt5.QtGui import QHoverEvent, QMouseEvent
+from PyQt5.QtGui import QFont
 from MessageBox import MessageBox
 from Setting import Setting
 import sqlite3 as sql
-# import time
 import secrets
 import string
 import hashlib
@@ -56,6 +49,11 @@ class LoginUi(QWidget):
         self.ui.pbt_warning.hide()
         self.init_connect()
         self.ui.pushButton.setDisabled(True)
+        if operatorSystem == 'Linux':
+            font = QFont()
+            font.setFamily('Microsoft YaHei UI')
+            font.setPointSize(11)
+            self.ui.lineEdit.setFont(font)
 
     def init_connect(self):
         self.ui.pushButton.clicked.connect(self.submit_admin_password)

@@ -330,7 +330,7 @@ class MainGUI(QWidget):
         # 发送信号加载项目
         self.loadItemSignal.emit()
 
-    def get_setting(self, setting:  Setting):
+    def get_setting(self, setting: Setting):
         # 获取设置信息，在设置窗口点击保存或者启动时加载设置项
         self.setting = setting
         # 决定行号是否可见

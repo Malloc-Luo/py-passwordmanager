@@ -6,10 +6,11 @@
 """
 import operate_password as op
 
+
 class UserItem(object):
-    def __init__(self, ID, name, account, 
-                    password=None, email_or_phone=None, note=None,
-                    _plainpswd=None):
+    def __init__(self, ID, name, account,
+                 password=None, email_or_phone=None, note=None,
+                 _plainpswd=None):
         self.id = ID
         self.name = name
         self.account = account
@@ -20,7 +21,7 @@ class UserItem(object):
         self._plainpswd = _plainpswd
 
         if not ((self.password is None) ^ (self._plainpswd is None)):
-            raise ValueError('密文和明文在初始化时有且仅有一个为有效') 
+            raise ValueError('密文和明文在初始化时有且仅有一个为有效')
 
     def load_key(self, key):
         if self._plainpswd is not None:
@@ -36,10 +37,10 @@ class UserItem(object):
                 raise IndexError('超出索引范围，数值索引为 0 ~ 6')
         elif isinstance(index, str):
             try:
-                return {'id': self.id, 
-                        'name': self.name, 
-                        'account': self.account, 
-                        'password': self.password, 
+                return {'id': self.id,
+                        'name': self.name,
+                        'account': self.account,
+                        'password': self.password,
                         'email_or_phone': self.email_or_phone,
                         'note': self.note}[index]
             except:
@@ -69,4 +70,3 @@ class UserItem(object):
     def __str__(self):
         return ('id: %s\nname: %s\naccount: %s\npassword: %s\nemail/phone: %s\nnote: %s\n'
                 % (self.id, self.name, self.account, self.password, self.email_or_phone, self.note))
-                

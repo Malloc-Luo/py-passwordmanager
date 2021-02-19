@@ -16,7 +16,8 @@ class GenPasswordUi(QWidget):
         super().__init__(parent)
         self.ui = Ui_GenPassword()
         self.ui.setupUi(self)
-        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        # self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.setFixedSize(self.size())
         self.setWindowModality(Qt.ApplicationModal)
         self.ui.pbt_gen.clicked.connect(self.gen_pswd)
         self.ui.pbt_sure.clicked.connect(self.sure_pressed)
@@ -80,4 +81,5 @@ class GenPasswordUi(QWidget):
         return lengths
 
     def closeEvent(self, event):
+        self.ui.tb_brower.clear()
         self.tellSupWClosed.emit()

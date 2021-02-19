@@ -625,11 +625,18 @@ QLineEdit:focus
 	image: url(:/mainui/icon/gen2.png);
 }
 QPushButton:hover {
+	background-color:transparent;
 	image: url(:/mainui/icon/gen1.png);
+}
+QPushButton:pressed {
+	background-color:transparent;
 }</string>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>true</bool>

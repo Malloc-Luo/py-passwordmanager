@@ -64,6 +64,7 @@ class SettingUi(QWidget):
         super().__init__(parent)
         self.ui = Ui_settingDialog()
         self.ui.setupUi(self)
+        self.setFixedSize(self.size())
         self.setWindowModality(Qt.ApplicationModal)
         self.path = dbAbsPath + '.settings'
         self.setting = Setting(self.path)

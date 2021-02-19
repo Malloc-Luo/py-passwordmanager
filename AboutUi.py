@@ -12,12 +12,13 @@ import time
 
 
 class AboutUi(QDialog):
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.11.0'
+        self.version = '0.11.1'
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数

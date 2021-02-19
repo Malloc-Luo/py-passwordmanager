@@ -2,7 +2,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 from Setting import Setting
 from UserItem import UserItem
-from Common import dbAbsPath
+from Common import dbAbsPath, userDataDb
 import sqlite3 as sql
 import re
 import time
@@ -40,7 +40,7 @@ class DataBase(QObject):
         path = dbAbsPath + 'backup'
         if os.path.exists(path) is False:
             os.makedirs(path)
-        shutil.copyfile(dbAbsPath + 'data.db', dbAbsPath + 'backup\\%s.db.bk' % str(int(time.time()))[-10:])
+        shutil.copyfile(userDataDb, dbAbsPath + 'backup\\%s.db.bk' % str(int(time.time()))[-10:])
 
     def check_table_exists(self):
         """ 检查数据表data.db是否存在
@@ -63,7 +63,7 @@ class DataBase(QObject):
     def get_db_name(self, name):
         # 连接到数据库
         self.name = name
-        self.dbcon = sql.connect(dbAbsPath + 'data.db')
+        self.dbcon = sql.connect(userDataDb)
         self.dbcon.create_function('regexp', 2, self.sql_regexp_search)
         self.dbcur = self.dbcon.cursor()
         self.isConnectToDB = True
@@ -72,9 +72,8 @@ class DataBase(QObject):
     def add_useritem(self, useritem: UserItem):
         # 插入一条useritem
         try:
-            self.dbcur.execute('''
-            insert into userdata
-            values (?, ?, ?, ?, ?, ?);
+            self.dbcur.execute('''insert into userdata
+                                values (?, ?, ?, ?, ?, ?);
             ''', (useritem.id, useritem.name, useritem.account, useritem.password, useritem.email_or_phone, useritem.note))
             self.dbcon.commit()
             self.addItemSignal.emit(True)
@@ -85,9 +84,8 @@ class DataBase(QObject):
     def delete_useritem(self, ID: str):
         try:
             # 删除对应id项目
-            self.dbcur.execute('''
-            delete from userdata
-            where id = ?;
+            self.dbcur.execute('''delete from userdata
+                                where id = ?;
             ''', (ID,))
             self.dbcon.commit()
             self.deleteItemSignal.emit(True, ID)
@@ -110,9 +108,8 @@ class DataBase(QObject):
 
     def modify_useritem(self, ID: str, item: str, value: str):
         try:
-            self.dbcur.execute('''
-            update userdata
-            set {}=? where id = ?;
+            self.dbcur.execute('''update userdata
+                                set {}=? where id = ?;
             '''.format(item), (value, ID))
             self.dbcon.commit()
         except sql.OperationalError as e:
@@ -127,26 +124,22 @@ class DataBase(QObject):
             if self.setting.useRegExpFilite is True:
                 # 使用正则表达式搜索
                 if item == '*':
-                    self.dbcur.execute('''
-                    select id from userdata
-                    where name regexp '{}' or account regexp '{}' or email_or_phone regexp '{}';
+                    self.dbcur.execute('''select id from userdata
+                                        where name regexp '{}' or account regexp '{}' or email_or_phone regexp '{}';
                     '''.format(descript, descript, descript))
                 else:
-                    self.dbcur.execute('''
-                    select id from userdata
-                    where {} regexp '{}';
+                    self.dbcur.execute('''select id from userdata
+                                        where {} regexp '{}';
                     '''.format(item, descript))
             else:
                 # 仅使用关键字搜索
                 if item == '*':
-                    self.dbcur.execute('''
-                    select id from userdata
-                    where name like '%{}%' or account like '%{}%' or  email_or_phone like '%{}%';
+                    self.dbcur.execute('''select id from userdata
+                                        where name like '%{}%' or account like '%{}%' or email_or_phone like '%{}%';
                     '''.format(descript, descript, descript))
                 else:
-                    self.dbcur.execute('''
-                    select id from userdata
-                    where {} like '%{}%';
+                    self.dbcur.execute('''select id from userdata
+                                        where {} like '%{}%';
                     '''.format(item, descript))
             # 获取查询结果
             buff = self.dbcur.fetchall()
