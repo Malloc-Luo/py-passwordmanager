@@ -430,4 +430,6 @@ class Ui_GenPassword(object):
         self.pbt_gen.setShortcut(_translate("GenPassword", "Enter"))
         self.pbt_sure.setToolTip(_translate("GenPassword", "确认填写"))
         self.pbt_sure.setText(_translate("GenPassword", "确定"))
+
+
 import gui.src.icons_rc

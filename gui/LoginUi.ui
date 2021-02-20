@@ -24,8 +24,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>450</width>
-    <height>400</height>
+    <width>400</width>
+    <height>310</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -36,65 +36,8 @@
     <normaloff>:/mainui/icon/MainIcon.ico</normaloff>:/mainui/icon/MainIcon.ico</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(255, 255, 249, 247), stop:1 rgba(224, 254, 255, 255));</string>
+   <string notr="true">background-color:rgb(242, 242, 242);</string>
   </property>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>75</x>
-     <y>70</y>
-     <width>250</width>
-     <height>46</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft YaHei</family>
-     <pointsize>9</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLineEdit {
-	border-style:none;
-	padding:8px;
-	border-radius:15px;
-	border:3px solid #DCE4EC;
-	background:white;
-}
-QLineEdit:focus {
-	border:2px solid #34495E;
-}</string>
-   </property>
-   <property name="inputMethodHints">
-    <set>Qt::ImhEmailCharactersOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
-   </property>
-   <property name="maxLength">
-    <number>256</number>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::Password</enum>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-   <property name="placeholderText">
-    <string>请输入密码</string>
-   </property>
-   <property name="cursorMoveStyle">
-    <enum>Qt::VisualMoveStyle</enum>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
@@ -127,8 +70,8 @@ QLineEdit:focus {
    <property name="styleSheet">
     <string notr="true">QPushButton {
     border-style:none;
-    padding:10px;
-    border-radius:18px;
+    padding:9px;
+    border-radius:22px;
     color:#FFFFFF;
     background:#34495E;
     border:2px solid #34495E;
@@ -169,11 +112,80 @@ QPushButton:disabled{
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>230</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:qlineargradient(spread:pad, x1:1, y1:0.057, x2:1, y2:0.982955, stop:0 rgba(129, 228, 255, 232), stop:1 rgba(217, 213, 255, 255));
+border-bottom-left-radius:35px;
+border-bottom-right-radius:35px;</string>
+   </property>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>110</y>
+      <width>240</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+	border-style:none;
+	padding:10px;
+	border-radius:17px;
+	border:3px solid #DCE4EC;
+	background:white;
+}
+QLineEdit:focus {
+	border:3px solid rgb(0, 170, 255);
+}</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhEmailCharactersOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
+    </property>
+    <property name="maxLength">
+     <number>256</number>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="placeholderText">
+     <string>请输入密码</string>
+    </property>
+    <property name="cursorMoveStyle">
+     <enum>Qt::VisualMoveStyle</enum>
+    </property>
+   </widget>
+  </widget>
   <widget class="QPushButton" name="pbt_warning">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>120</y>
+     <x>150</x>
+     <y>160</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -190,7 +202,8 @@ QPushButton:disabled{
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color:red;
+    <string notr="true">color:rgb(255, 0, 0);
+background-color:transparent;
 </string>
    </property>
    <property name="text">

@@ -60,7 +60,7 @@ QTabBar::tab {
     border: 2px solid;
 	padding:2px;
 	border-radius:5px;
-	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.494737 rgba(220, 220, 220, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color:#ffffff;
 	border-color:rgb(220, 220, 220);
 	margin-right:2px;
 }
@@ -223,7 +223,7 @@ QLabel {
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
-        <number>3</number>
+        <number>5</number>
        </property>
        <property name="leftMargin">
         <number>9</number>
@@ -244,6 +244,9 @@ QLabel {
          </property>
          <property name="sizeConstraint">
           <enum>QLayout::SetFixedSize</enum>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
          </property>
          <item>
           <widget class="QLineEdit" name="le_filiter">
@@ -316,20 +319,20 @@ QLineEdit:focus {
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
-            <string notr="true">
-QComboBox {
+            <string notr="true">QComboBox {
     border: 1px solid gray;   /* 边框 */
     border-radius: 3px;   /* 圆角 */
-    padding: 1px 18px 1px 3px;   /* 字体填衬 */
+    padding: 3px 18px 3px 3px;   /* 字体填衬 */
     color:#FFFFFF;
-    background:#34495E;
+    background:#415B76;
 }
 /* 下拉后，整个下拉窗体样式 */
 QComboBox QAbstractItemView {
 	/* 选定项的虚框 */
     outline: 0px solid gray;
 	/* 整个下拉窗体的边框 */   
-    border: 1px solid white;   
+    border: 1px solid white;
+	border-radius: 3px;  
     color:#FFFFFF;
     background:rgb(68, 96, 124);
 }
@@ -567,60 +570,65 @@ QPushButton:pressed
          </property>
          <property name="styleSheet">
           <string notr="true">QTableWidget {
-    color:#34495E;
-    background:#DCDCDC;
+    color:rgb(71, 71, 106);
+    background:rgb(245, 245, 245);
     border:1px solid #b6b6b6;
-    alternate-background-color:#d2d2d2;
+	border-top:0px;
+	border-radius:8px;
+    alternate-background-color:rgb(230, 230, 230);
     gridline-color:#ffffff;
 	font-family:'consolas,Microsoft YaHei';
 	font-size:10pt;
 }
 QTableWidget::item{
-    border-radius:6px;
+    border-radius:8px;
+	margin-left:2px;
+	margin-right:2px;
 }
 QTableWidget::item:selected{
-color:#ffffff;
-background:#73A1D0;
+	color:#000000;
+	font-weight: bold;
+	background-color:qlineargradient(spread:pad, x1:1, y1:0.057, x2:1, y2:0.982955, stop:0 rgba(129, 228, 255, 232), stop:1 rgba(217, 213, 255, 255));
 }
 
 QTableWidget::item:hover{
-background:rgb(104, 200, 252);
-color:#000000;
+	background:qlineargradient(spread:reflect, x1:0.995, y1:0.0113636, x2:1, y2:1, stop:0 rgba(255, 85, 255, 255), stop:1 rgba(255, 170, 127, 226));
+	color:#000000;
     font-size:10;
 }
 QHeaderView::section{
-text-align:center;
-background:#496684;
-padding:2px;
-margin:1px;
-color:#ffffff;
-border:1px solid #242424;
-border-left-width:0;
-border-radius:4px;
+	text-align:center;
+	background:#5E83AA;
+	padding:4px;
+	margin:12px;
+	color:#ffffff;
+	border:1px solid #5E83AA;
+	border-left-width:0;
+	border-radius:15px;
 }
 QScrollBar:vertical{
-background:#484848;
-padding:0px;
-border-radius:6px;
-max-width:12px;
+	background:#484848;
+	padding:0px;
+	border-radius:6px;
+	max-width:8px;
 }
 QScrollBar::handle:vertical{
-background:#CCCCCC;
+	background:#CCCCCC;
 }
 QScrollBar::handle:hover:vertical,QScrollBar::handle:pressed:vertical{
-background:#A7A7A7;
+	background:#A7A7A7;
 }
 QScrollBar::sub-page:vertical{
-background:444444;
+	background:444444;
 }
 QScrollBar::add-page:vertical{
-background:5B5B5B;
+	background:5B5B5B;
 }
 QScrollBar::add-line:vertical{
-background:none;
+	background:none;
 }
 QScrollBar::sub-line:vertical{
-background:none;
+	background:none;
 }
 </string>
          </property>

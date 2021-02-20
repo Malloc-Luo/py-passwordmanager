@@ -21,41 +21,11 @@ class Ui_Login(object):
         sizePolicy.setHeightForWidth(Login.sizePolicy().hasHeightForWidth())
         Login.setSizePolicy(sizePolicy)
         Login.setMinimumSize(QtCore.QSize(400, 310))
-        Login.setMaximumSize(QtCore.QSize(450, 400))
+        Login.setMaximumSize(QtCore.QSize(400, 310))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/mainui/icon/MainIcon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Login.setWindowIcon(icon)
-        Login.setStyleSheet("background-color: qlineargradient(spread:reflect, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(255, 255, 249, 247), stop:1 rgba(224, 254, 255, 255));")
-        self.lineEdit = QtWidgets.QLineEdit(Login)
-        self.lineEdit.setGeometry(QtCore.QRect(75, 70, 250, 46))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("Microsoft YaHei")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.lineEdit.setFont(font)
-        self.lineEdit.setStyleSheet("QLineEdit {\n"
-"    border-style:none;\n"
-"    padding:8px;\n"
-"    border-radius:15px;\n"
-"    border:3px solid #DCE4EC;\n"
-"    background:white;\n"
-"}\n"
-"QLineEdit:focus {\n"
-"    border:2px solid #34495E;\n"
-"}")
-        self.lineEdit.setInputMethodHints(QtCore.Qt.ImhEmailCharactersOnly|QtCore.Qt.ImhHiddenText|QtCore.Qt.ImhNoAutoUppercase|QtCore.Qt.ImhNoPredictiveText|QtCore.Qt.ImhSensitiveData)
-        self.lineEdit.setMaxLength(256)
-        self.lineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.lineEdit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.lineEdit.setCursorMoveStyle(QtCore.Qt.VisualMoveStyle)
-        self.lineEdit.setClearButtonEnabled(True)
-        self.lineEdit.setObjectName("lineEdit")
+        Login.setStyleSheet("background-color:rgb(242, 242, 242);")
         self.pushButton = QtWidgets.QPushButton(Login)
         self.pushButton.setGeometry(QtCore.QRect(125, 195, 150, 48))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -73,8 +43,8 @@ class Ui_Login(object):
         self.pushButton.setAutoFillBackground(False)
         self.pushButton.setStyleSheet("QPushButton {\n"
 "    border-style:none;\n"
-"    padding:10px;\n"
-"    border-radius:18px;\n"
+"    padding:9px;\n"
+"    border-radius:22px;\n"
 "    color:#FFFFFF;\n"
 "    background:#34495E;\n"
 "    border:2px solid #34495E;\n"
@@ -97,8 +67,43 @@ class Ui_Login(object):
         self.pushButton.setDefault(True)
         self.pushButton.setFlat(True)
         self.pushButton.setObjectName("pushButton")
+        self.widget = QtWidgets.QWidget(Login)
+        self.widget.setGeometry(QtCore.QRect(0, 0, 400, 230))
+        self.widget.setStyleSheet("background-color:qlineargradient(spread:pad, x1:1, y1:0.057, x2:1, y2:0.982955, stop:0 rgba(129, 228, 255, 232), stop:1 rgba(217, 213, 255, 255));\n"
+"border-bottom-left-radius:35px;\n"
+"border-bottom-right-radius:35px;")
+        self.widget.setObjectName("widget")
+        self.lineEdit = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit.setGeometry(QtCore.QRect(80, 110, 240, 48))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei")
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setWeight(50)
+        self.lineEdit.setFont(font)
+        self.lineEdit.setStyleSheet("QLineEdit {\n"
+"    border-style:none;\n"
+"    padding:10px;\n"
+"    border-radius:17px;\n"
+"    border:3px solid #DCE4EC;\n"
+"    background:white;\n"
+"}\n"
+"QLineEdit:focus {\n"
+"    border:3px solid rgb(0, 170, 255);\n"
+"}")
+        self.lineEdit.setInputMethodHints(QtCore.Qt.ImhEmailCharactersOnly | QtCore.Qt.ImhHiddenText | QtCore.Qt.ImhNoAutoUppercase | QtCore.Qt.ImhNoPredictiveText | QtCore.Qt.ImhSensitiveData)
+        self.lineEdit.setMaxLength(256)
+        self.lineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
+        self.lineEdit.setCursorMoveStyle(QtCore.Qt.VisualMoveStyle)
+        self.lineEdit.setObjectName("lineEdit")
         self.pbt_warning = QtWidgets.QPushButton(Login)
-        self.pbt_warning.setGeometry(QtCore.QRect(80, 120, 93, 28))
+        self.pbt_warning.setGeometry(QtCore.QRect(150, 160, 93, 28))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -107,7 +112,8 @@ class Ui_Login(object):
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
         self.pbt_warning.setFont(font)
-        self.pbt_warning.setStyleSheet("color:red;\n"
+        self.pbt_warning.setStyleSheet("color:rgb(255, 0, 0);\n"
+"background-color:transparent;\n"
 "")
         self.pbt_warning.setFlat(True)
         self.pbt_warning.setObjectName("pbt_warning")
@@ -118,8 +124,10 @@ class Ui_Login(object):
     def retranslateUi(self, Login):
         _translate = QtCore.QCoreApplication.translate
         Login.setWindowTitle(_translate("Login", "进入密码管理器"))
-        self.lineEdit.setPlaceholderText(_translate("Login", "请输入密码"))
         self.pushButton.setText(_translate("Login", "进入"))
         self.pushButton.setShortcut(_translate("Login", "Enter"))
+        self.lineEdit.setPlaceholderText(_translate("Login", "请输入密码"))
         self.pbt_warning.setText(_translate("Login", "密码错误!!"))
+
+
 import gui.src.icons_rc

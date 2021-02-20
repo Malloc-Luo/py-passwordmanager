@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import QWidget, QApplication
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt
 from gui.Ui_AddItem import Ui_Dialog
 from UserItem import UserItem
 from GenPasswordUi import GenPasswordUi

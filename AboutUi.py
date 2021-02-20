@@ -2,7 +2,7 @@
 
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtGui import QHoverEvent, QDesktopServices, QPixmap, QIcon
-from PyQt5.QtCore import QObject, QUrl
+from PyQt5.QtCore import QObject, QUrl, Qt
 from gui.Ui_About import Ui_Dialog
 from TipUi import TipUi
 import gui.src.icons_rc
@@ -18,7 +18,8 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.11.2'
+        self.version = '0.11.3'
+        self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint)
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数

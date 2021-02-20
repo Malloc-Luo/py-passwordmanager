@@ -49,6 +49,7 @@ class LoginUi(QWidget):
         self.ui.pbt_warning.hide()
         self.init_connect()
         self.ui.pushButton.setDisabled(True)
+        self.ui.pushButton.setVisible(False)
         if operatorSystem == 'Linux':
             font = QFont()
             font.setFamily('Microsoft YaHei UI')
@@ -102,9 +103,16 @@ class LoginUi(QWidget):
 
     def pushbutton_style(self):
         if len(self.ui.lineEdit.text()) < 6:
+            self.ui.pbt_warning.setVisible(False)
             self.ui.pushButton.setDisabled(True)
+            self.ui.pushButton.setVisible(False)
+            self.ui.widget.setGeometry(0, 0, 400, 230)
+            self.ui.lineEdit.setGeometry(80, 110, 240, 48)
         else:
             self.ui.pushButton.setDisabled(False)
+            self.ui.pushButton.setVisible(True)
+            self.ui.widget.setGeometry(0, 0, 400, 150)
+            self.ui.lineEdit.setGeometry(80, 60, 240, 48)
 
 
 class SigninUi(QWidget):

@@ -45,7 +45,7 @@ class Ui_Form(object):
 "    border: 2px solid;\n"
 "    padding:2px;\n"
 "    border-radius:5px;\n"
-"    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.494737 rgba(220, 220, 220, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"    background-color:#ffffff;\n"
 "    border-color:rgb(220, 220, 220);\n"
 "    margin-right:2px;\n"
 "}\n"
@@ -187,10 +187,11 @@ class Ui_Form(object):
         self.tab0.setObjectName("tab0")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.tab0)
         self.verticalLayout.setContentsMargins(9, 9, 9, 9)
-        self.verticalLayout.setSpacing(3)
+        self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+        self.horizontalLayout_2.setContentsMargins(5, -1, -1, -1)
         self.horizontalLayout_2.setSpacing(4)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.le_filiter = QtWidgets.QLineEdit(self.tab0)
@@ -229,20 +230,20 @@ class Ui_Form(object):
         font.setFamily("Microsoft YaHei UI")
         self.comboBox.setFont(font)
         self.comboBox.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.comboBox.setStyleSheet("\n"
-"QComboBox {\n"
+        self.comboBox.setStyleSheet("QComboBox {\n"
 "    border: 1px solid gray;   /* 边框 */\n"
 "    border-radius: 3px;   /* 圆角 */\n"
-"    padding: 1px 18px 1px 3px;   /* 字体填衬 */\n"
+"    padding: 3px 18px 3px 3px;   /* 字体填衬 */\n"
 "    color:#FFFFFF;\n"
-"    background:#34495E;\n"
+"    background:#415B76;\n"
 "}\n"
 "/* 下拉后，整个下拉窗体样式 */\n"
 "QComboBox QAbstractItemView {\n"
 "    /* 选定项的虚框 */\n"
 "    outline: 0px solid gray;\n"
 "    /* 整个下拉窗体的边框 */   \n"
-"    border: 1px solid white;   \n"
+"    border: 1px solid white;\n"
+"    border-radius: 3px;  \n"
 "    color:#FFFFFF;\n"
 "    background:rgb(68, 96, 124);\n"
 "}\n"
@@ -376,60 +377,65 @@ class Ui_Form(object):
         self.table = QtWidgets.QTableWidget(self.tab0)
         self.table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.table.setStyleSheet("QTableWidget {\n"
-"    color:#34495E;\n"
-"    background:#DCDCDC;\n"
+"    color:rgb(71, 71, 106);\n"
+"    background:rgb(245, 245, 245);\n"
 "    border:1px solid #b6b6b6;\n"
-"    alternate-background-color:#d2d2d2;\n"
+"    border-top:0px;\n"
+"    border-radius:8px;\n"
+"    alternate-background-color:rgb(230, 230, 230);\n"
 "    gridline-color:#ffffff;\n"
 "    font-family:\'consolas,Microsoft YaHei\';\n"
 "    font-size:10pt;\n"
 "}\n"
 "QTableWidget::item{\n"
-"    border-radius:6px;\n"
+"    border-radius:8px;\n"
+"    margin-left:2px;\n"
+"    margin-right:2px;\n"
 "}\n"
 "QTableWidget::item:selected{\n"
-"color:#ffffff;\n"
-"background:#73A1D0;\n"
+"    color:#000000;\n"
+"    font-weight: bold;\n"
+"    background-color:qlineargradient(spread:pad, x1:1, y1:0.057, x2:1, y2:0.982955, stop:0 rgba(129, 228, 255, 232), stop:1 rgba(217, 213, 255, 255));\n"
 "}\n"
 "\n"
 "QTableWidget::item:hover{\n"
-"background:rgb(104, 200, 252);\n"
-"color:#000000;\n"
+"    background:qlineargradient(spread:reflect, x1:0.995, y1:0.0113636, x2:1, y2:1, stop:0 rgba(255, 85, 255, 255), stop:1 rgba(255, 170, 127, 226));\n"
+"    color:#000000;\n"
 "    font-size:10;\n"
 "}\n"
 "QHeaderView::section{\n"
-"text-align:center;\n"
-"background:#496684;\n"
-"padding:2px;\n"
-"margin:1px;\n"
-"color:#ffffff;\n"
-"border:1px solid #242424;\n"
-"border-left-width:0;\n"
-"border-radius:4px;\n"
+"    text-align:center;\n"
+"    background:#5E83AA;\n"
+"    padding:4px;\n"
+"    margin:12px;\n"
+"    color:#ffffff;\n"
+"    border:1px solid #5E83AA;\n"
+"    border-left-width:0;\n"
+"    border-radius:15px;\n"
 "}\n"
 "QScrollBar:vertical{\n"
-"background:#484848;\n"
-"padding:0px;\n"
-"border-radius:6px;\n"
-"max-width:12px;\n"
+"    background:#484848;\n"
+"    padding:0px;\n"
+"    border-radius:6px;\n"
+"    max-width:8px;\n"
 "}\n"
 "QScrollBar::handle:vertical{\n"
-"background:#CCCCCC;\n"
+"    background:#CCCCCC;\n"
 "}\n"
 "QScrollBar::handle:hover:vertical,QScrollBar::handle:pressed:vertical{\n"
-"background:#A7A7A7;\n"
+"    background:#A7A7A7;\n"
 "}\n"
 "QScrollBar::sub-page:vertical{\n"
-"background:444444;\n"
+"    background:444444;\n"
 "}\n"
 "QScrollBar::add-page:vertical{\n"
-"background:5B5B5B;\n"
+"    background:5B5B5B;\n"
 "}\n"
 "QScrollBar::add-line:vertical{\n"
-"background:none;\n"
+"    background:none;\n"
 "}\n"
 "QScrollBar::sub-line:vertical{\n"
-"background:none;\n"
+"    background:none;\n"
 "}\n"
 "")
         self.table.setLineWidth(1)
@@ -545,4 +551,6 @@ class Ui_Form(object):
         item = self.table.horizontalHeaderItem(5)
         item.setText(_translate("Form", "备注"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab0), _translate("Form", "密码管理"))
+
+
 import gui.src.icons_rc
