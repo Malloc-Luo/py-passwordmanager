@@ -4,7 +4,7 @@
 
 #### 一、添加密码项目
 
-<img src="D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210220114447693.png" alt="image-20210220114447693" style="zoom:80%;" />
+<img src="readme\image-20210220114447693.png" alt="image-20210220114447693" style="zoom:80%;" />
 
 点击右侧第一个按钮，填出表单，填写完成表单后点击“保存”即可。其中“名称”、“账号”、“密码”为必填项，缺省可以使用“_”代替。”密码“项可以选择自动生成随机密码，更安全。
 
@@ -14,7 +14,7 @@
 
 #### 三、设置
 
-<img src="D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210220115158511.png" alt="image-20210220115158511" style="zoom:80%;" />
+<img src="readme\image-20210220115158511.png" alt="image-20210220115158511" style="zoom:80%;" />
 
 以上为当前可选设置项目。
 
@@ -35,7 +35,7 @@
 
 在”关于“界面点击右下角”检查更新“项，若有更新可用，则会自动跳转打开软件[release网站](https://github.com/Malloc-Luo/py-passwordmanager/releases/tag/0.11.1)，目前需要手动下载，覆盖更新。
 
-<img src="D:%5CFileBox%5CCode%5CPython%5CPasswordManager%5Cpy-passwordmanager%5Creadme%5Cimage-20210220121012345.png" alt="image-20210220121012345" style="zoom:80%;" />
+<img src="readme\image-20210220121012345.png" alt="image-20210220121012345" style="zoom:80%;" />
 
 
 

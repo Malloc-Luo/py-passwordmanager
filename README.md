@@ -5,6 +5,10 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.11.2
+
+*   添加帮助文档，使用说明
+
 #### 0.11.1
 
 *   修复一些小问题

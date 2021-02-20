@@ -18,7 +18,7 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.11.1'
+        self.version = '0.11.2'
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数
@@ -86,5 +86,5 @@ class AboutUi(QDialog):
         self.tip.show()
 
     def call_help(self):
-        self.tip = TipUi('功能完善中')
-        self.tip.show()
+        QDesktopServices.openUrl(QUrl('https://github.com/Malloc-Luo/py-passwordmanager/blob/main/help.md'))
+        self.close()
