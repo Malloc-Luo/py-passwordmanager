@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QWidget, QApplication
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtWidgets import QWidget, QApplication, QGraphicsDropShadowEffect
+from PyQt5.QtCore import pyqtSignal, Qt, QObject, QEvent
+from PyQt5.QtGui import QColor
 from gui.Ui_AddItem import Ui_Dialog
 from UserItem import UserItem
 from GenPasswordUi import GenPasswordUi
+from MessageBox import MessageBox
+from WidgetEffect import set_shadow_effect
 from TipUi import TipUi
 import time
 import sys
@@ -26,6 +29,12 @@ class AddItemUi(QWidget):
         self.set_connect_slot()
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.subWCreated = False
+        self.isChanged = False
+        self.ui.le_name.installEventFilter(self)
+        self.ui.le_account.installEventFilter(self)
+        self.ui.le_password.installEventFilter(self)
+        self.ui.le_email_or_phone.installEventFilter(self)
+        self.ui.te_note.installEventFilter(self)
 
     def set_connect_slot(self):
         self.ui.pbt_cancel.clicked.connect(self.close)
@@ -39,10 +48,14 @@ class AddItemUi(QWidget):
         self.ui_genW.tellSupWClosed.connect(self.subW_closed_notify)
 
     def check_content(self):
-        if self.ui.le_name.text() == '' or self.ui.le_account.text() == '' or self.ui.le_password.text() == '':
+        if len(self.ui.le_name.text().strip()) == 0 or len(self.ui.le_account.text().strip()) == 0 or len(self.ui.le_password.text().strip()) == 0:
             self.ui.pbt_add.setDisabled(True)
+            self.setWindowTitle(u'添加密码')
+            self.isChanged = False
         else:
             self.ui.pbt_add.setDisabled(False)
+            self.setWindowTitle(u'添加密码*')
+            self.isChanged = True
 
     def get_item_content(self):
         # 获取填写的内容
@@ -51,6 +64,7 @@ class AddItemUi(QWidget):
         password = self.ui.le_password.text()
         email_or_phone = self.ui.le_email_or_phone.text()
         note = self.ui.te_note.toPlainText().replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
+        self.isChanged = False
         # 发送UserItem对象
         if len(name.replace(' ', '')) != 0 and len(account.replace(' ', '')) != 0 and len(password.replace(' ', '')) != 0:
             ID = str(int(time.time() * 100))[-10:]
@@ -74,7 +88,24 @@ class AddItemUi(QWidget):
         # 子窗口被关闭的时候接收到信号
         self.subWCreated = False
 
+    def eventFilter(self, widget, event):
+        if widget in {self.ui.le_name, self.ui.le_account, self.ui.le_password, self.ui.le_email_or_phone, self.ui.te_note}:
+            if event.type() == QEvent.FocusIn:
+                set_shadow_effect(widget, color=QColor(0, 120, 210), radius=20)
+            elif event.type() == QEvent.FocusOut:
+                set_shadow_effect(widget, visible=False)
+        return QObject.eventFilter(self, widget, event)
+
     def closeEvent(self, event):
+        if self.isChanged is True:
+            pbt = MessageBox.warning(self, u'添加密码', u'新建密码尚未保存，是否保存？', MessageBox.YES | MessageBox.NO | MessageBox.CANCEL)
+            if pbt == MessageBox.YES:
+                self.get_item_content()
+                event.accept()
+            elif pbt == MessageBox.NO:
+                event.accept()
+            elif pbt == MessageBox.CANCEL:
+                event.ignore()
         # 关闭窗口事件，发送关闭信号
         self.closeSubWSignal.emit()
 

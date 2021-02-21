@@ -9,10 +9,11 @@ from Common import dbAbsPath, adminDataDb, get_admin_key, operatorSystem
 from gui.Ui_LoginUi import Ui_Login
 from gui.Ui_SigninUi import Ui_Signin
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtCore import pyqtSignal, Qt, QObject, QEvent
 from PyQt5.QtGui import QFont
 from MessageBox import MessageBox
 from Setting import Setting
+from WidgetEffect import set_shadow_effect
 import sqlite3 as sql
 import secrets
 import string
@@ -50,6 +51,10 @@ class LoginUi(QWidget):
         self.init_connect()
         self.ui.pushButton.setDisabled(True)
         self.ui.pushButton.setVisible(False)
+        # 设置阴影
+        set_shadow_effect(self.ui.widget, radius=35)
+        set_shadow_effect(self.ui.lineEdit)
+        # 如果是Linux系统，字体放大一点
         if operatorSystem == 'Linux':
             font = QFont()
             font.setFamily('Microsoft YaHei UI')

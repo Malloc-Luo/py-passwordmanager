@@ -5,6 +5,11 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.11.4
+
+*   修改添加密码项目保存逻辑
+*   修改部分UI细节，添加控件阴影
+
 #### 0.11.3
 
 *   改变一些UI细节

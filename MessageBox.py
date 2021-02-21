@@ -19,11 +19,11 @@ class MessageBox(QDialog):
         default: 默认按钮，默认值为YES
     """
     # 仅支持这几个按键
-    YES = 0x01
-    NO = 0x02
+    YES    = 0x01
+    NO     = 0x02
     CANCEL = 0x04
-    CLOSE = 0x08
-    OK = 0x10
+    CLOSE  = 0x08
+    OK     = 0x10
     # 返回值
     retValue = 0
 

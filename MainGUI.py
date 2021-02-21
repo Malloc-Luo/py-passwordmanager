@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView, QMenu, QAction, QToolTip
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import Qt, pyqtSignal, QEvent, QObject
 from PyQt5.QtGui import QIcon, QCursor
 from gui.Ui_MainGUI import Ui_Form
+from WidgetEffect import set_shadow_effect
 from AddItemUi import AddItemUi
 from UserItem import UserItem
 from Setting import Setting, SettingUi
@@ -51,6 +52,7 @@ class MainGUI(QWidget):
         self.ui.table.setMouseTracking(True)
         # 槽函数初始化连接（主要的）
         self.init_connect()
+        self.ui.le_filiter.installEventFilter(self)
 
     def init_connect(self):
         self.ui.pbt_add.clicked.connect(self.add_item_ui)
@@ -338,6 +340,14 @@ class MainGUI(QWidget):
         # 刷新一次表格
         if len(self.ui.le_filiter.text().replace(' ', '')) == 0:
             self.refresh_table()
+
+    def eventFilter(self, widget, event):
+        if widget == self.ui.le_filiter:
+            if event.type() == QEvent.FocusIn:
+                set_shadow_effect(widget)
+            elif event.type() == QEvent.FocusOut:
+                set_shadow_effect(widget, visible=False)
+        return QObject.eventFilter(self, widget, event)
 
     def keyPressEvent(self, event):
         self.ctrlPressed = (event.key() == Qt.Key_Control)
