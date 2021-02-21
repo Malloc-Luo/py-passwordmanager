@@ -1,8 +1,5 @@
 QMenu {
-    /* background:purple; */
     border:1px solid lightgray;
-    /* border-color:green; */
-    /* border: none; */
 }
 QMenu::item {
     padding:0px 10px 0px 10px;

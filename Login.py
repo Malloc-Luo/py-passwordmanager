@@ -54,6 +54,7 @@ class LoginUi(QWidget):
         # 设置阴影
         set_shadow_effect(self.ui.widget, radius=35)
         set_shadow_effect(self.ui.lineEdit)
+        set_shadow_effect(self.ui.pushButton, radius=30)
         # 如果是Linux系统，字体放大一点
         if operatorSystem == 'Linux':
             font = QFont()
@@ -132,6 +133,8 @@ class SigninUi(QWidget):
         self.ui.pbt_setting.setDisabled(True)
         self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.init_connect()
+        set_shadow_effect(self.ui.pbt_cancel, radius=30)
+        set_shadow_effect(self.ui.pbt_setting, radius=30)
 
     def init_connect(self):
         self.ui.pbt_cancel.clicked.connect(self.close)

@@ -6,6 +6,7 @@ from PyQt5.QtCore import pyqtSignal, Qt
 from MessageBox import MessageBox
 from TipUi import TipUi
 from gui.Ui_SettingUi import Ui_settingDialog
+from WidgetEffect import set_shadow_effect
 import os
 
 
@@ -72,6 +73,8 @@ class SettingUi(QWidget):
         # 槽函数连接
         self.ui.pbt_save.clicked.connect(self.save_settings)
         self.ui.pbt_cancel.clicked.connect(self.close)
+        set_shadow_effect(self.ui.pbt_save, radius=30)
+        set_shadow_effect(self.ui.pbt_cancel, radius=30)
 
     def show_setting(self):
         self.ui.cb_showToolTips.setChecked(self.setting.showToolTips)

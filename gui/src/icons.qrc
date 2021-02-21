@@ -29,5 +29,8 @@
     <file>icon/add1.png</file>
     <file>icon/delete.png</file>
     <file>icon/delete1.png</file>
+    <file>icon/account.png</file>
+    <file>icon/password.png</file>
+    <file>icon/connect.png</file>
   </qresource>
 </RCC>

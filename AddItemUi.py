@@ -35,6 +35,8 @@ class AddItemUi(QWidget):
         self.ui.le_password.installEventFilter(self)
         self.ui.le_email_or_phone.installEventFilter(self)
         self.ui.te_note.installEventFilter(self)
+        set_shadow_effect(self.ui.pbt_add, radius=30)
+        set_shadow_effect(self.ui.pbt_cancel, radius=30)
 
     def set_connect_slot(self):
         self.ui.pbt_cancel.clicked.connect(self.close)

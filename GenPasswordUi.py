@@ -3,6 +3,7 @@
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtCore import pyqtSignal, Qt
 from gui.Ui_GenPasswordUi import Ui_GenPassword
+from WidgetEffect import set_shadow_effect
 from random import randint, shuffle
 import secrets
 import string
@@ -25,6 +26,8 @@ class GenPasswordUi(QWidget):
         self.ui.cbx_digital.clicked.connect(self.check_checked_box)
         self.ui.cbx_lowercase.clicked.connect(self.check_checked_box)
         self.ui.cbx_uppercase.clicked.connect(self.check_checked_box)
+        set_shadow_effect(self.ui.pbt_gen, radius=30)
+        set_shadow_effect(self.ui.pbt_sure, radius=30)
 
     def sure_pressed(self):
         self.sendSignel.emit(self.genPswd)

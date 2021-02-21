@@ -136,37 +136,38 @@ class MainGUI(QWidget):
     # 点击右键菜单项目槽函数
     def action_copy_account(self):
         # 点击右键“复制账号”
-        self.tip = TipUi('复制账号成功')
-        self.tip.show()
         row = self.ui.table.currentRow()
         if row != -1:
             self.write_into_clipboard(self.ui.table.item(row, 2).text())
+            self.tip = TipUi('复制账号成功')
+            self.tip.show()
 
     def action_copy_password(self):
         # 点击右键“复制密码”
-        self.tip = TipUi('复制密码成功')
-        self.tip.show()
         row = self.ui.table.currentRow()
         if row != -1:
-            self.write_into_clipboard(self.ui.table.item(row, 3).text())
+            ID = self.ui.table.item(row, 0).text()
+            self.write_into_clipboard(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
+            self.tip = TipUi('复制密码成功')
+            self.tip.show()
 
     def action_copy_email(self):
         # 点击右键“复制邮箱/电话”
-        self.tip = TipUi('复制邮/电成功')
-        self.tip.show()
         row = self.ui.table.currentRow()
         if row != -1:
             self.write_into_clipboard(self.ui.table.item(row, 4).text())
+            self.tip = TipUi('复制邮/电成功')
+            self.tip.show()
 
     def create_right_menu(self):
         # 创建右键菜单
         self.tableMenu = QMenu(self)
-        self.tableMenu.setStyleSheet(read_qss('gui/src/qss/QMenu.qss'))
-        self.actionCopyAccount = QAction(QIcon('gui/src/icon/account.png'), u'复制账号', self)
-        self.actionCopyPassword = QAction(QIcon('gui/src/icon/password.png'), u'复制密码', self)
-        self.actionCopyEmail = QAction(QIcon('gui/src/icon/connect.png'), u'复制邮箱/电话', self)
-        self.actionDelete = QAction(QIcon('gui/src/icon/delete1.png'), u'删除', self)
-        self.actionAdd = QAction(QIcon('gui/src/icon/add.png'), u'新建', self)
+        # self.tableMenu.setStyleSheet(read_qss('gui/src/qss/QMenu.qss'))
+        self.actionCopyAccount = QAction(QIcon(':/mainui/icon/account.png'), u'复制账号', self)
+        self.actionCopyPassword = QAction(QIcon(':/mainui/icon/password.png'), u'复制密码', self)
+        self.actionCopyEmail = QAction(QIcon(':/mainui/icon/connect.png'), u'复制邮箱/电话', self)
+        self.actionDelete = QAction(QIcon(':/mainui/icon/delete1.png'), u'删除', self)
+        self.actionAdd = QAction(QIcon(':/mainui/icon/add.png'), u'新建', self)
         # 添加按键到右键菜单
         self.tableMenu.addAction(self.actionCopyAccount)
         self.tableMenu.addAction(self.actionCopyPassword)
