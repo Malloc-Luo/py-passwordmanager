@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="mainui">
+    <file>icon/open0.png</file>
+    <file>icon/open1.png</file>
     <file>icon/ab0.png</file>
     <file>icon/error.png</file>
     <file>icon/notify.png</file>
@@ -32,5 +34,7 @@
     <file>icon/account.png</file>
     <file>icon/password.png</file>
     <file>icon/connect.png</file>
+    <file>icon/undo.png</file>
+    <file>icon/redo.png</file>
   </qresource>
 </RCC>

@@ -266,6 +266,30 @@ class Ui_settingDialog(object):
         self.cb_mouseClickSelect.setFont(font)
         self.cb_mouseClickSelect.setObjectName("cb_mouseClickSelect")
         self.gridLayout_2.addWidget(self.cb_mouseClickSelect, 6, 1, 1, 1)
+        self.pbt_openfolder = QtWidgets.QPushButton(self.groupBox_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pbt_openfolder.sizePolicy().hasHeightForWidth())
+        self.pbt_openfolder.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        self.pbt_openfolder.setFont(font)
+        self.pbt_openfolder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pbt_openfolder.setStyleSheet("QPushButton {\n"
+"    padding:1px;\n"
+"    border: none;\n"
+"    color:black;\n"
+"    image: url(:/mainui/icon/open1.png);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    color:#0078d7;\n"
+"    image: url(:/mainui/icon/open0.png);\n"
+"}")
+        self.pbt_openfolder.setText("")
+        self.pbt_openfolder.setFlat(True)
+        self.pbt_openfolder.setObjectName("pbt_openfolder")
+        self.gridLayout_2.addWidget(self.pbt_openfolder, 4, 2, 1, 1)
         self.verticalLayout.addWidget(self.groupBox_2)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout.addWidget(self.scrollArea, 0, 0, 1, 1)
@@ -285,6 +309,7 @@ class Ui_settingDialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.pbt_cancel.setFont(font)
+        self.pbt_cancel.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_cancel.setObjectName("pbt_cancel")
         self.horizontalLayout_4.addWidget(self.pbt_cancel)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -301,6 +326,7 @@ class Ui_settingDialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.pbt_save.setFont(font)
+        self.pbt_save.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pbt_save.setObjectName("pbt_save")
         self.horizontalLayout_4.addWidget(self.pbt_save)
         spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
@@ -325,6 +351,10 @@ class Ui_settingDialog(object):
         self.cb_showLineIndex.setText(_translate("settingDialog", "显示行号"))
         self.cb_useRegExpSearch.setText(_translate("settingDialog", "使用正则表达式搜索"))
         self.cb_mouseClickSelect.setText(_translate("settingDialog", "鼠标单击选中行"))
+        self.pbt_openfolder.setToolTip(_translate("settingDialog", "打开备份文件夹"))
+        self.pbt_openfolder.setWhatsThis(_translate("settingDialog", "打开备份文件夹"))
         self.pbt_cancel.setText(_translate("settingDialog", "取消"))
         self.pbt_save.setText(_translate("settingDialog", "保存"))
+
+
 import gui.src.icons_rc

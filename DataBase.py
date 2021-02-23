@@ -18,7 +18,9 @@ class DataBase(QObject):
     # 删除结果的信号
     deleteItemSignal = pyqtSignal(bool, str)
     # 添加结果的信号
-    addItemSignal = pyqtSignal(bool)
+    addItemSignal = pyqtSignal(bool, UserItem)
+    # 修改信号，修改后把原信息发回去
+    modifySignal = pyqtSignal(bool, str, str, str)
 
     def __init__(self):
         super().__init__()
@@ -76,7 +78,7 @@ class DataBase(QObject):
                                 values (?, ?, ?, ?, ?, ?);
             ''', (useritem.id, useritem.name, useritem.account, useritem.password, useritem.email_or_phone, useritem.note))
             self.dbcon.commit()
-            self.addItemSignal.emit(True)
+            self.addItemSignal.emit(True, useritem)
         except sql.OperationalError as e:
             self.addItemSignal.emit(False)
             print('add error: ', e)
@@ -112,8 +114,9 @@ class DataBase(QObject):
                                 set {}=? where id = ?;
             '''.format(item), (value, ID))
             self.dbcon.commit()
+            self.modifySignal.emit(True, ID, item, value)
         except sql.OperationalError as e:
-            # 报错
+            self.modifySignal.emit(False, ID, item, value)
             print('modify error: ', e)
 
     def get_new_name(self, name: str):

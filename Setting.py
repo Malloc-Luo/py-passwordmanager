@@ -73,6 +73,8 @@ class SettingUi(QWidget):
         # 槽函数连接
         self.ui.pbt_save.clicked.connect(self.save_settings)
         self.ui.pbt_cancel.clicked.connect(self.close)
+        self.ui.cb_autoBackup.clicked.connect(self.show_open_pbt)
+        self.ui.pbt_openfolder.clicked.connect(self.open_backup_folder)
         set_shadow_effect(self.ui.pbt_save, radius=30)
         set_shadow_effect(self.ui.pbt_cancel, radius=30)
 
@@ -85,6 +87,7 @@ class SettingUi(QWidget):
         self.ui.sb_autoLockTime.setValue(self.setting.autoLockTime)
         self.ui.cb_mouseClickSelect.setChecked(self.setting.singalClickSelect)
         self.ui.cb_pushCtrl.setChecked(self.setting.ctrlSelect)
+        self.ui.pbt_openfolder.setVisible(self.ui.cb_autoBackup.isChecked())
 
     def save_settings(self):
         self.setting.autoLockTime = self.ui.sb_autoLockTime.value()
@@ -102,6 +105,15 @@ class SettingUi(QWidget):
         self.tip = TipUi('保存成功')
         self.tip.show()
         self.close()
+
+    def show_open_pbt(self):
+        self.ui.pbt_openfolder.setVisible(self.ui.cb_autoBackup.isChecked())
+
+    def open_backup_folder(self):
+        backup = dbAbsPath + 'backup'
+        if os.path.exists(backup) is False:
+            os.makedirs(backup)
+        os.system("start explorer " + backup)
 
     def closeEvent(self, event):
         # 如果设置没有保存

@@ -43,7 +43,7 @@ class UserItem(object):
                         'password': self.password,
                         'email_or_phone': self.email_or_phone,
                         'note': self.note}[index]
-            except:
+            except KeyError:
                 raise IndexError('\'%s\' 不是UserItem的属性' % index)
         else:
             raise TypeError('索引是 int 或 str')

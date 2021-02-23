@@ -2,7 +2,7 @@
 
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView, QMenu, QAction, QToolTip
 from PyQt5.QtCore import Qt, pyqtSignal, QEvent, QObject
-from PyQt5.QtGui import QIcon, QCursor
+from PyQt5.QtGui import QIcon, QCursor, QFont
 from gui.Ui_MainGUI import Ui_Form
 from WidgetEffect import set_shadow_effect
 from AddItemUi import AddItemUi
@@ -13,6 +13,8 @@ from AboutUi import AboutUi
 from Common import read_qss
 from TipUi import TipUi
 import operate_password as op
+from Operate import Operate, Stack
+import copy
 import sys
 
 
@@ -53,6 +55,10 @@ class MainGUI(QWidget):
         # 槽函数初始化连接（主要的）
         self.init_connect()
         self.ui.le_filiter.installEventFilter(self)
+        # 记录用户操作，使用栈记录，可以用于撤回信息
+        self.operateStack = Stack()
+        # 是否在进行undo或者redo操作
+        self.inDoOperate = False
 
     def init_connect(self):
         self.ui.pbt_add.clicked.connect(self.add_item_ui)
@@ -81,6 +87,15 @@ class MainGUI(QWidget):
         self.ui.table.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeToContents)
         self.ui.table.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
         self.ui.table.verticalHeader().setDefaultSectionSize(40)
+        self.ui.table.verticalHeader().setStyleSheet(
+            "QHeaderView::section{\n"
+            "   background:#F8F8F8;\n"
+            "   padding:1px;\n"
+            "   margin:4px;\n"
+            "   color:#000000;\n"
+            "   border:2px solid #5E83AA;\n"
+            "   border-radius:13px;\n"
+            "}")
 
     def refresh_table(self):
         # 刷新表格，将当前表格清空，发送信号到数据库重新加载
@@ -102,6 +117,14 @@ class MainGUI(QWidget):
             return ID
         return None
 
+    def get_row_by_id(self, ID: str) -> int:
+        # 通过项目的ID查找所在行
+        for index in range(self.ui.table.rowCount()):
+            if ID == self.ui.table.item(index, 0).text():
+                return index
+        else:
+            return -1
+
     def set_plaintext_visible(self, r, isvisible):
         # 获取选中行的id
         ID = self.get_selected_id()
@@ -112,10 +135,9 @@ class MainGUI(QWidget):
             else:
                 self.ui.table.item(r, 3).setText('******')
 
-    ##################################################
     # 对象内部槽函数
     # 界面按钮响应，调用子窗口
-    ##################################################
+
     def call_setting_ui(self):
         # 点击设置按钮，调用设置界面
         self.ui_settingW.show()
@@ -134,6 +156,8 @@ class MainGUI(QWidget):
             self.ui.table.selectRow(r)
 
     # 点击右键菜单项目槽函数
+    # 复制账号、密码、邮箱电话、撤回操作、重新操作
+
     def action_copy_account(self):
         # 点击右键“复制账号”
         row = self.ui.table.currentRow()
@@ -159,19 +183,35 @@ class MainGUI(QWidget):
             self.tip = TipUi('复制邮/电成功')
             self.tip.show()
 
+    def action_undo(self):
+        operate = self.operateStack.pop()
+        self.inDoOperate = True
+        # 撤回添加操作，相反操作为删除对应项
+        if operate.op == Operate.ADD:
+            self.deleteItemSignal.emit(operate.item.id)
+        # 撤回删除操作，相反操作为添加对应项
+        elif operate.op == Operate.DELETE:
+            self.addItemSignal.emit(operate.item)
+        # 编辑操作恢复为原来的项
+        elif operate.op == Operate.EDIT:
+            self.modifySignal.emit(operate.id, operate.title, operate.value)
+
     def create_right_menu(self):
         # 创建右键菜单
         self.tableMenu = QMenu(self)
-        # self.tableMenu.setStyleSheet(read_qss('gui/src/qss/QMenu.qss'))
         self.actionCopyAccount = QAction(QIcon(':/mainui/icon/account.png'), u'复制账号', self)
         self.actionCopyPassword = QAction(QIcon(':/mainui/icon/password.png'), u'复制密码', self)
         self.actionCopyEmail = QAction(QIcon(':/mainui/icon/connect.png'), u'复制邮箱/电话', self)
+        self.actionUndo = QAction(QIcon(':/mainui/icon/undo.png'), u'撤回操作', self)
+        self.actionRedo = QAction(QIcon(':/mainui/icon/redo.png'), u'恢复操作', self)
         self.actionDelete = QAction(QIcon(':/mainui/icon/delete1.png'), u'删除', self)
         self.actionAdd = QAction(QIcon(':/mainui/icon/add.png'), u'新建', self)
         # 添加按键到右键菜单
         self.tableMenu.addAction(self.actionCopyAccount)
         self.tableMenu.addAction(self.actionCopyPassword)
         self.tableMenu.addAction(self.actionCopyEmail)
+        self.tableMenu.addAction(self.actionUndo)
+        self.tableMenu.addAction(self.actionRedo)
         self.tableMenu.addAction(self.actionDelete)
         self.tableMenu.addAction(self.actionAdd)
         self.tableMenu.popup(QCursor.pos())
@@ -181,12 +221,19 @@ class MainGUI(QWidget):
         self.actionCopyEmail.setDisabled(row == -1)
         self.actionCopyPassword.setDisabled(row == -1)
         self.actionDelete.setDisabled(row == -1)
+        self.actionRedo.setDisabled(True)
+        self.actionUndo.setDisabled(self.operateStack.empty())
+
+        if self.operateStack.empty() is False:
+            top = self.operateStack.get_top()
+            self.actionUndo.setText(u'撤回「%s」' % {Operate.ADD: u'添加', Operate.DELETE: u'删除', Operate.EDIT: u'编辑'}[top.op])
         # 连接槽函数
         self.actionCopyAccount.triggered.connect(self.action_copy_account)
         self.actionCopyPassword.triggered.connect(self.action_copy_password)
         self.actionCopyEmail.triggered.connect(self.action_copy_email)
         self.actionDelete.triggered.connect(self.remove_line)
         self.actionAdd.triggered.connect(self.add_item_ui)
+        self.actionUndo.triggered.connect(self.action_undo)
 
     def add_item_ui(self):
         # 点击“添加”按钮，调用添加界面
@@ -205,7 +252,6 @@ class MainGUI(QWidget):
     def get_new_line(self, userItem: UserItem):
         # 向数据库发送添加的信号，添加到数据库中
         self.addItemSignal.emit(userItem.load_key(self.adminPassword))
-        self.add_line_item(userItem)
 
     def remove_line(self):
         # 点击删除按钮，发送删除信号
@@ -234,6 +280,8 @@ class MainGUI(QWidget):
 
     def add_line_item(self, userItem: UserItem):
         # 新建项目，在这里加载key
+        # 添加的时候禁用排序，否则后面会混乱
+        self.ui.table.setSortingEnabled(False)
         self.itemList[userItem.id] = userItem.load_key(self.adminPassword)
         index = self.ui.table.rowCount()
         self.ui.table.setRowCount(index + 1)
@@ -243,6 +291,14 @@ class MainGUI(QWidget):
         for i in range(0, 5 + 1):
             self.ui.table.setItem(index, i, QTableWidgetItem(contents[i]))
             self.ui.table.item(index, i).setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        font = QFont()
+        font.setFamily('consolas')
+        font.setPointSizeF(9.8)
+        headerItem = QTableWidgetItem(str(index + 1))
+        headerItem.setFont(font)
+        self.ui.table.setVerticalHeaderItem(index, headerItem)
+        self.ui.table.verticalHeaderItem(index).setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.ui.table.setSortingEnabled(True)
 
     def filite_item(self):
         # 筛选项目，当描述不为空时发送
@@ -254,83 +310,109 @@ class MainGUI(QWidget):
             self.refresh_table()
 
     def select_edit_item(self, r, c):
+        if c == 3:
+            self.set_plaintext_visible(r, True)
         self.cellclicked = True
 
-    def edit_item(self, r: int, c: int):
+    def edit_item(self, row: int, column: int):
         # 编辑项目槽函数 cellchange信号
         if self.cellclicked is True:
             self.cellclicked = False
-            # 修改的项
-            header = {1: 'name', 2: 'account', 3: 'password', 4: 'email_or_phone', 5: 'note'}[c]
+            header = {
+                1: 'name',
+                2: 'account',
+                3: 'password',
+                4: 'email_or_phone',
+                5: 'note'
+            }[column]
             ID = self.get_selected_id()
             # 该项内容的缓存
-            backup = [self.itemList[ID].name, self.itemList[ID].account, op.decrypt_password(self.itemList[ID].password, self.adminPassword)]
-            # 前三项不能为空
-            if len(self.ui.table.item(r, c).text().strip()) == 0 and c in {1, 2, 3}:
-                self.ui.table.item(r, c).setText(backup[c - 1])
+            backup = copy.copy(self.itemList[ID])
+            # 前三项不能为空，如果为空则强制恢复
+            if len(self.ui.table.item(row, column).text().strip()) == 0 and column in {1, 2, 3}:
+                if column == 3:
+                    self.ui.table.item(row, column).setText(op.decrypt_password(backup['password'], self.adminPassword))
+                else:
+                    self.ui.table.item(row, column).setText(backup[column])
             else:
-                content = self.ui.table.item(r, c).text()
+                content = self.ui.table.item(row, column).text()
                 # 如果修改的是密码，则加密后再发送
-                if header == 'password':
+                if column == 3:
                     content = op.encrypt_password(content, self.adminPassword)
                 self.modifySignal.emit(ID, header, content)
-                self.itemList[ID][header] = content
+                self.operateStack.push(Operate(Operate.EDIT, ID, header, backup[column]))
         else:
-            pass
+            self.cellclicked = False
 
-    ##################################################
     # 对外的槽函数
     # 在main.py里连接别的窗口的信号
-    ##################################################
-    def get_add_res(self, issuccess: bool):
+
+    def get_add_res(self, issuccess: bool, userItem: UserItem):
         # 获取添加的结果，如果添加成功则为真，否则为False
         if issuccess is True:
-            self.tip = TipUi('添加成功')
-            self.tip.show()
+            self.add_line_item(userItem)
+            # 放到记录里
+            if self.inDoOperate is False:
+                self.operateStack.push(Operate(Operate.ADD, userItem))
+                self.tip = TipUi('添加成功')
+                self.tip.show()
+            else:
+                self.inDoOperate = False
         else:
-            MessageBox.error(self, u'添加项目', u'添加时发生错误，请重启程序再次尝试', MessageBox.OK)
+            MessageBox.error(self, u'添加项目', u'添加时发生错误，请重启程序再次尝试', MessageBox.CLOSE)
+            sys.exit()
 
     def get_delete_res(self, issuccess: bool, ID: str):
         # 删除成功信号
         if issuccess is True:
-            self.itemList.pop(ID)
-            row = self.ui.table.currentRow()
+            item = self.itemList.pop(ID)
+            row = self.get_row_by_id(ID)
             if row != -1:
                 self.ui.table.removeRow(row)
-            # tips弹窗
-            self.tip = TipUi('删除成功')
-            self.tip.show()
+            # 在进行常规的删除操作
+            if self.inDoOperate is False:
+                self.operateStack.push(Operate(Operate.DELETE, item))
+                self.tip = TipUi('删除成功')
+                self.tip.show()
+            else:
+                self.inDoOperate = False
         else:
-            MessageBox.error(self, u'删除项目', u'删除时发生错误，请重启程序再次尝试', MessageBox.OK)
+            MessageBox.error(self, u'删除项目', u'删除时发生错误，请重启程序再次尝试', MessageBox.CLOSE)
+            sys.exit()
+
+    def get_edit_res(self, flag: bool, ID: str, header: str, value: str):
+        print(ID, header, value)
+        if flag is True:
+            self.itemList[ID][header] = value
+            row = self.get_row_by_id(ID)
+            column = {'name': 1, 'account': 2, 'password': 3, 'email_or_phone': 4, 'note': 5}[header]
+            if column == 3:
+                self.ui.table.item(row, column).setText(op.decrypt_password(value, self.adminPassword))
+            else:
+                self.ui.table.item(row, column).setText(value)
+        else:
+            MessageBox.error(self, u'编辑项目', u'编辑时数据库发生错误，请重启程序再次尝试', MessageBox.CLOSE)
+            sys.exit()
 
     def get_filite_id(self, luserItemID: list):
         # 获取过滤结果元素的id列表
         # 清空列表
         self.ui.table.clearContents()
         self.ui.table.setRowCount(0)
-        # 禁用排序
-        self.ui.table.setSortingEnabled(False)
         for ID in luserItemID:
             self.add_line_item(self.itemList[ID])
-        # 再次开启排序
-        self.ui.table.setSortingEnabled(True)
 
     def load_items(self, duserItem: dict):
         # 加载所有项，参数为所有项目组成的字典，key为ID
         self.ui.table.clearContents()
         self.ui.table.setRowCount(0)
-        # 加载项目
         self.itemList = duserItem
-        # 添加的时候禁用排序，否则后面会混乱
-        self.ui.table.setSortingEnabled(False)
         for v in self.itemList.values():
             self.add_line_item(v)
-        self.ui.table.setSortingEnabled(True)
 
     def get_admin_password(self, adminPassword: str):
         # 获取管理员密码明文
         self.adminPassword = adminPassword
-        # 发送信号加载项目
         self.loadItemSignal.emit()
 
     def get_setting(self, setting: Setting):
@@ -338,7 +420,6 @@ class MainGUI(QWidget):
         self.setting = setting
         # 决定行号是否可见
         self.ui.table.verticalHeader().setVisible(self.setting.showLineIndex)
-        # 刷新一次表格
         if len(self.ui.le_filiter.text().replace(' ', '')) == 0:
             self.refresh_table()
 
@@ -351,12 +432,14 @@ class MainGUI(QWidget):
         return QObject.eventFilter(self, widget, event)
 
     def keyPressEvent(self, event):
-        self.ctrlPressed = (event.key() == Qt.Key_Control)
+        if event.key() == Qt.Key_Control:
+            self.ctrlPressed = True
         if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
             self.set_plaintext_visible(self.ui.table.currentRow(), True)
 
     def keyReleaseEvent(self, event):
-        self.ctrlPressed = not (event.key() == Qt.Key_Control)
+        if event.key() == Qt.Key_Control:
+            self.ctrlPressed = False
         if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
             self.set_plaintext_visible(self.ui.table.currentRow(), False)
 

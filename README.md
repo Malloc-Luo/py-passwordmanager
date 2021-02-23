@@ -5,6 +5,14 @@ A lite password manager
 
 ### UPDATE LOG
 
+#### 0.12.0
+
+*   增加“撤回操作”，可以撤回编辑、添加、删除
+*   修复“按住ctrl”显示密码的bug
+*   设置界面添加“打开备份文件夹”
+*   修复排序后添加项目混乱的bug
+*   优化行号显示效果
+
 #### 0.11.5
 
 *   修复复制密码时的bug
@@ -119,6 +127,7 @@ A lite password manager
 
 *   ~~3分钟无响应自动锁定有时失效~~
 *   文件加密机制问题
+*   “按住ctrl显示密码”状态更改密码逻辑问题
 *   ~~主界面的子界面关闭逻辑~~
 *   ~~自动备份文件~~
 
@@ -135,13 +144,13 @@ A lite password manager
 
 输入的密码进行`md5`运算得到密钥，用数据库或注册表中保存的密钥验证，若成功则进入；~~否则在$n$ 次失败后锁定（或者删库）~~
 
-<img src="readme\image-20210129013101290.png" alt="image-20210207162816195" style="zoom:80%;" />
+<img src="readme\image-20210129013101290.png" alt="image-20210221212609273" style="zoom:80%;" align="center"/>
 
 ### 管理密码
 
 添加密码，弹出一个表单填写，列举出如下项目
 
-<img src="readme\image-20210129013231793.png" alt="image-20210131165433224" style="zoom:80%;" />
+<img src="readme\image-20210129013231793.png" alt="image-20210221212836790" style="zoom:80%;" align="center"/>
 
 每一个项目都有一个独立id作为标识，id为添加时刻时间戳，不在表中显示
 
@@ -151,9 +160,9 @@ A lite password manager
 
 其中，`名称`，`账号`，`密码`为必填项，`密码`需要加密保存，加密时使用管理员密码（也就是用户进入时输入的密码）的`hash`（跟上面不一样）
 
-<img src="readme\image-20210129013402419.png" alt="image-20210131165807753" style="zoom:80%;" />
+<img src="readme\image-20210129013402419.png" alt="image-20210221213254547" style="zoom:80%;" align="center"/>
 
-<img src="readme\image-20210129013436890.png" alt="image-20210131165944414" style="zoom:80%;" />
+<img src="readme\image-20210129013436890.png" alt="image-20210221213452521" style="zoom:80%;" align="center"/>
 
 *   单击表头按表头内容自动排序
 *   搜索框根据表头按照关键字筛选，实时显示
@@ -170,5 +179,5 @@ $n$ 分钟内无操作，密码管理器锁定，需要重新登录
 
 附加功能，在添加密码页面进入，生成密码后，点击确定，生成的密码会自动填充到添加密码界面的密码框中
 
-<img src="readme\image-20210131165245145.png" alt="image-20210131165245145" style="zoom:80%;" />
+<img src="readme\image-20210131165245145.png" alt="image-20210221213628942" style="zoom:80%;" align="center"/>
 
