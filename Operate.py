@@ -2,9 +2,9 @@
 
 
 class Operate(object):
-    ADD    = 0x01
-    DELETE = 0x02
-    EDIT   = 0x04
+    ADD    = '添加'
+    DELETE = '删除'
+    EDIT   = '编辑'
 
     def __init__(self, operate, *args):
         self.op = operate
@@ -14,6 +14,7 @@ class Operate(object):
             self.id = args[0]
             self.title = args[1]
             self.value = args[2]
+            self.currentValue = args[3]
 
 
 class Stack(object):

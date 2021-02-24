@@ -105,6 +105,7 @@ class LoginUi(QWidget):
             self.close()
         else:
             self.ui.pbt_warning.show()
+            self.ui.lineEdit.clear()
             self.loginSignal.emit(False)
 
     def pushbutton_style(self):

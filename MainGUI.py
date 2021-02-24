@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView, QMenu, QAction, QToolTip
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHeaderView, QMenu, QAction, QToolTip, QShortcut
 from PyQt5.QtCore import Qt, pyqtSignal, QEvent, QObject
-from PyQt5.QtGui import QIcon, QCursor, QFont
+from PyQt5.QtGui import QIcon, QCursor, QFont, QKeySequence
 from gui.Ui_MainGUI import Ui_Form
 from WidgetEffect import set_shadow_effect
 from AddItemUi import AddItemUi
@@ -34,6 +34,13 @@ class MainGUI(QWidget):
     # 打开子窗口
     openSubWSignal = pyqtSignal(bool)
 
+    # 排序模式
+    class SortMod:
+        byDefault = 0x00
+        byName    = 0x01
+        byAccount = 0x02
+        byEmail   = 0x04
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_Form()
@@ -57,8 +64,11 @@ class MainGUI(QWidget):
         self.ui.le_filiter.installEventFilter(self)
         # 记录用户操作，使用栈记录，可以用于撤回信息
         self.operateStack = Stack()
+        self.redoStack = Stack()
         # 是否在进行undo或者redo操作
         self.inDoOperate = False
+        self.sortMod = self.SortMod.byDefault
+        self.sortDirct = Qt.AscendingOrder
 
     def init_connect(self):
         self.ui.pbt_add.clicked.connect(self.add_item_ui)
@@ -75,6 +85,8 @@ class MainGUI(QWidget):
         self.ui.table.cellEntered.connect(self.set_tool_tips)
         # 获取设置
         self.ui_settingW.broadcastSettingSignal.connect(self.get_setting)
+        self.ui.table.horizontalHeader().sectionClicked.connect(self.horizontal_header_clicked)
+        self.ui.table.horizontalHeader().sortIndicatorChanged.connect(self.force_recover_sort)
 
     def set_tableWidget(self):
         self.ui.table.setColumnHidden(0, True)
@@ -96,6 +108,9 @@ class MainGUI(QWidget):
             "   border:2px solid #5E83AA;\n"
             "   border-radius:13px;\n"
             "}")
+        # 设置快捷键
+        QShortcut('Ctrl+Z', self, self.action_undo)
+        QShortcut('Ctrl+Y', self, self.action_redo)
 
     def refresh_table(self):
         # 刷新表格，将当前表格清空，发送信号到数据库重新加载
@@ -158,33 +173,21 @@ class MainGUI(QWidget):
     # 点击右键菜单项目槽函数
     # 复制账号、密码、邮箱电话、撤回操作、重新操作
 
-    def action_copy_account(self):
-        # 点击右键“复制账号”
+    def action_copy(self):
+        action = {'复制账号': 2, '复制密码': 3, '复制邮箱/电话': 4}[self.sender().text()]
         row = self.ui.table.currentRow()
         if row != -1:
-            self.write_into_clipboard(self.ui.table.item(row, 2).text())
-            self.tip = TipUi('复制账号成功')
-            self.tip.show()
-
-    def action_copy_password(self):
-        # 点击右键“复制密码”
-        row = self.ui.table.currentRow()
-        if row != -1:
-            ID = self.ui.table.item(row, 0).text()
-            self.write_into_clipboard(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
-            self.tip = TipUi('复制密码成功')
-            self.tip.show()
-
-    def action_copy_email(self):
-        # 点击右键“复制邮箱/电话”
-        row = self.ui.table.currentRow()
-        if row != -1:
-            self.write_into_clipboard(self.ui.table.item(row, 4).text())
-            self.tip = TipUi('复制邮/电成功')
+            if action == 3:
+                ID = self.ui.table.item(row, 0).text()
+                self.write_into_clipboard(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
+            else:
+                self.write_into_clipboard(self.ui.table.item(row, action).text())
+            self.tip = TipUi(self.sender().text())
             self.tip.show()
 
     def action_undo(self):
         operate = self.operateStack.pop()
+        self.redoStack.push(operate)
         self.inDoOperate = True
         # 撤回添加操作，相反操作为删除对应项
         if operate.op == Operate.ADD:
@@ -196,6 +199,31 @@ class MainGUI(QWidget):
         elif operate.op == Operate.EDIT:
             self.modifySignal.emit(operate.id, operate.title, operate.value)
 
+    def action_redo(self):
+        operate = self.redoStack.pop()
+        self.operateStack.push(operate)
+        self.inDoOperate = True
+        # 恢复操作，恢复之前的动作，按照op做就行了
+        if operate.op == Operate.ADD:
+            self.addItemSignal.emit(operate.item)
+        elif operate.op == Operate.DELETE:
+            self.deleteItemSignal.emit(operate.item.id)
+        elif operate.op == Operate.EDIT:
+            self.modifySignal.emit(operate.id, operate.title, operate.currentValue)
+
+    def action_sort(self):
+
+        if self.sortDirct == Qt.DescendingOrder:
+            self.sortDirct = Qt.AscendingOrder
+        elif self.sortDirct == Qt.AscendingOrder:
+            self.sortDirct = Qt.DescendingOrder
+        try:
+            index = {u'默认排序': 0, u'按名称排序': 1, u'按账号排序': 2, u'按邮箱排序': 4}[self.sender().text()]
+        except IndexError:
+            index = self.SortMod.byDefault
+        self.sortMod = index
+        self.ui.table.sortItems(index, self.sortDirct)
+
     def create_right_menu(self):
         # 创建右键菜单
         self.tableMenu = QMenu(self)
@@ -206,12 +234,26 @@ class MainGUI(QWidget):
         self.actionRedo = QAction(QIcon(':/mainui/icon/redo.png'), u'恢复操作', self)
         self.actionDelete = QAction(QIcon(':/mainui/icon/delete1.png'), u'删除', self)
         self.actionAdd = QAction(QIcon(':/mainui/icon/add.png'), u'新建', self)
+        self.actionSortDefault = QAction(QIcon(''), u'默认排序')
+        self.actionSortDefault.setCheckable(True)
+        self.actionSortByAccount = QAction(QIcon(''), u'按账号排序')
+        self.actionSortByAccount.setCheckable(True)
+        self.actionSortByName = QAction(QIcon(''), u'按名称排序')
+        self.actionSortByName.setCheckable(True)
+        self.actionSortByEmail = QAction(QIcon(''), u'按邮箱排序')
+        self.actionSortByEmail.setCheckable(True)
+        [self.actionSortDefault, self.actionSortByName, self.actionSortByAccount, ..., self.actionSortByEmail][self.sortMod].setChecked(True)
         # 添加按键到右键菜单
         self.tableMenu.addAction(self.actionCopyAccount)
         self.tableMenu.addAction(self.actionCopyPassword)
         self.tableMenu.addAction(self.actionCopyEmail)
         self.tableMenu.addAction(self.actionUndo)
         self.tableMenu.addAction(self.actionRedo)
+        self.actionSort = self.tableMenu.addMenu(QIcon(':/mainui/icon/order.png'), u'排序方式')
+        self.actionSort.addActions([
+            self.actionSortDefault, self.actionSortByName,
+            self.actionSortByAccount, self.actionSortByEmail
+        ])
         self.tableMenu.addAction(self.actionDelete)
         self.tableMenu.addAction(self.actionAdd)
         self.tableMenu.popup(QCursor.pos())
@@ -221,19 +263,38 @@ class MainGUI(QWidget):
         self.actionCopyEmail.setDisabled(row == -1)
         self.actionCopyPassword.setDisabled(row == -1)
         self.actionDelete.setDisabled(row == -1)
-        self.actionRedo.setDisabled(True)
         self.actionUndo.setDisabled(self.operateStack.empty())
-
+        self.actionRedo.setDisabled(self.redoStack.empty())
+        self.actionSort.setDisabled(self.ui.table.rowCount() == 0)
+        # 获取堆栈顶部的项的标签
         if self.operateStack.empty() is False:
             top = self.operateStack.get_top()
-            self.actionUndo.setText(u'撤回「%s」' % {Operate.ADD: u'添加', Operate.DELETE: u'删除', Operate.EDIT: u'编辑'}[top.op])
+            self.actionUndo.setText(u'撤回「%s」' % top.op)
+        if self.redoStack.empty() is False:
+            top = self.redoStack.get_top()
+            self.actionRedo.setText(u'恢复「%s」' % top.op)
         # 连接槽函数
-        self.actionCopyAccount.triggered.connect(self.action_copy_account)
-        self.actionCopyPassword.triggered.connect(self.action_copy_password)
-        self.actionCopyEmail.triggered.connect(self.action_copy_email)
         self.actionDelete.triggered.connect(self.remove_line)
         self.actionAdd.triggered.connect(self.add_item_ui)
         self.actionUndo.triggered.connect(self.action_undo)
+        self.actionRedo.triggered.connect(self.action_redo)
+        self.actionCopyAccount.triggered.connect(self.action_copy)
+        self.actionCopyPassword.triggered.connect(self.action_copy)
+        self.actionCopyEmail.triggered.connect(self.action_copy)
+        self.actionSortDefault.triggered.connect(self.action_sort)
+        self.actionSortByName.triggered.connect(self.action_sort)
+        self.actionSortByAccount.triggered.connect(self.action_sort)
+        self.actionSortByEmail.triggered.connect(self.action_sort)
+
+    def horizontal_header_clicked(self, index):
+        if index not in {3, 5}:
+            self.sortMod = {1: 1, 2: 2, 4: 4}[index]
+
+    def force_recover_sort(self, index, order):
+        if index in {3, 5}:
+            self.ui.table.horizontalHeader().setSortIndicator(self.sortMod, self.sortDirct)
+        else:
+            self.sortDirct = order
 
     def add_item_ui(self):
         # 点击“添加”按钮，调用添加界面
@@ -340,7 +401,7 @@ class MainGUI(QWidget):
                 if column == 3:
                     content = op.encrypt_password(content, self.adminPassword)
                 self.modifySignal.emit(ID, header, content)
-                self.operateStack.push(Operate(Operate.EDIT, ID, header, backup[column]))
+                self.operateStack.push(Operate(Operate.EDIT, ID, header, backup[column], content))
         else:
             self.cellclicked = False
 
@@ -381,7 +442,6 @@ class MainGUI(QWidget):
             sys.exit()
 
     def get_edit_res(self, flag: bool, ID: str, header: str, value: str):
-        print(ID, header, value)
         if flag is True:
             self.itemList[ID][header] = value
             row = self.get_row_by_id(ID)

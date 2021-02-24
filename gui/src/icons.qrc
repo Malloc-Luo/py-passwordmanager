@@ -36,5 +36,6 @@
     <file>icon/connect.png</file>
     <file>icon/undo.png</file>
     <file>icon/redo.png</file>
+    <file>icon/order.png</file>
   </qresource>
 </RCC>

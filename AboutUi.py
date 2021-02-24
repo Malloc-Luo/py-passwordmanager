@@ -18,7 +18,7 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.12.0'
+        self.version = '0.12.1'
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint)
         # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
