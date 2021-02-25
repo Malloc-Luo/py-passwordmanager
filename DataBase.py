@@ -80,6 +80,7 @@ class DataBase(QObject):
             self.dbcon.commit()
             self.addItemSignal.emit(True, useritem)
         except sql.OperationalError as e:
+            self.dbcon.rollback()
             self.addItemSignal.emit(False)
             print('add error: ', e)
 
@@ -92,6 +93,7 @@ class DataBase(QObject):
             self.dbcon.commit()
             self.deleteItemSignal.emit(True, ID)
         except sql.OperationalError as e:
+            self.dbcon.rollback()
             self.deleteItemSignal.emit(False, ID)
             print('delete error: ', e)
 
@@ -116,6 +118,7 @@ class DataBase(QObject):
             self.dbcon.commit()
             self.modifySignal.emit(True, ID, item, value)
         except sql.OperationalError as e:
+            self.dbcon.rollback()
             self.modifySignal.emit(False, ID, item, value)
             print('modify error: ', e)
 

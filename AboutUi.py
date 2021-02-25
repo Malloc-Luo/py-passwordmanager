@@ -18,9 +18,8 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.12.1'
+        self.version = '0.12.2'
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint)
-        # self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数
         self.ui.pbt_code.clicked.connect(self.open_source_code_website)
@@ -62,14 +61,13 @@ class AboutUi(QDialog):
         try:
             r = requests.get('https://api.github.com/repos/Malloc-Luo/py-passwordmanager/releases/latest')
         except requests.ConnectionError:
-            self.tip = TipUi('网络错误')
-            self.tip.show()
-        if 'tag_name' in r.json().keys():
-            version = r.json()['tag_name']
-            self.compare_version(version)
-        else:
-            self.tip = TipUi('无新版本可用')
-            self.tip.show()
+            TipUi.show_tip('网络错误', TipUi.ERROR)
+        if r is not None:
+            if 'tag_name' in r.json().keys():
+                version = r.json()['tag_name']
+                self.compare_version(version)
+            else:
+                TipUi.show_tip('无新版本可用')
 
     def compare_version(self, version):
         versionNow = [int(s) for s in self.version.split('.')]
@@ -78,13 +76,14 @@ class AboutUi(QDialog):
         diff = list(map(lambda x, y: x - y, versionNow, versionGet))
         # 版本相同
         if version == self.version:
-            self.tip = TipUi('已是最新版本')
+            TipUi.show_tip('已是最新版本')
         elif diff[0] < 0 or (diff[0] == 0 and diff[1] < 0) or (diff[0] == 0 and diff[1] == 0 and diff[2] < 0):
-            self.tip = TipUi('有新版本可用')
+            TipUi.show_tip('有新版本可用')
             time.sleep(2)
-            QDesktopServices.openUrl(QUrl('https://github.com/Malloc-Luo/py-passwordmanager/releases'))
+            QDesktopServices.openUrl(QUrl('https://github.com/Malloc-Luo/py-passwordmanager/releases/tag/%s' % version))
             self.close()
-        self.tip.show()
+        else:
+            TipUi.show_tip('无新版本可用')
 
     def call_help(self):
         QDesktopServices.openUrl(QUrl('https://github.com/Malloc-Luo/py-passwordmanager/blob/main/help.md'))

@@ -83,8 +83,7 @@ class AddItemUi(QWidget):
 
     def add_password(self, pswd):
         self.ui.le_password.setText(pswd)
-        self.tip = TipUi('已复制密码')
-        self.tip.show()
+        TipUi.show_tip('已复制密码')
 
     def subW_closed_notify(self):
         # 子窗口被关闭的时候接收到信号

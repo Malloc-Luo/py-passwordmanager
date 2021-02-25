@@ -182,8 +182,7 @@ class MainGUI(QWidget):
                 self.write_into_clipboard(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
             else:
                 self.write_into_clipboard(self.ui.table.item(row, action).text())
-            self.tip = TipUi(self.sender().text())
-            self.tip.show()
+            TipUi.show_tip(self.sender().text())
 
     def action_undo(self):
         operate = self.operateStack.pop()
@@ -415,8 +414,7 @@ class MainGUI(QWidget):
             # 放到记录里
             if self.inDoOperate is False:
                 self.operateStack.push(Operate(Operate.ADD, userItem))
-                self.tip = TipUi('添加成功')
-                self.tip.show()
+                TipUi.show_tip('添加成功')
             else:
                 self.inDoOperate = False
         else:
@@ -433,8 +431,7 @@ class MainGUI(QWidget):
             # 在进行常规的删除操作
             if self.inDoOperate is False:
                 self.operateStack.push(Operate(Operate.DELETE, item))
-                self.tip = TipUi('删除成功')
-                self.tip.show()
+                TipUi.show_tip('删除成功')
             else:
                 self.inDoOperate = False
         else:
