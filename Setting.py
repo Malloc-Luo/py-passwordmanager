@@ -35,6 +35,10 @@ class Setting:
                     self.autoBackup = setting.autoBackup
                     self.ctrlSelect = setting.ctrlSelect
                     self.singalClickSelect = setting.singalClickSelect
+                    if hasattr(setting, 'wSize') is True:
+                        self.wSize = setting.wSize
+                    else:
+                        self.wSize = (951, 815)
             else:
                 self.set_default()
         except IOError:
@@ -49,8 +53,9 @@ class Setting:
         self.autoBackup = False
         self.ctrlSelect = False
         self.singalClickSelect = True
+        self.wSize = (951, 815)
 
-    def save(self, path):
+    def save(self, path=None):
         if path is None:
             path = dbAbsPath + '.settings'
         with open(path, 'wb') as f:

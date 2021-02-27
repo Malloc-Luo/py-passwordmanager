@@ -69,6 +69,7 @@ class MainGUI(QWidget):
         self.inDoOperate = False
         self.sortMod = self.SortMod.byDefault
         self.sortDirct = Qt.AscendingOrder
+        self.initGetSetting = True
 
     def init_connect(self):
         self.ui.pbt_add.clicked.connect(self.add_item_ui)
@@ -142,6 +143,7 @@ class MainGUI(QWidget):
 
     def set_plaintext_visible(self, r, isvisible):
         # 获取选中行的id
+        self.ui.table.cellChanged.disconnect(self.edit_item)
         ID = self.get_selected_id()
         if ID is not None:
             # 设置特定行的密码明文是否可见
@@ -149,6 +151,7 @@ class MainGUI(QWidget):
                 self.ui.table.item(r, 3).setText(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
             else:
                 self.ui.table.item(r, 3).setText('******')
+        self.ui.table.cellChanged.connect(self.edit_item)
 
     # 对象内部槽函数
     # 界面按钮响应，调用子窗口
@@ -211,7 +214,6 @@ class MainGUI(QWidget):
             self.modifySignal.emit(operate.id, operate.title, operate.currentValue)
 
     def action_sort(self):
-
         if self.sortDirct == Qt.DescendingOrder:
             self.sortDirct = Qt.AscendingOrder
         elif self.sortDirct == Qt.AscendingOrder:
@@ -223,6 +225,12 @@ class MainGUI(QWidget):
         self.sortMod = index
         self.ui.table.sortItems(index, self.sortDirct)
 
+    def action_cancel_line(self):
+        row = self.ui.table.currentRow()
+        if row != -1:
+            self.set_plaintext_visible(row, False)
+        self.ui.table.setCurrentItem(None)
+
     def create_right_menu(self):
         # 创建右键菜单
         self.tableMenu = QMenu(self)
@@ -231,6 +239,7 @@ class MainGUI(QWidget):
         self.actionCopyEmail = QAction(QIcon(':/mainui/icon/connect.png'), u'复制邮箱/电话', self)
         self.actionUndo = QAction(QIcon(':/mainui/icon/undo.png'), u'撤回操作', self)
         self.actionRedo = QAction(QIcon(':/mainui/icon/redo.png'), u'恢复操作', self)
+        self.actionCancelLine = QAction(QIcon(':/mainui/icon/cancelLine.png'), u'取消选中', self)
         self.actionDelete = QAction(QIcon(':/mainui/icon/delete1.png'), u'删除', self)
         self.actionAdd = QAction(QIcon(':/mainui/icon/add.png'), u'新建', self)
         self.actionSortDefault = QAction(QIcon(''), u'默认排序')
@@ -253,6 +262,7 @@ class MainGUI(QWidget):
             self.actionSortDefault, self.actionSortByName,
             self.actionSortByAccount, self.actionSortByEmail
         ])
+        self.tableMenu.addAction(self.actionCancelLine)
         self.tableMenu.addAction(self.actionDelete)
         self.tableMenu.addAction(self.actionAdd)
         self.tableMenu.popup(QCursor.pos())
@@ -262,6 +272,7 @@ class MainGUI(QWidget):
         self.actionCopyEmail.setDisabled(row == -1)
         self.actionCopyPassword.setDisabled(row == -1)
         self.actionDelete.setDisabled(row == -1)
+        self.actionCancelLine.setDisabled(row == -1)
         self.actionUndo.setDisabled(self.operateStack.empty())
         self.actionRedo.setDisabled(self.redoStack.empty())
         self.actionSort.setDisabled(self.ui.table.rowCount() == 0)
@@ -284,6 +295,7 @@ class MainGUI(QWidget):
         self.actionSortByName.triggered.connect(self.action_sort)
         self.actionSortByAccount.triggered.connect(self.action_sort)
         self.actionSortByEmail.triggered.connect(self.action_sort)
+        self.actionCancelLine.triggered.connect(self.action_cancel_line)
 
     def horizontal_header_clicked(self, index):
         if index not in {3, 5}:
@@ -293,7 +305,8 @@ class MainGUI(QWidget):
         if index in {3, 5}:
             self.ui.table.horizontalHeader().setSortIndicator(self.sortMod, self.sortDirct)
         else:
-            self.sortDirct = order
+            # self.sortDirct = order
+            ...
 
     def add_item_ui(self):
         # 点击“添加”按钮，调用添加界面
@@ -332,9 +345,9 @@ class MainGUI(QWidget):
         """
         # cr != -1 只出现一行的情况
         if cr != -1 and (self.ctrlPressed is True or self.setting.ctrlSelect is False):
-            self.set_plaintext_visible(cr, True)
             if pr != -1 and pr != cr:
                 self.set_plaintext_visible(pr, False)
+            self.set_plaintext_visible(cr, True)
         else:
             self.set_plaintext_visible(cr, False)
 
@@ -401,6 +414,8 @@ class MainGUI(QWidget):
                     content = op.encrypt_password(content, self.adminPassword)
                 self.modifySignal.emit(ID, header, content)
                 self.operateStack.push(Operate(Operate.EDIT, ID, header, backup[column], content))
+            if self.setting.ctrlSelect is True and self.ctrlPressed is False:
+                self.set_plaintext_visible(row, False)
         else:
             self.cellclicked = False
 
@@ -479,6 +494,9 @@ class MainGUI(QWidget):
         self.ui.table.verticalHeader().setVisible(self.setting.showLineIndex)
         if len(self.ui.le_filiter.text().replace(' ', '')) == 0:
             self.refresh_table()
+        if self.initGetSetting is True:
+            self.resize(self.setting.wSize[0], self.setting.wSize[1])
+            self.initGetSetting = False
 
     def eventFilter(self, widget, event):
         if widget == self.ui.le_filiter:
@@ -491,16 +509,21 @@ class MainGUI(QWidget):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Control:
             self.ctrlPressed = True
-        if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
-            self.set_plaintext_visible(self.ui.table.currentRow(), True)
+            if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
+                self.set_plaintext_visible(self.ui.table.currentRow(), True)
+        elif event.key() == Qt.Key_Alt:
+            self.action_cancel_line()
 
     def keyReleaseEvent(self, event):
         if event.key() == Qt.Key_Control:
             self.ctrlPressed = False
-        if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
-            self.set_plaintext_visible(self.ui.table.currentRow(), False)
+            if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
+                self.set_plaintext_visible(self.ui.table.currentRow(), False)
 
     def closeEvent(self, event):
+        self.initGetSetting = True
+        self.setting.wSize = (self.size().width(), self.size().height())
+        self.setting.save()
         if self.ui_aboutW is not None:
             self.ui_aboutW.close()
 

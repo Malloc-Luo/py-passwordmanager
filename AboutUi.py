@@ -18,7 +18,7 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.12.2'
+        self.version = '0.12.3'
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数
@@ -58,6 +58,7 @@ class AboutUi(QDialog):
 
     def check_version(self):
         r = None
+        self.setCursor(Qt.BusyCursor)
         try:
             r = requests.get('https://api.github.com/repos/Malloc-Luo/py-passwordmanager/releases/latest')
         except requests.ConnectionError:
@@ -68,6 +69,7 @@ class AboutUi(QDialog):
                 self.compare_version(version)
             else:
                 TipUi.show_tip('无新版本可用')
+        self.setCursor(Qt.ArrowCursor)
 
     def compare_version(self, version):
         versionNow = [int(s) for s in self.version.split('.')]
