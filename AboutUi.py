@@ -18,7 +18,7 @@ class AboutUi(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.tip = None
-        self.version = '0.12.3'
+        self.version = '0.12.4'
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint)
         self.ui.label.setText('version ' + self.version)
         # 连接槽函数

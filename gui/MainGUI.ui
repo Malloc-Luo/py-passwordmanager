@@ -381,6 +381,11 @@ QComboBox QAbstractItemView {
              <string>邮箱/电话</string>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>备注</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item>

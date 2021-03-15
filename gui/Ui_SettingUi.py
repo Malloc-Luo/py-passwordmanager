@@ -204,6 +204,8 @@ class Ui_settingDialog(object):
 "}\n"
 "")
         self.sb_autoLockTime.setAlignment(QtCore.Qt.AlignCenter)
+        self.sb_autoLockTime.setMinimum(1)
+        self.sb_autoLockTime.setProperty("value", 3)
         self.sb_autoLockTime.setObjectName("sb_autoLockTime")
         self.horizontalLayout.addWidget(self.sb_autoLockTime)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)

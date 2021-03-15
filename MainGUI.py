@@ -17,6 +17,8 @@ from Operate import Operate, Stack
 import copy
 import sys
 
+NOTLINE = -1
+
 
 class MainGUI(QWidget):
     """ 主界面窗口，继承QWidget，ui为Ui_Form
@@ -128,7 +130,7 @@ class MainGUI(QWidget):
     def get_selected_id(self) -> str:
         # 获取选中项目的id
         row = self.ui.table.currentRow()
-        if row != -1:
+        if row != NOTLINE:
             ID = self.ui.table.item(row, 0).text()
             return ID
         return None
@@ -139,7 +141,7 @@ class MainGUI(QWidget):
             if ID == self.ui.table.item(index, 0).text():
                 return index
         else:
-            return -1
+            return NOTLINE
 
     def set_plaintext_visible(self, r, isvisible):
         # 获取选中行的id
@@ -179,7 +181,7 @@ class MainGUI(QWidget):
     def action_copy(self):
         action = {'复制账号': 2, '复制密码': 3, '复制邮箱/电话': 4}[self.sender().text()]
         row = self.ui.table.currentRow()
-        if row != -1:
+        if row != NOTLINE:
             if action == 3:
                 ID = self.ui.table.item(row, 0).text()
                 self.write_into_clipboard(op.decrypt_password(self.itemList[ID].password, self.adminPassword))
@@ -227,7 +229,7 @@ class MainGUI(QWidget):
 
     def action_cancel_line(self):
         row = self.ui.table.currentRow()
-        if row != -1:
+        if row != NOTLINE:
             self.set_plaintext_visible(row, False)
         self.ui.table.setCurrentItem(None)
 
@@ -268,11 +270,11 @@ class MainGUI(QWidget):
         self.tableMenu.popup(QCursor.pos())
         # 检查是否可用
         row = self.ui.table.currentRow()
-        self.actionCopyAccount.setDisabled(row == -1)
-        self.actionCopyEmail.setDisabled(row == -1)
-        self.actionCopyPassword.setDisabled(row == -1)
-        self.actionDelete.setDisabled(row == -1)
-        self.actionCancelLine.setDisabled(row == -1)
+        self.actionCopyAccount.setDisabled(row == NOTLINE)
+        self.actionCopyEmail.setDisabled(row == NOTLINE)
+        self.actionCopyPassword.setDisabled(row == NOTLINE)
+        self.actionDelete.setDisabled(row == NOTLINE)
+        self.actionCancelLine.setDisabled(row == NOTLINE)
         self.actionUndo.setDisabled(self.operateStack.empty())
         self.actionRedo.setDisabled(self.redoStack.empty())
         self.actionSort.setDisabled(self.ui.table.rowCount() == 0)
@@ -328,7 +330,7 @@ class MainGUI(QWidget):
 
     def remove_line(self):
         # 点击删除按钮，发送删除信号
-        if self.ui.table.currentRow() != -1:
+        if self.ui.table.currentRow() != NOTLINE:
             ID = self.get_selected_id()
             # 如果设置项中删除前提示
             if self.setting.applyBeforeDel is True:
@@ -343,9 +345,9 @@ class MainGUI(QWidget):
         """ 查看项目变化，只有被选中的行才能显示密码明文，未被选中的显示星号。\n
         对应当前行显示密码明文，上次被选中的行变成星号
         """
-        # cr != -1 只出现一行的情况
-        if cr != -1 and (self.ctrlPressed is True or self.setting.ctrlSelect is False):
-            if pr != -1 and pr != cr:
+        # cr != NOTLINE 只出现一行的情况
+        if cr != NOTLINE and (self.ctrlPressed is True or self.setting.ctrlSelect is False):
+            if pr != NOTLINE and pr != cr:
                 self.set_plaintext_visible(pr, False)
             self.set_plaintext_visible(cr, True)
         else:
@@ -377,7 +379,7 @@ class MainGUI(QWidget):
         # 筛选项目，当描述不为空时发送
         description = self.ui.le_filiter.text().replace(' ', '')
         if len(description) != 0:
-            item = {'全部': '*', '名称': 'name', '账号': 'account', '邮箱/电话': 'email_or_phone'}[self.ui.comboBox.currentText()]
+            item = {'全部': '*', '名称': 'name', '账号': 'account', '邮箱/电话': 'email_or_phone', '备注': 'note'}[self.ui.comboBox.currentText()]
             self.filiteSignal.emit(item, description)
         else:
             self.refresh_table()
@@ -441,7 +443,7 @@ class MainGUI(QWidget):
         if issuccess is True:
             item = self.itemList.pop(ID)
             row = self.get_row_by_id(ID)
-            if row != -1:
+            if row != NOTLINE:
                 self.ui.table.removeRow(row)
             # 在进行常规的删除操作
             if self.inDoOperate is False:
@@ -509,7 +511,7 @@ class MainGUI(QWidget):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Control:
             self.ctrlPressed = True
-            if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
+            if self.ui.table.currentRow() != NOTLINE and self.setting.ctrlSelect is True:
                 self.set_plaintext_visible(self.ui.table.currentRow(), True)
         elif event.key() == Qt.Key_Alt:
             self.action_cancel_line()
@@ -517,7 +519,7 @@ class MainGUI(QWidget):
     def keyReleaseEvent(self, event):
         if event.key() == Qt.Key_Control:
             self.ctrlPressed = False
-            if self.ui.table.currentRow() != -1 and self.setting.ctrlSelect is True:
+            if self.ui.table.currentRow() != NOTLINE and self.setting.ctrlSelect is True:
                 self.set_plaintext_visible(self.ui.table.currentRow(), False)
 
     def closeEvent(self, event):

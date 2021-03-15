@@ -131,8 +131,8 @@ class DataBase(QObject):
                 # 使用正则表达式搜索
                 if item == '*':
                     self.dbcur.execute('''select id from userdata
-                                        where name regexp '{}' or account regexp '{}' or email_or_phone regexp '{}';
-                    '''.format(descript, descript, descript))
+                                        where name regexp '{}' or account regexp '{}' or email_or_phone regexp '{}' or note regexp '{}';
+                    '''.format(descript, descript, descript, descript))
                 else:
                     self.dbcur.execute('''select id from userdata
                                         where {} regexp '{}';
@@ -141,8 +141,8 @@ class DataBase(QObject):
                 # 仅使用关键字搜索
                 if item == '*':
                     self.dbcur.execute('''select id from userdata
-                                        where name like '%{}%' or account like '%{}%' or email_or_phone like '%{}%';
-                    '''.format(descript, descript, descript))
+                                        where name like '%{}%' or account like '%{}%' or email_or_phone like '%{}%' or note like '%{}%';
+                    '''.format(descript, descript, descript, descript))
                 else:
                     self.dbcur.execute('''select id from userdata
                                         where {} like '%{}%';

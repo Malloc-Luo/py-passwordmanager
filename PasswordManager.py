@@ -5,7 +5,7 @@
 import sys, os
 sys.path.append(os.getcwd())
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QObject, QTimer
+from PyQt5.QtCore import QObject, QTimer, Qt
 # from AddItemUi import AddItemUi
 from Login import LoginUi, SigninUi
 from MainGUI import MainGUI
@@ -100,6 +100,10 @@ class Main(QObject):
 
 
 def main():
+    if hasattr(Qt, 'AA_EnableHighDpiScaling'):
+        QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+    if hasattr(Qt, 'AA_UseHighDpiPixmaps'):
+        QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
     app = QApplication(sys.argv)
     w = Main()
     w.start()

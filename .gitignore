@@ -11,6 +11,7 @@ gui/icon/
 # Distribution / packaging
 .Python
 build/
+plugins/
 develop-eggs/
 dist/
 downloads/
